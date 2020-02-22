@@ -4,6 +4,7 @@
 #include "graphics.h"
 #include "cube.h"
 #include <cmath>
+#include "text3d.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ using namespace std;
 GLdouble width, height;
 int wd;
 Cube c;
+Text3D testText;
 int prevMouseX, prevMouseY;
 
 void init()
@@ -73,7 +75,8 @@ void display()
      * Draw here
      */
     draw_axes();
-    c.draw();
+    //c.draw();
+    testText.draw();
     
     glFlush();  // Render now
 }
