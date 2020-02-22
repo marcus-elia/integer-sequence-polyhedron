@@ -1,8 +1,8 @@
 #ifndef INC_3D_GRAPHICS_TEXT3D_H
 #define INC_3D_GRAPHICS_TEXT3D_H
 
-#include "cube.h"
 #include <string>
+#include "drawableObject.h"
 
 class Text3D : public DrawableObject
 {
