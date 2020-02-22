@@ -19,7 +19,7 @@ struct point
 
 class DrawableObject
 {
-private:
+protected:
     RGBAcolor color;
     point center;
 public:
