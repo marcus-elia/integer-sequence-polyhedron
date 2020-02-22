@@ -4,15 +4,14 @@
 #include "cube.h"
 #include <string>
 
-class Text3D
+class Text3D : public DrawableObject
 {
 private:
-    point center;
     std::string text;
     int fontSize;
 public:
     Text3D();
-    Text3D(std::string inputText, point inputCenter, int inputFontSize);
+    Text3D(point inputCenter, RGBAcolor inputColor, std::string inputText,int inputFontSize);
 
     void draw() const;
 
