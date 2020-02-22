@@ -5,25 +5,18 @@
 #define INC_3D_GRAPHICS_CUBE_H
 
 #include <vector>
+#include "drawableObject.h"
 
-struct point
-{
-    double x;
-    double y;
-    double z;
-};
-
-class Cube
+class Cube : public DrawableObject
 {
 private:
-    point center;
     unsigned int edge_length;
     std::vector<point> corners;
     void reset_corners();
     void draw_point(const point &p) const;
 public:
     Cube();
-    Cube(point center, unsigned int edge_length);
+    Cube(point inputCenter, RGBAcolor inputColor, unsigned int inputEdgeLength);
 
     void draw() const;
     void rotate(double theta_x, double theta_y, double theta_z);
