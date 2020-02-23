@@ -1,6 +1,8 @@
 #ifndef INC_3D_GRAPHICS_DRAWABLEOBJECT_H
 #define INC_3D_GRAPHICS_DRAWABLEOBJECT_H
 
+#include "graphics.h"
+
 struct RGBAcolor
 {
     double r;
