@@ -16,6 +16,7 @@ Digit::Digit() : DrawableObject()
     digit = 0;
     width = 10;
     height = 20;
+    initializeSegments();
 }
 
 Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputWidth, int inputHeight) :
@@ -24,6 +25,34 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputW
     digit = inputDigit;
     width = inputWidth;
     height = inputHeight;
+    initializeSegments();
+}
+
+void Digit::initializeSegments()
+{
+    switch(digit)
+    {
+        case 0 : segments = std::shared_ptr<std::vector<int>>(&segments0);
+        break;
+        case 1 : segments = std::shared_ptr<std::vector<int>>(&segments1);
+            break;
+        case 2 : segments = std::shared_ptr<std::vector<int>>(&segments2);
+            break;
+        case 3 : segments = std::shared_ptr<std::vector<int>>(&segments3);
+            break;
+        case 4 : segments = std::shared_ptr<std::vector<int>>(&segments4);
+            break;
+        case 5 : segments = std::shared_ptr<std::vector<int>>(&segments5);
+            break;
+        case 6 : segments = std::shared_ptr<std::vector<int>>(&segments6);
+            break;
+        case 7 : segments = std::shared_ptr<std::vector<int>>(&segments7);
+            break;
+        case 8 : segments = std::shared_ptr<std::vector<int>>(&segments8);
+            break;
+        case 9 : segments = std::shared_ptr<std::vector<int>>(&segments9);
+            break;
+    }
 }
 
 void Digit::draw() const
