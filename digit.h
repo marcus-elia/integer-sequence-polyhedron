@@ -25,6 +25,8 @@ private:
     // The width and height that the digit will take up
     int width;
     int height;
+    // The thickness of the segments
+    double thickness;
 
     // A pointer to the list of integers determining which
     // segments will be drawn
