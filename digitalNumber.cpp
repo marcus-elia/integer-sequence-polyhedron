@@ -3,6 +3,7 @@
 DigitalNumber::DigitalNumber() : DrawableObject()
 {
     number = 0;
+    initializeDigits();
 }
 DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, int inputNumber, int inputMaxWidth, int inputMaxHeight) :
                DrawableObject(inputCenter, inputColor)
@@ -10,6 +11,7 @@ DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, int inputN
     number = inputNumber;
     maxWidth = inputMaxWidth;
     maxHeight = inputMaxHeight;
+    initializeDigits();
 }
 
 void DigitalNumber::initializeDigits()
@@ -28,7 +30,7 @@ void DigitalNumber::initializeDigits()
 
     // Now create Digit objects in the correct locations
     int d = decimalDigits.size();
-    double digitWidth = 0.8 * maxWidth / (1.2*d - 0.2); // How wide each one is
+    double digitWidth = 0.9 * maxWidth / (1.2*d - 0.2); // How wide each one is
     double digitHeight = 2*digitWidth;                  // How tall they are
     if(digitHeight > maxHeight)
     {
@@ -48,7 +50,7 @@ void DigitalNumber::initializeDigits()
     }
     for(int i : decimalDigits)
     {
-        digits.push_back(Digit({curCenterX, center.y, center.z}, color, i, digitWidth, digitHeight));
+        digits.push_back(Digit({curCenterX, center.y, center.z}, color, i, digitWidth, digitHeight, digitWidth/5));
         curCenterX -= gapSize;
         curCenterX -= digitWidth;
     }
