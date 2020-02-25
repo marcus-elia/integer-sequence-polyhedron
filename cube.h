@@ -9,11 +9,11 @@
 
 class Cube : public DrawableObject
 {
-private:
-    unsigned int edge_length;
+protected:
+    unsigned int edgeLength;
     std::vector<point> corners;
-    void reset_corners();
-    void draw_point(const point &p) const;
+    void resetCorners();
+    void drawPoint(const point &p) const;
 public:
     Cube();
     Cube(point inputCenter, RGBAcolor inputColor, unsigned int inputEdgeLength);

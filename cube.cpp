@@ -5,21 +5,21 @@
 #include "cube.h"
 #include "graphics.h"
 
-void Cube::reset_corners()
+void Cube::resetCorners()
 {
     corners.clear();
     corners.resize(8);
-    corners[0] = {center.x + (edge_length / 2.0), center.y + (edge_length / 2.0), center.z + (edge_length / 2.0)};
-    corners[1] = {center.x - (edge_length / 2.0), center.y + (edge_length / 2.0), center.z + (edge_length / 2.0)};
-    corners[2] = {center.x + (edge_length / 2.0), center.y - (edge_length / 2.0), center.z + (edge_length / 2.0)};
-    corners[3] = {center.x - (edge_length / 2.0), center.y - (edge_length / 2.0), center.z + (edge_length / 2.0)};
-    corners[4] = {center.x + (edge_length / 2.0), center.y + (edge_length / 2.0), center.z - (edge_length / 2.0)};
-    corners[5] = {center.x - (edge_length / 2.0), center.y + (edge_length / 2.0), center.z - (edge_length / 2.0)};
-    corners[6] = {center.x + (edge_length / 2.0), center.y - (edge_length / 2.0), center.z - (edge_length / 2.0)};
-    corners[7] = {center.x - (edge_length / 2.0), center.y - (edge_length / 2.0), center.z - (edge_length / 2.0)};
+    corners[0] = {center.x + (edgeLength / 2.0), center.y + (edgeLength / 2.0), center.z + (edgeLength / 2.0)};
+    corners[1] = {center.x - (edgeLength / 2.0), center.y + (edgeLength / 2.0), center.z + (edgeLength / 2.0)};
+    corners[2] = {center.x + (edgeLength / 2.0), center.y - (edgeLength / 2.0), center.z + (edgeLength / 2.0)};
+    corners[3] = {center.x - (edgeLength / 2.0), center.y - (edgeLength / 2.0), center.z + (edgeLength / 2.0)};
+    corners[4] = {center.x + (edgeLength / 2.0), center.y + (edgeLength / 2.0), center.z - (edgeLength / 2.0)};
+    corners[5] = {center.x - (edgeLength / 2.0), center.y + (edgeLength / 2.0), center.z - (edgeLength / 2.0)};
+    corners[6] = {center.x + (edgeLength / 2.0), center.y - (edgeLength / 2.0), center.z - (edgeLength / 2.0)};
+    corners[7] = {center.x - (edgeLength / 2.0), center.y - (edgeLength / 2.0), center.z - (edgeLength / 2.0)};
 }
 
-void Cube::draw_point(const point &p) const
+void Cube::drawPoint(const point &p) const
 {
     glVertex3f(p.x, p.y, p.z);
 }
@@ -27,14 +27,14 @@ void Cube::draw_point(const point &p) const
 Cube::Cube()
 {
     center = {0, 0, 0};
-    edge_length = 50;
-    reset_corners();
+    edgeLength = 50;
+    resetCorners();
 }
 
 Cube::Cube(point inputCenter, RGBAcolor inputColor, unsigned int inputEdgeLength) : DrawableObject(inputCenter, inputColor)
 {
-    edge_length = inputEdgeLength;
-    reset_corners();
+    edgeLength = inputEdgeLength;
+    resetCorners();
 }
 
 void Cube::draw() const
@@ -42,74 +42,74 @@ void Cube::draw() const
     glBegin(GL_QUADS);
     glColor4f(color.r, color.g, color.b, color.a);
 
-    draw_point(corners[0]);
-    draw_point(corners[1]);
-    draw_point(corners[3]);
-    draw_point(corners[2]);
+    drawPoint(corners[0]);
+    drawPoint(corners[1]);
+    drawPoint(corners[3]);
+    drawPoint(corners[2]);
 
-    draw_point(corners[5]);
-    draw_point(corners[4]);
-    draw_point(corners[6]);
-    draw_point(corners[7]);
+    drawPoint(corners[5]);
+    drawPoint(corners[4]);
+    drawPoint(corners[6]);
+    drawPoint(corners[7]);
 
-    draw_point(corners[6]);
-    draw_point(corners[4]);
-    draw_point(corners[0]);
-    draw_point(corners[2]);
+    drawPoint(corners[6]);
+    drawPoint(corners[4]);
+    drawPoint(corners[0]);
+    drawPoint(corners[2]);
 
-    draw_point(corners[4]);
-    draw_point(corners[5]);
-    draw_point(corners[1]);
-    draw_point(corners[0]);
+    drawPoint(corners[4]);
+    drawPoint(corners[5]);
+    drawPoint(corners[1]);
+    drawPoint(corners[0]);
 
-    draw_point(corners[6]);
-    draw_point(corners[2]);
-    draw_point(corners[3]);
-    draw_point(corners[7]);
+    drawPoint(corners[6]);
+    drawPoint(corners[2]);
+    drawPoint(corners[3]);
+    drawPoint(corners[7]);
 
-    draw_point(corners[3]);
-    draw_point(corners[1]);
-    draw_point(corners[5]);
-    draw_point(corners[7]);
+    drawPoint(corners[3]);
+    drawPoint(corners[1]);
+    drawPoint(corners[5]);
+    drawPoint(corners[7]);
     glEnd();
 
     glColor4f(.4, .6, 1, 1);
     glBegin(GL_LINES);
-    draw_point(corners[1]);
-    draw_point(corners[0]);
+    drawPoint(corners[1]);
+    drawPoint(corners[0]);
 
-    draw_point(corners[1]);
-    draw_point(corners[3]);
+    drawPoint(corners[1]);
+    drawPoint(corners[3]);
 
-    draw_point(corners[3]);
-    draw_point(corners[2]);
+    drawPoint(corners[3]);
+    drawPoint(corners[2]);
 
-    draw_point(corners[2]);
-    draw_point(corners[0]);
+    drawPoint(corners[2]);
+    drawPoint(corners[0]);
 
-    draw_point(corners[4]);
-    draw_point(corners[5]);
+    drawPoint(corners[4]);
+    drawPoint(corners[5]);
 
-    draw_point(corners[5]);
-    draw_point(corners[7]);
+    drawPoint(corners[5]);
+    drawPoint(corners[7]);
 
-    draw_point(corners[7]);
-    draw_point(corners[6]);
+    drawPoint(corners[7]);
+    drawPoint(corners[6]);
 
-    draw_point(corners[6]);
-    draw_point(corners[4]);
+    drawPoint(corners[6]);
+    drawPoint(corners[4]);
 
-    draw_point(corners[0]);
-    draw_point(corners[4]);
+    drawPoint(corners[0]);
+    drawPoint(corners[4]);
 
-    draw_point(corners[2]);
-    draw_point(corners[6]);
+    drawPoint(corners[2]);
+    drawPoint(corners[6]);
 
-    draw_point(corners[3]);
-    draw_point(corners[7]);
+    drawPoint(corners[3]);
+    drawPoint(corners[7]);
 
-    draw_point(corners[1]);
-    draw_point(corners[5]);
+    drawPoint(corners[1]);
+    drawPoint(corners[5]);
     
     glEnd();
 }
