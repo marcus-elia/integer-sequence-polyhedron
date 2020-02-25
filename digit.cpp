@@ -30,29 +30,35 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputW
     initializeSegments();
 }
 
+Digit::~Digit()
+{
+    delete segments;
+    segments = nullptr;
+}
+
 void Digit::initializeSegments()
 {
     switch(digit)
     {
-        case 0 : segments = std::shared_ptr<std::vector<int>>(&segments0);
-        break;
-        case 1 : segments = std::shared_ptr<std::vector<int>>(&segments1);
+        case 0 : segments = &segments0;
             break;
-        case 2 : segments = std::shared_ptr<std::vector<int>>(&segments2);
+        case 1 : segments = &segments1;
             break;
-        case 3 : segments = std::shared_ptr<std::vector<int>>(&segments3);
+        case 2 : segments = &segments2;
             break;
-        case 4 : segments = std::shared_ptr<std::vector<int>>(&segments4);
+        case 3 : segments = &segments3;
             break;
-        case 5 : segments = std::shared_ptr<std::vector<int>>(&segments5);
+        case 4 : segments = &segments4;
             break;
-        case 6 : segments = std::shared_ptr<std::vector<int>>(&segments6);
+        case 5 : segments = &segments5;
             break;
-        case 7 : segments = std::shared_ptr<std::vector<int>>(&segments7);
+        case 6 : segments = &segments6;
             break;
-        case 8 : segments = std::shared_ptr<std::vector<int>>(&segments8);
+        case 7 : segments = &segments7;
             break;
-        case 9 : segments = std::shared_ptr<std::vector<int>>(&segments9);
+        case 8 : segments = &segments8;
+            break;
+        case 9 : segments = &segments9;
             break;
     }
 }
@@ -79,5 +85,12 @@ void Digit::draw() const
                 break;
         }
     }
+}
+
+
+
+
+void Digit::move(double delta_x, double delta_y, double delta_z)
+{
 
 }

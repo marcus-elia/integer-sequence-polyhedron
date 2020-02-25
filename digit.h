@@ -30,7 +30,7 @@ private:
 
     // A pointer to the list of integers determining which
     // segments will be drawn
-    std::shared_ptr<std::vector<int>> segments;
+    std::vector<int> *segments;
 
     static std::vector<int> segments0;
     static std::vector<int> segments1;
@@ -45,6 +45,9 @@ private:
 public:
     Digit();
     Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputWidth, int inputHeight);
+
+    // Destructor has to delete pointer
+    ~Digit();
 
     // Initialize the vector of segments to match the digit
     void initializeSegments();
