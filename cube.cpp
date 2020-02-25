@@ -41,48 +41,75 @@ void Cube::draw() const
 {
     glBegin(GL_QUADS);
     glColor4f(color.r, color.g, color.b, color.a);
-    
-    // Yellow
-    //glColor3f(1, 1, 0);
+
     draw_point(corners[0]);
     draw_point(corners[1]);
     draw_point(corners[3]);
     draw_point(corners[2]);
-    
-    // Magenta
-    //glColor3f(1, 0, 1);
+
     draw_point(corners[5]);
     draw_point(corners[4]);
     draw_point(corners[6]);
     draw_point(corners[7]);
 
-    // Cyan
-    //glColor3f(0, 1, 1);
     draw_point(corners[6]);
     draw_point(corners[4]);
     draw_point(corners[0]);
     draw_point(corners[2]);
 
-    // White
-    //glColor3f(1, 1, 1);
     draw_point(corners[4]);
     draw_point(corners[5]);
     draw_point(corners[1]);
     draw_point(corners[0]);
 
-    // Gray
-    //glColor3f(0.5, 0.5, 0.5);
     draw_point(corners[6]);
     draw_point(corners[2]);
     draw_point(corners[3]);
     draw_point(corners[7]);
 
-    // Purple
-    //glColor3f(0.5, 0, 0.5);
     draw_point(corners[3]);
     draw_point(corners[1]);
     draw_point(corners[5]);
     draw_point(corners[7]);
+    glEnd();
+
+    glColor4f(.4, .6, 1, 1);
+    glBegin(GL_LINES);
+    draw_point(corners[1]);
+    draw_point(corners[0]);
+
+    draw_point(corners[1]);
+    draw_point(corners[3]);
+
+    draw_point(corners[3]);
+    draw_point(corners[2]);
+
+    draw_point(corners[2]);
+    draw_point(corners[0]);
+
+    draw_point(corners[4]);
+    draw_point(corners[5]);
+
+    draw_point(corners[5]);
+    draw_point(corners[7]);
+
+    draw_point(corners[7]);
+    draw_point(corners[6]);
+
+    draw_point(corners[6]);
+    draw_point(corners[4]);
+
+    draw_point(corners[0]);
+    draw_point(corners[4]);
+
+    draw_point(corners[2]);
+    draw_point(corners[6]);
+
+    draw_point(corners[3]);
+    draw_point(corners[7]);
+
+    draw_point(corners[1]);
+    draw_point(corners[5]);
     
     glEnd();
 }
