@@ -23,29 +23,16 @@ private:
     int digit;
 
     // The width and height that the digit will take up
-    int width;
-    int height;
+    double width;
+    double height;
     // The thickness of the segments
     double thickness;
 
-    // A pointer to the list of integers determining which
-    // segments will be drawn
-    //std::vector<int> *segments;
-
     static std::vector<std::vector<int>> segmentsVector;
-    /*static std::vector<int> segments0;
-    static std::vector<int> segments1;
-    static std::vector<int> segments2;
-    static std::vector<int> segments3;
-    static std::vector<int> segments4;
-    static std::vector<int> segments5;
-    static std::vector<int> segments6;
-    static std::vector<int> segments7;
-    static std::vector<int> segments8;
-    static std::vector<int> segments9;*/
 public:
     Digit();
-    Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputWidth, int inputHeight);
+    Digit(point inputCenter, RGBAcolor inputColor, int inputDigit,
+            double inputWidth, double inputHeight, double inputThickness);
 
     // Initialize the vector of segments to match the digit
     //void initializeSegments();

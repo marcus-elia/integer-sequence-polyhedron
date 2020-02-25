@@ -13,13 +13,13 @@ Digit::Digit() : DrawableObject()
     thickness = 4;
 }
 
-Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputWidth, int inputHeight) :
-             DrawableObject(inputCenter, inputColor)
+Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit,
+             double inputWidth, double inputHeight, double inputThickness)
 {
     digit = inputDigit;
     width = inputWidth;
     height = inputHeight;
-    thickness = 4;
+    thickness = inputThickness;
 }
 
 void Digit::draw() const
