@@ -58,7 +58,7 @@ void DigitalNumber::initializeDigits()
 
 void DigitalNumber::draw() const
 {
-    for(Digit d : digits)
+    for(Digit &d : digits)
     {
         d.draw();
     }
@@ -69,7 +69,7 @@ void DigitalNumber::move(double deltaX, double deltaY, double deltaZ)
     center.x += deltaX;
     center.y += deltaY;
     center.z += deltaZ;
-    for(Digit d : digits)
+    for(Digit &d : digits)
     {
         d.move(deltaX, deltaY, deltaZ);
     }
