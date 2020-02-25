@@ -13,7 +13,9 @@ NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputE
 
 void NumberCube::draw() const
 {
+    glDisable(GL_CULL_FACE);
     number.draw();
+    glEnable(GL_CULL_FACE);
     Cube::draw();
 }
 void NumberCube::move(double deltaX, double deltaY, double deltaZ)
