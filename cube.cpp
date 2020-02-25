@@ -31,9 +31,11 @@ Cube::Cube()
     resetCorners();
 }
 
-Cube::Cube(point inputCenter, RGBAcolor inputColor, unsigned int inputEdgeLength) : DrawableObject(inputCenter, inputColor)
+Cube::Cube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputEdgeColor,
+        unsigned int inputEdgeLength) : DrawableObject(inputCenter, inputColor)
 {
     edgeLength = inputEdgeLength;
+    edgeColor = inputEdgeColor;
     resetCorners();
 }
 
@@ -73,7 +75,7 @@ void Cube::draw() const
     drawPoint(corners[7]);
     glEnd();
 
-    glColor4f(.4, .6, 1, 1);
+    glColor4f(edgeColor.r, edgeColor.g, edgeColor.b, edgeColor.a);
     glBegin(GL_LINES);
     drawPoint(corners[1]);
     drawPoint(corners[0]);

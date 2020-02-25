@@ -12,11 +12,12 @@ class Cube : public DrawableObject
 protected:
     unsigned int edgeLength;
     std::vector<point> corners;
+    RGBAcolor edgeColor;
     void resetCorners();
     void drawPoint(const point &p) const;
 public:
     Cube();
-    Cube(point inputCenter, RGBAcolor inputColor, unsigned int inputEdgeLength);
+    Cube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputEdgeColor, unsigned int inputEdgeLength);
 
     void draw() const;
     void rotate(double theta_x, double theta_y, double theta_z);
