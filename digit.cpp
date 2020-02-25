@@ -16,6 +16,7 @@ Digit::Digit() : DrawableObject()
     digit = 0;
     width = 10;
     height = 20;
+    thickness = 2.5;
     initializeSegments();
 }
 
@@ -25,6 +26,7 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputW
     digit = inputDigit;
     width = inputWidth;
     height = inputHeight;
+    thickness = 2.5;
     initializeSegments();
 }
 
@@ -57,6 +59,25 @@ void Digit::initializeSegments()
 
 void Digit::draw() const
 {
-    glBegin(GL_QUADS);
     glColor4f(color.r, color.g, color.b, color.a);
+    for(int i : *segments)
+    {
+        glBegin(GL_TRIANGLE_STRIP);
+        switch(i)
+        {
+            case 1 :
+                glVertex3f(center.x - width/2 + thickness/2, center.y + height/2 - thickness/2, 0);
+                glVertex3f(center.x - width/2 + thickness, center.y + height/2 - thickness, 0);
+                glVertex3f(center.x - width/2 + thickness, center.y + height/2, 0);
+                glVertex3f(center.x + width/2-thickness, center.y + height/2, 0);
+                glVertex3f(center.x + width/2-thickness, center.y + height/2 - thickness, 0);
+                glVertex3f(center.x + width/2 - thickness/2, center.y + height/2 - thickness/2, 0);
+                break;
+            case 2 :
+                break;
+            default:
+                break;
+        }
+    }
+
 }
