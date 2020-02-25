@@ -64,7 +64,13 @@ void DigitalNumber::draw() const
     }
 }
 
-void DigitalNumber::move(double delta_x, double delta_y, double delta_z)
+void DigitalNumber::move(double deltaX, double deltaY, double deltaZ)
 {
-
+    center.x += deltaX;
+    center.y += deltaY;
+    center.z += deltaZ;
+    for(Digit d : digits)
+    {
+        d.move(deltaX, deltaY, deltaZ);
+    }
 }

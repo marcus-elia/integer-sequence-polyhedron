@@ -96,7 +96,9 @@ void Digit::draw() const
 
 
 
-void Digit::move(double delta_x, double delta_y, double delta_z)
+void Digit::move(double deltaX, double deltaY, double deltaZ)
 {
-
+    center.x += deltaX;
+    center.y += deltaY;
+    center.z += deltaZ;
 }
