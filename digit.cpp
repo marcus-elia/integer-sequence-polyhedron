@@ -22,21 +22,6 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputW
     thickness = 4;
 }
 
-Digit::Digit(const Digit &oldDigit)
-{
-    digit = oldDigit.digit;
-    width = oldDigit.width;
-    height = oldDigit.height;
-    thickness = oldDigit.thickness;
-}
-
-Digit::~Digit()
-{
-    //delete segments;
-    //segments = nullptr;
-}
-
-
 void Digit::draw() const
 {
     glColor4f(color.r, color.g, color.b, color.a);

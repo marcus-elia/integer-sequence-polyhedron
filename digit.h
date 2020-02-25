@@ -47,12 +47,6 @@ public:
     Digit();
     Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputWidth, int inputHeight);
 
-    // Copy constructor
-    Digit(const Digit &oldDigit);
-
-    // Destructor has to delete pointer
-    ~Digit();
-
     // Initialize the vector of segments to match the digit
     //void initializeSegments();
 
