@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(3D-Graphics)
+project(integer-sequence-polyhedron)
 
 if (WIN32)
     set(FREEGLUT_INCLUDE_DIRS "C:/Program\ Files/Common\ Files/freeglut/include")
@@ -26,7 +26,7 @@ file(GLOB SOURCE_FILES
         *.h
         )
 
-add_executable(graphics ${SOURCE_FILES} text3d.cpp text3d.h)
+add_executable(graphics ${SOURCE_FILES})
 
 if (WIN32)
     target_link_libraries (graphics ${OPENGL_LIBRARIES} freeglut)
