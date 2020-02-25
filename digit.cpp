@@ -14,7 +14,7 @@ Digit::Digit() : DrawableObject()
 }
 
 Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit,
-             double inputWidth, double inputHeight, double inputThickness)
+             double inputWidth, double inputHeight, double inputThickness) : DrawableObject(inputCenter, inputColor)
 {
     digit = inputDigit;
     width = inputWidth;
