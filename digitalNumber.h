@@ -23,7 +23,8 @@ public:
     // Create the vector of Digit objects
     void initializeDigits();
 
-    void draw();
+    void draw() const;
+    void move(double delta_x, double delta_y, double delta_z);
 };
 
 #endif //INTEGER_SEQUENCE_POLYHEDRON_DIGITALNUMBER_H

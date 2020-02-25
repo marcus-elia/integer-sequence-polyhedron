@@ -54,10 +54,15 @@ void DigitalNumber::initializeDigits()
     }
 }
 
-void DigitalNumber::draw()
+void DigitalNumber::draw() const
 {
     for(Digit d : digits)
     {
         d.draw();
     }
+}
+
+void DigitalNumber::move(double delta_x, double delta_y, double delta_z)
+{
+
 }
