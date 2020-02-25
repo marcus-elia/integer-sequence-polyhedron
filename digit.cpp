@@ -1,6 +1,6 @@
 #include "digit.h"
 
-std::vector<int>Digit::segments0{1,2,3,4,5,6};
+/*std::vector<int>Digit::segments0{1,2,3,4,5,6};
 std::vector<int>Digit::segments1{2,3};
 std::vector<int>Digit::segments2{1,2,7,5,4};
 std::vector<int>Digit::segments3{1,2,7,3,4};
@@ -9,7 +9,11 @@ std::vector<int>Digit::segments5{1,6,7,3,4};
 std::vector<int>Digit::segments6{1,3,4,5,6,7};
 std::vector<int>Digit::segments7{1,2,3};
 std::vector<int>Digit::segments8{1,2,3,4,5,6,7};
-std::vector<int>Digit::segments9{1,2,3,4,6,7};
+std::vector<int>Digit::segments9{1,2,3,4,6,7};*/
+std::vector<std::vector<int>>Digit::segmentsVector{{1,2,3,4,5,6},{2,3},{1,2,7,5,4},
+                                                   {1,2,7,3,4},{6,7,2,3},{1,6,7,3,4},
+                                                   {1,2,3,5,6,7},{1,2,3},{1,2,3,4,5,6,7},
+                                                   {1,2,3,4,6,7}};
 
 Digit::Digit() : DrawableObject()
 {
@@ -17,7 +21,7 @@ Digit::Digit() : DrawableObject()
     width = 10;
     height = 20;
     thickness = 2.5;
-    initializeSegments();
+    //initializeSegments();
 }
 
 Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputWidth, int inputHeight) :
@@ -27,16 +31,25 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputW
     width = inputWidth;
     height = inputHeight;
     thickness = 2.5;
-    initializeSegments();
+    //initializeSegments();
+}
+
+Digit::Digit(const Digit &oldDigit)
+{
+    digit = oldDigit.digit;
+    width = oldDigit.width;
+    height = oldDigit.height;
+    thickness = oldDigit.thickness;
+    //initializeSegments();
 }
 
 Digit::~Digit()
 {
-    delete segments;
-    segments = nullptr;
+    //delete segments;
+    //segments = nullptr;
 }
 
-void Digit::initializeSegments()
+/*void Digit::initializeSegments()
 {
     switch(digit)
     {
@@ -61,12 +74,12 @@ void Digit::initializeSegments()
         case 9 : segments = &segments9;
             break;
     }
-}
+}*/
 
 void Digit::draw() const
 {
     glColor4f(color.r, color.g, color.b, color.a);
-    for(int i : *segments)
+    for(int i : segmentsVector[digit])
     {
         glBegin(GL_TRIANGLE_STRIP);
         switch(i)
@@ -84,6 +97,7 @@ void Digit::draw() const
             default:
                 break;
         }
+        glEnd();
     }
 }
 

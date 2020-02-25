@@ -30,9 +30,10 @@ private:
 
     // A pointer to the list of integers determining which
     // segments will be drawn
-    std::vector<int> *segments;
+    //std::vector<int> *segments;
 
-    static std::vector<int> segments0;
+    static std::vector<std::vector<int>> segmentsVector;
+    /*static std::vector<int> segments0;
     static std::vector<int> segments1;
     static std::vector<int> segments2;
     static std::vector<int> segments3;
@@ -41,16 +42,19 @@ private:
     static std::vector<int> segments6;
     static std::vector<int> segments7;
     static std::vector<int> segments8;
-    static std::vector<int> segments9;
+    static std::vector<int> segments9;*/
 public:
     Digit();
     Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputWidth, int inputHeight);
+
+    // Copy constructor
+    Digit(const Digit &oldDigit);
 
     // Destructor has to delete pointer
     ~Digit();
 
     // Initialize the vector of segments to match the digit
-    void initializeSegments();
+    //void initializeSegments();
 
     void draw() const;
     void move(double delta_x, double delta_y, double delta_z);
