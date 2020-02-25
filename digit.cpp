@@ -20,7 +20,7 @@ Digit::Digit() : DrawableObject()
     digit = 0;
     width = 10;
     height = 20;
-    thickness = 2.5;
+    thickness = 4;
     //initializeSegments();
 }
 
@@ -30,7 +30,7 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit, int inputW
     digit = inputDigit;
     width = inputWidth;
     height = inputHeight;
-    thickness = 2.5;
+    thickness = 4;
     //initializeSegments();
 }
 
@@ -84,15 +84,61 @@ void Digit::draw() const
         glBegin(GL_TRIANGLE_STRIP);
         switch(i)
         {
-            case 1 :
-                glVertex3f(center.x - width/2 + thickness/2, center.y + height/2 - thickness/2, 0);
-                glVertex3f(center.x - width/2 + thickness, center.y + height/2 - thickness, 0);
-                glVertex3f(center.x - width/2 + thickness, center.y + height/2, 0);
-                glVertex3f(center.x + width/2-thickness, center.y + height/2, 0);
-                glVertex3f(center.x + width/2-thickness, center.y + height/2 - thickness, 0);
-                glVertex3f(center.x + width/2 - thickness/2, center.y + height/2 - thickness/2, 0);
+            case 1:
+                glVertex3f(center.x - width/2 + thickness/2, center.y + height/2 - thickness/2, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y + height/2 - thickness, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y + height/2, center.z);
+                glVertex3f(center.x + width/2-thickness, center.y + height/2, center.z);
+                glVertex3f(center.x + width/2-thickness, center.y + height/2 - thickness, center.z);
+                glVertex3f(center.x + width/2 - thickness/2, center.y + height/2 - thickness/2, center.z);
                 break;
-            case 2 :
+            case 2:
+                glVertex3f(center.x + width/2 - thickness/2, center.y + height/2 - thickness/2, center.z);
+                glVertex3f(center.x + width/2 - thickness, center.y + height/2 - thickness, center.z);
+                glVertex3f(center.x + width/2, center.y + height/2 - thickness, center.z);
+                glVertex3f(center.x + width/2 - thickness, center.y + thickness/2, center.z);
+                glVertex3f(center.x + width/2, center.y + thickness/2, center.z);
+                glVertex3f(center.x + width/2 - thickness/2, center.y, center.z);
+                break;
+            case 3:
+                glVertex3f(center.x + width/2 - thickness/2, center.y, center.z);
+                glVertex3f(center.x + width/2 - thickness, center.y - thickness/2, center.z);
+                glVertex3f(center.x + width/2, center.y - thickness/2, center.z);
+                glVertex3f(center.x + width/2 - thickness, center.y - height/2 + thickness, center.z);
+                glVertex3f(center.x + width/2, center.y - height/2 + thickness, center.z);
+                glVertex3f(center.x + width/2 - thickness/2, center.y - height/2 + thickness/2, center.z);
+                break;
+            case 4:
+                glVertex3f(center.x - width/2 + thickness/2, center.y - height/2 + thickness/2, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y - height/2, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y - height/2 + thickness, center.z);
+                glVertex3f(center.x + width/2-thickness, center.y - height/2, center.z);
+                glVertex3f(center.x + width/2-thickness, center.y - height/2 + thickness, center.z);
+                glVertex3f(center.x + width/2 - thickness/2, center.y - height/2 + thickness/2, center.z);
+                break;
+            case 5:
+                glVertex3f(center.x - width/2 + thickness/2, center.y, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y - thickness/2, center.z);
+                glVertex3f(center.x - width/2, center.y - thickness/2, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y - height/2 + thickness, center.z);
+                glVertex3f(center.x - width/2, center.y - height/2 + thickness, center.z);
+                glVertex3f(center.x - width/2 + thickness/2, center.y - height/2 + thickness/2, center.z);
+                break;
+            case 6:
+                glVertex3f(center.x - width/2 + thickness/2, center.y + height/2 - thickness/2, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y + height/2 - thickness, center.z);
+                glVertex3f(center.x - width/2, center.y + height/2 - thickness, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y + thickness/2, center.z);
+                glVertex3f(center.x - width/2, center.y + thickness/2, center.z);
+                glVertex3f(center.x - width/2 + thickness/2, center.y, center.z);
+                break;
+            case 7:
+                glVertex3f(center.x - width/2 + thickness/2, center.y, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y - thickness/2, center.z);
+                glVertex3f(center.x - width/2 + thickness, center.y + thickness/2, center.z);
+                glVertex3f(center.x + width/2-thickness, center.y + thickness/2, center.z);
+                glVertex3f(center.x + width/2-thickness, center.y - thickness/2, center.z);
+                glVertex3f(center.x + width/2 - thickness/2, center.y, center.z);
                 break;
             default:
                 break;
