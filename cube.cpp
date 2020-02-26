@@ -24,15 +24,16 @@ void Cube::drawPoint(const point &p) const
     glVertex3f(p.x, p.y, p.z);
 }
 
-Cube::Cube()
+Cube::Cube() : DrawableComponent()
 {
-    center = {0, 0, 0};
+    edgeColor = {1,1,1,1};
     edgeLength = 50;
     resetCorners();
 }
 
-Cube::Cube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputEdgeColor,
-        unsigned int inputEdgeLength) : DrawableObject(inputCenter, inputColor)
+Cube::Cube(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter,
+        RGBAcolor inputEdgeColor, unsigned int inputEdgeLength) :
+        DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     edgeLength = inputEdgeLength;
     edgeColor = inputEdgeColor;

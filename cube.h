@@ -5,9 +5,9 @@
 #define INC_3D_GRAPHICS_CUBE_H
 
 #include <vector>
-#include "drawableObject.h"
+#include "drawableComponent.h"
 
-class Cube : public DrawableObject
+class Cube : public DrawableComponent
 {
 protected:
     unsigned int edgeLength;
@@ -17,7 +17,8 @@ protected:
     void drawPoint(const point &p) const;
 public:
     Cube();
-    Cube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputEdgeColor, unsigned int inputEdgeLength);
+    Cube(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter,
+            RGBAcolor inputEdgeColor, unsigned int inputEdgeLength);
 
     void draw() const;
     void rotate(double thetaX, double thetaY, double thetaZ);
