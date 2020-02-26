@@ -12,6 +12,13 @@ DrawableObject::DrawableObject(point inputCenter, RGBAcolor inputColor)
     color = inputColor;
 }
 
+void DrawableObject::move(double deltaX, double deltaY, double deltaZ)
+{
+    center.x += deltaX;
+    center.y += deltaY;
+    center.z += deltaZ;
+}
+
 void rotatePointAroundPoint(point &p, const point &pBase, double thetaX, double thetaY, double thetaZ)
 {
     // Store the previous coordinates during calculations
