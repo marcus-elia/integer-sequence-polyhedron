@@ -51,7 +51,7 @@ void DigitalNumber::initializeDigits()
     }
     for(int i : decimalDigits)
     {
-        digits.push_back(Digit({curCenterX, center.y, center.z}, color, i, digitWidth, digitHeight, digitWidth/5));
+        digits.push_back(Digit({curCenterX, center.y, center.z}, color, center, i, digitWidth, digitHeight, digitWidth/5));
         curCenterX -= gapSize;
         curCenterX -= digitWidth;
     }
