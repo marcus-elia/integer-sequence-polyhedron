@@ -5,7 +5,7 @@ std::vector<std::vector<int>>Digit::segmentsVector{{1,2,3,4,5,6},{2,3},{1,2,7,5,
                                                    {1,4,3,5,6,7},{1,2,3},{1,2,3,4,5,6,7},
                                                    {1,2,3,4,6,7}};
 
-Digit::Digit() : DrawableObject()
+Digit::Digit() : DrawableComponent()
 {
     digit = 0;
     width = 10;
@@ -13,8 +13,9 @@ Digit::Digit() : DrawableObject()
     thickness = 4;
 }
 
-Digit::Digit(point inputCenter, RGBAcolor inputColor, int inputDigit,
-             double inputWidth, double inputHeight, double inputThickness) : DrawableObject(inputCenter, inputColor)
+Digit::Digit(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter, int inputDigit,
+             double inputWidth, double inputHeight, double inputThickness) :
+             DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     digit = inputDigit;
     width = inputWidth;
@@ -101,4 +102,9 @@ void Digit::move(double deltaX, double deltaY, double deltaZ)
     center.x += deltaX;
     center.y += deltaY;
     center.z += deltaZ;
+}
+
+void Digit::rotate(double thetaX, double thetaY, double thetaZ)
+{
+    return;
 }

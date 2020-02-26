@@ -1,7 +1,7 @@
 #ifndef INTEGER_SEQUENCE_POLYHEDRON_DIGIT_H
 #define INTEGER_SEQUENCE_POLYHEDRON_DIGIT_H
 
-#include "drawableObject.h"
+#include "drawableComponent.h"
 #include <vector>
 #include <memory>
 
@@ -17,7 +17,7 @@
  *  (7 is the middle segment)
  */
 
-class Digit : public DrawableObject
+class Digit : public DrawableComponent
 {
 private:
     int digit;
@@ -31,14 +31,12 @@ private:
     static std::vector<std::vector<int>> segmentsVector;
 public:
     Digit();
-    Digit(point inputCenter, RGBAcolor inputColor, int inputDigit,
+    Digit(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter, int inputDigit,
             double inputWidth, double inputHeight, double inputThickness);
 
-    // Initialize the vector of segments to match the digit
-    //void initializeSegments();
-
     void draw() const;
-    void move(double delta_x, double delta_y, double delta_z);
+    void move(double deltaX, double deltaY, double deltaZ);
+    void rotate(double thetaX, double thetaY, double thetaZ);
 };
 
 #endif //INTEGER_SEQUENCE_POLYHEDRON_DIGIT_H
