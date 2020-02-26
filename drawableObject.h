@@ -35,7 +35,7 @@ public:
 };
 
 // Rotates p around pBase in 3D space
-static void rotatePointAroundPoint(point &p, const point &pBase, double thetaX, double thetaY, double thetaZ);
+void rotatePointAroundPoint(point &p, const point &pBase, double thetaX, double thetaY, double thetaZ);
 
 
 #endif //INC_3D_GRAPHICS_DRAWABLEOBJECT_H

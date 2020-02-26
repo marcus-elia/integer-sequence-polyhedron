@@ -12,7 +12,7 @@ DrawableObject::DrawableObject(point inputCenter, RGBAcolor inputColor)
     color = inputColor;
 }
 
-static void rotatePointAroundPoint(point &p, const point &pBase, double thetaX, double thetaY, double thetaZ)
+void rotatePointAroundPoint(point &p, const point &pBase, double thetaX, double thetaY, double thetaZ)
 {
     // Store the previous coordinates during calculations
     double prevX = 0, prevY = 0, prevZ = 0;
