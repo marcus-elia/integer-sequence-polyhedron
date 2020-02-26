@@ -34,6 +34,54 @@ void NumberCubeRow::initializeNumberCubes()
     }
     for(int i : numbers)
     {
+        numberCubes.push_back(NumberCube({curCenter, center.y, center.z},
+                color, center, edgeColor, edgeLength, i, numberColor));
+        curCenter += edgeLength;
+    }
+}
 
+void NumberCubeRow::draw() const
+{
+    for(NumberCube nc : numberCubes)
+    {
+        nc.draw();
+    }
+}
+void NumberCubeRow::move(double deltaX, double deltaY, double deltaZ)
+{
+    DrawableObject::move(deltaX, deltaY, deltaZ);
+    for(NumberCube &nc : numberCubes)
+    {
+        nc.move(deltaX, deltaY, deltaZ);
+    }
+}
+
+void NumberCubeRow::rotate(double thetaX, double thetaY, double thetaZ)
+{
+    for(NumberCube &nc : numberCubes)
+    {
+        nc.rotateAroundOwner(thetaX, thetaY, thetaZ);
+    }
+}
+void NumberCubeRow::rotateAroundOwner(double thetaX, double thetaY, double thetaZ)
+{
+    // Store the previous coordinates, so we know how much to move the number
+    double prevX = center.x;
+    double prevY = center.y;
+    double prevZ = center.z;
+
+    // Rotates and revolves around the owner
+    DrawableComponent::rotateAroundOwner(thetaX, thetaY, thetaZ);
+
+    // Move the number cubes
+    for(NumberCube &nc : numberCubes)
+    {
+        nc.move(center.x - prevX, center.y - prevY, center.z - prevZ);
+    }
+
+    // Rotate the number cubes
+    for(NumberCube &nc : numberCubes)
+    {
+        nc.rotateAroundOwner(thetaX, thetaY, thetaZ);
     }
 }
