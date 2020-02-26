@@ -20,9 +20,9 @@ public:
     Cube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputEdgeColor, unsigned int inputEdgeLength);
 
     void draw() const;
-    void rotate(double theta_x, double theta_y, double theta_z);
+    void rotate(double thetaX, double thetaY, double thetaZ);
 
-    void move(double delta_x, double delta_y, double delta_z);
+    void move(double deltaX, double deltaY, double deltaZ);
 };
 
 

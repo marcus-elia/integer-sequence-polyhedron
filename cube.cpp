@@ -116,56 +116,23 @@ void Cube::draw() const
     glEnd();
 }
 
-void Cube::rotate(double theta_x, double theta_y, double theta_z)
+void Cube::rotate(double thetaX, double thetaY, double thetaZ)
 {
-    double old_x = 0, old_y = 0, old_z = 0;
-    double center_x = center.x, center_y = center.y, center_z = center.z;
-
-    // Translate to the origin
-    move(-center_x, -center_y, -center_z);
-    // Rotate x
     for (point &p : corners)
     {
-        old_y = p.y;
-        old_z = p.z;
-        p.y = old_y * cos(theta_x) - old_z * sin(theta_x);
-        p.z = old_y * sin(theta_x) + old_z * cos(theta_x);
+        rotatePointAroundPoint(p, center, thetaX, thetaY, thetaZ);
     }
-    // Rotate y
-    for (point &p : corners)
-    {
-        old_x = p.x;
-        old_z = p.z;
-        p.x = old_x * cos(theta_y) - old_z * sin(theta_y);
-        p.z = old_x * sin(theta_y) + old_z * cos(theta_y);
-    }
-    // Rotate z
-    for (point &p : corners)
-    {
-        old_x = p.x;
-        old_y = p.y;
-        p.x = old_x * cos(theta_z) - old_y * sin(theta_z);
-        p.y = old_x * sin(theta_z) + old_y * cos(theta_z);
-    }
-    // Translate back
-    move(center_x, center_y, center_z);
 }
 
-void Cube::move(double delta_x, double delta_y, double delta_z)
+void Cube::move(double deltaX, double deltaY, double deltaZ)
 {
-    center.x += delta_x;
+    center.x += deltaX;
+    center.y += deltaY;
+    center.z += deltaZ;
     for (point &p : corners)
     {
-        p.x += delta_x;
-    }
-    center.y += delta_y;
-    for (point &p : corners)
-    {
-        p.y += delta_y;
-    }
-    center.z += delta_z;
-    for (point &p : corners)
-    {
-        p.z += delta_z;
+        p.x += deltaX;
+        p.y += deltaY;
+        p.z += deltaZ;
     }
 }
