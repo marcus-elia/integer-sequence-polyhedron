@@ -58,7 +58,7 @@ void DigitalNumber::initializeDigits()
 
 void DigitalNumber::draw() const
 {
-    for(Digit &d : digits)
+    for(Digit d : digits)
     {
         d.draw();
     }
