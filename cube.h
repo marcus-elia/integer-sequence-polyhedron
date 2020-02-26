@@ -24,6 +24,7 @@ public:
     void rotate(double thetaX, double thetaY, double thetaZ);
 
     void move(double deltaX, double deltaY, double deltaZ);
+    void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);
 };
 
 

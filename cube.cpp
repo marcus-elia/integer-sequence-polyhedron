@@ -137,3 +137,13 @@ void Cube::move(double deltaX, double deltaY, double deltaZ)
         p.z += deltaZ;
     }
 }
+
+void Cube::rotateAroundOwner(double thetaX, double thetaY, double thetaZ)
+{
+    DrawableComponent::rotateAroundOwner(thetaX, thetaY, thetaZ);
+
+    for(point &p : corners)
+    {
+        rotatePointAroundPoint(p, ownerCenter, thetaX, thetaY, thetaZ);
+    }
+}
