@@ -1,19 +1,23 @@
 // The code in this file is based on code provided by Lisa Dion
 // in a 3D graphics tutorial.
 
+//#include <ft2build.h>
+//#include FT_FREETYPE_H
+
 #include "graphics.h"
 #include "cube.h"
 #include <cmath>
 #include "text3d.h"
+#include "digit.h"
+#include "digitalNumber.h"
+#include "numberCube.h"
 
 using namespace std;
 
-//#define __off64_t __time64_t
-
 GLdouble width, height;
 int wd;
-Cube c;
-Text3D testText;
+NumberCube c;
+DigitalNumber testNum;
 int prevMouseX, prevMouseY;
 
 void init()
@@ -22,11 +26,20 @@ void init()
     height = 500;
     prevMouseX = 0;
     prevMouseY = 0;
+    c = NumberCube({0,0,0},{0,0,.5,.4},{0,0,0},
+            {.4,.6,1,1}, 50, 341, {0, .4, 1, 1});
+    testNum = DigitalNumber({0,0,0}, {0,.4,1,1},{0,0,0},
+            341, 50, 50);
 }
 
 /* Initialize OpenGL Graphics */
 void initGL()
 {
+    // Enable alpha transparency
+    // Code from https://www.opengl.org/archives/resources/faq/technical/transparency.htm
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     // Set "clearing" or background color
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black and opaque
     glEnable(GL_DEPTH_TEST);
@@ -68,15 +81,18 @@ void display()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);   // Clear the color buffer with current clearing color
     
     glEnable(GL_DEPTH);
-    glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT, GL_FILL);
     
     /*
      * Draw here
      */
     draw_axes();
-    //c.draw();
-    testText.draw();
+
+    glDisable(GL_CULL_FACE);
+    //testNum.draw();
+
+    glEnable(GL_CULL_FACE);
+    c.draw();
     
     glFlush();  // Render now
 }
@@ -109,7 +125,7 @@ void kbd(unsigned char key, int x, int y)
             break;
         case 's': c.move(0, 0, 5);
             break;
-        case 'r': c.move(0, 5, 0); // spacebar is up
+        case 'r': c.move(0, 5, 0);
             break;
         case 'c': c.move(0, -5, 0);
             break;
