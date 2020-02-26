@@ -1,12 +1,13 @@
 #include "digitalNumber.h"
 
-DigitalNumber::DigitalNumber() : DrawableObject()
+DigitalNumber::DigitalNumber() : DrawableComponent()
 {
     number = 0;
     initializeDigits();
 }
-DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, int inputNumber, int inputMaxWidth, int inputMaxHeight) :
-               DrawableObject(inputCenter, inputColor)
+DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter,
+        int inputNumber, int inputMaxWidth, int inputMaxHeight) :
+               DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     number = inputNumber;
     maxWidth = inputMaxWidth;
@@ -73,4 +74,9 @@ void DigitalNumber::move(double deltaX, double deltaY, double deltaZ)
     {
         d.move(deltaX, deltaY, deltaZ);
     }
+}
+
+void DigitalNumber::rotate(double thetaX, double thetaY, double thetaZ)
+{
+    return;
 }
