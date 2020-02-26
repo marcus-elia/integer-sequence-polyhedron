@@ -32,7 +32,7 @@ void NumberCube::rotateAroundOwner(double thetaX, double thetaY, double thetaZ)
     double prevZ = center.z;
 
     // Rotates and revolves around the owner
-    DrawableComponent::rotateAroundOwner(thetaX, thetaY, thetaZ);
+    Cube::rotateAroundOwner(thetaX, thetaY, thetaZ);
 
     // Move the number
     number.move(center.x - prevX, center.y - prevY, center.z - prevZ);
