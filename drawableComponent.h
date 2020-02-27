@@ -11,7 +11,7 @@ public:
     DrawableComponent();
     DrawableComponent(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter);
 
-    void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);
+    virtual void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);
 };
 
 #endif //INTEGER_SEQUENCE_POLYHEDRON_DRAWABLECOMPONENT_H
