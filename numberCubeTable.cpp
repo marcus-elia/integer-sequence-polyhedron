@@ -73,11 +73,12 @@ void NumberCubeTable::rotateAroundOwner(double thetaX, double thetaY, double the
     double prevZ = center.z;
 
     // Rotates and revolves around the owner
-    DrawableComponent::rotateAroundOwner(thetaX, thetaY, thetaZ);
+    rotatePointAroundPoint(center, ownerCenter, thetaX, thetaY, thetaZ);
 
     // Move the number cube rows
     for(NumberCubeRow &ncr : numberCubeRows)
     {
+        ncr.setOwnerCenter(center);
         ncr.move(center.x - prevX, center.y - prevY, center.z - prevZ);
     }
 
