@@ -15,6 +15,10 @@ NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, point &inputOwne
 
 void NumberCube::draw() const
 {
+    /*point g = {ownerCenter.x, ownerCenter.y, ownerCenter.z};
+    Cube c2 = Cube(g, {0,1,0,1}, g, {0,0,0,1}, 10);
+    c2.draw();*/
+
     glDisable(GL_CULL_FACE);
     number.draw();
     glEnable(GL_CULL_FACE);
