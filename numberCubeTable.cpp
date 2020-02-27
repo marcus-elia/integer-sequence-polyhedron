@@ -35,7 +35,7 @@ void NumberCubeTable::initializeNumberCubeRows()
     }
     for(std::vector<int> v : vectorsOfNumbers)
     {
-        numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, std::make_shared<point>(center),
+        numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, center,
                                                      edgeColor, edgeLength, v, numberColor));
         curCenterY += edgeLength;
     }

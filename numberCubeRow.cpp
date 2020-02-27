@@ -37,7 +37,7 @@ void NumberCubeRow::initializeNumberCubes()
     for(int i : numbers)
     {
         numberCubes.push_back(NumberCube({curCenter, center.y, center.z},
-                color, std::make_shared<point>(center), edgeColor, edgeLength, i, numberColor));
+                color, center, edgeColor, edgeLength, i, numberColor));
         curCenter += edgeLength;
     }
 }
