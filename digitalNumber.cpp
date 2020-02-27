@@ -33,11 +33,11 @@ void DigitalNumber::initializeDigits()
 
     // Now create Digit objects in the correct locations
     int d = decimalDigits.size();
-    double digitWidth = 0.9 * maxWidth / (1.2*d - 0.2); // How wide each one is
+    double digitWidth = 0.8 * maxWidth / (1.2*d - 0.2); // How wide each one is
     double digitHeight = 2*digitWidth;                  // How tall they are
-    if(digitHeight > maxHeight)
+    if(digitHeight > 0.8*maxHeight)
     {
-        digitHeight = maxHeight;
+        digitHeight = 0.8*maxHeight;
         digitWidth = digitHeight/2;
     }
     double gapSize = 0.2 * digitWidth;                  // How far apart they are
@@ -80,7 +80,7 @@ void DigitalNumber::draw() const
     }
 
     // Draw the background
-    glColor4f(0,0,0,0.7);
+    glColor4f(0,0,0,0.9);
     glBegin(GL_QUADS);
     for(const point &p : bgCorners)
     {
