@@ -25,20 +25,22 @@ RGBAcolor inputNumberColor) : DrawableObject(inputCenter, inputColor)
 void NumberCubePolyhedron::initializeNumberCubeTables()
 {
     int length = vectorOfVectorsOfNumbers.size();
+    double gapSize = 0.4 * edgeLength;                  // How far apart they are
     double curCenterZ;
     if(length % 2 == 0)
     {
-        curCenterZ = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength;
+        curCenterZ = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
     }
     else
     {
-        curCenterZ = - (length - 1)/2.0*edgeLength;
+        curCenterZ = - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
     }
     for(std::vector<std::vector<int>> v : vectorOfVectorsOfNumbers)
     {
         numberCubeTables.push_back(NumberCubeTable({center.x, center.y, curCenterZ},
                 color, center, edgeColor, edgeLength, v, numberColor));
         curCenterZ += edgeLength;
+        curCenterZ += gapSize;
     }
 }
 

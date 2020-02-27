@@ -25,20 +25,22 @@ NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, point &inp
 void NumberCubeRow::initializeNumberCubes()
 {
     int length = numbers.size();
+    double gapSize = 0.4 * edgeLength;                  // How far apart they are
     double curCenter;
     if(length % 2 == 0)
     {
-        curCenter = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength;
+        curCenter = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
     }
     else
     {
-        curCenter = - (length - 1)/2.0*edgeLength;
+        curCenter = - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
     }
     for(int i : numbers)
     {
         numberCubes.push_back(NumberCube({curCenter, center.y, center.z},
                 color, center, edgeColor, edgeLength, i, numberColor));
         curCenter += edgeLength;
+        curCenter += gapSize;
     }
 }
 

@@ -24,20 +24,22 @@ RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, inputOw
 void NumberCubeTable::initializeNumberCubeRows()
 {
     int length = vectorsOfNumbers.size();
+    double gapSize = 0.4 * edgeLength;                  // How far apart they are
     double curCenterY;
     if(length % 2 == 0)
     {
-        curCenterY = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength;
+        curCenterY = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
     }
     else
     {
-        curCenterY = - (length - 1)/2.0*edgeLength;
+        curCenterY = - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
     }
     for(std::vector<int> v : vectorsOfNumbers)
     {
         numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, center,
                                                      edgeColor, edgeLength, v, numberColor));
         curCenterY += edgeLength;
+        curCenterY += gapSize;
     }
 }
 
