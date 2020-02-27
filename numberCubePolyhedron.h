@@ -21,6 +21,10 @@ public:
     void initializeNumberCubeTables();
 
     void draw() const;
+    void drawLines() const;
+    void drawFaces() const;
+    void drawNumbers() const;
+
     void move(double deltaX, double deltaY, double deltaZ);
     void rotate(double thetaX, double thetaY, double thetaZ);
 };

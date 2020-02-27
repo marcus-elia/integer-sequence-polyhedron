@@ -14,7 +14,12 @@ public:
     NumberCube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
             unsigned int inputEdgeLength, int inputNumber, RGBAcolor inputNumberColor);
 
+    // Draws all components
     void draw() const;
+
+    // Draws just the DigitalNumber
+    void drawNumber() const;
+
     void move(double deltaX, double deltaY, double deltaZ);
 
     void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);

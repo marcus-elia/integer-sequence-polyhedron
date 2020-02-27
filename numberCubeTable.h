@@ -20,6 +20,10 @@ public:
     void initializeNumberCubeRows();
 
     void draw() const;
+    void drawLines() const;
+    void drawFaces() const;
+    void drawNumbers() const;
+
     void move(double deltaX, double deltaY, double deltaZ);
     void rotate(double thetaX, double thetaY, double thetaZ);
     void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);

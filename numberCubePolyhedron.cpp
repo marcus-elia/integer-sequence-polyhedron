@@ -44,9 +44,34 @@ void NumberCubePolyhedron::initializeNumberCubeTables()
 
 void NumberCubePolyhedron::draw() const
 {
-    for(NumberCubeTable nct : numberCubeTables)
+    drawLines();
+    glDisable(GL_CULL_FACE);
+    drawNumbers();
+    glEnable(GL_CULL_FACE);
+    drawFaces();
+}
+
+void NumberCubePolyhedron::drawLines() const
+{
+    for(const NumberCubeTable &nct : numberCubeTables)
     {
-        nct.draw();
+        nct.drawLines();
+    }
+}
+
+void NumberCubePolyhedron::drawFaces() const
+{
+    for(const NumberCubeTable &nct : numberCubeTables)
+    {
+        nct.drawFaces();
+    }
+}
+
+void NumberCubePolyhedron::drawNumbers() const
+{
+    for(const NumberCubeTable &nct : numberCubeTables)
+    {
+        nct.drawNumbers();
     }
 }
 

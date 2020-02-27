@@ -49,6 +49,30 @@ void NumberCubeTable::draw() const
     }
 }
 
+void NumberCubeTable::drawLines() const
+{
+    for(NumberCubeRow ncr : numberCubeRows)
+    {
+        ncr.drawLines();
+    }
+}
+
+void NumberCubeTable::drawFaces() const
+{
+    for(NumberCubeRow ncr : numberCubeRows)
+    {
+        ncr.drawFaces();
+    }
+}
+
+void NumberCubeTable::drawNumbers() const
+{
+    for(NumberCubeRow ncr : numberCubeRows)
+    {
+        ncr.drawNumbers();
+    }
+}
+
 void NumberCubeTable::move(double deltaX, double deltaY, double deltaZ)
 {
     DrawableObject::move(deltaX, deltaY, deltaZ);

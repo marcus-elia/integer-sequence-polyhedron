@@ -44,40 +44,12 @@ Cube::Cube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
 
 void Cube::draw() const
 {
-    glBegin(GL_QUADS);
-    glColor4f(color.r, color.g, color.b, color.a);
+    drawLines();
+    drawFaces();
+}
 
-    drawPoint(corners[0]);
-    drawPoint(corners[1]);
-    drawPoint(corners[3]);
-    drawPoint(corners[2]);
-
-    drawPoint(corners[5]);
-    drawPoint(corners[4]);
-    drawPoint(corners[6]);
-    drawPoint(corners[7]);
-
-    drawPoint(corners[6]);
-    drawPoint(corners[4]);
-    drawPoint(corners[0]);
-    drawPoint(corners[2]);
-
-    drawPoint(corners[4]);
-    drawPoint(corners[5]);
-    drawPoint(corners[1]);
-    drawPoint(corners[0]);
-
-    drawPoint(corners[6]);
-    drawPoint(corners[2]);
-    drawPoint(corners[3]);
-    drawPoint(corners[7]);
-
-    drawPoint(corners[3]);
-    drawPoint(corners[1]);
-    drawPoint(corners[5]);
-    drawPoint(corners[7]);
-    glEnd();
-
+void Cube::drawLines() const
+{
     glColor4f(edgeColor.r, edgeColor.g, edgeColor.b, edgeColor.a);
     glBegin(GL_LINES);
     drawPoint(corners[1]);
@@ -115,8 +87,47 @@ void Cube::draw() const
 
     drawPoint(corners[1]);
     drawPoint(corners[5]);
-    
+
     glEnd();
+}
+
+void Cube::drawFaces() const
+{
+    glBegin(GL_QUADS);
+    glColor4f(color.r, color.g, color.b, color.a);
+
+    drawPoint(corners[0]);
+    drawPoint(corners[1]);
+    drawPoint(corners[3]);
+    drawPoint(corners[2]);
+
+    drawPoint(corners[5]);
+    drawPoint(corners[4]);
+    drawPoint(corners[6]);
+    drawPoint(corners[7]);
+
+    drawPoint(corners[6]);
+    drawPoint(corners[4]);
+    drawPoint(corners[0]);
+    drawPoint(corners[2]);
+
+    drawPoint(corners[4]);
+    drawPoint(corners[5]);
+    drawPoint(corners[1]);
+    drawPoint(corners[0]);
+
+    drawPoint(corners[6]);
+    drawPoint(corners[2]);
+    drawPoint(corners[3]);
+    drawPoint(corners[7]);
+
+    drawPoint(corners[3]);
+    drawPoint(corners[1]);
+    drawPoint(corners[5]);
+    drawPoint(corners[7]);
+    glEnd();
+
+
 }
 
 void Cube::rotate(double thetaX, double thetaY, double thetaZ)

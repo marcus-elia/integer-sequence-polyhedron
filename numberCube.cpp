@@ -13,16 +13,19 @@ NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, point &inputOwne
     number = DigitalNumber(inputCenter, inputNumberColor, inputOwnerCenter, inputNumber, inputEdgeLength, inputEdgeLength);
 }
 
+
+
 void NumberCube::draw() const
 {
-    /*point g = {ownerCenter.x, ownerCenter.y, ownerCenter.z};
-    Cube c2 = Cube(g, {0,1,0,1}, g, {0,0,0,1}, 10);
-    c2.draw();*/
-
     glDisable(GL_CULL_FACE);
     number.draw();
     glEnable(GL_CULL_FACE);
     Cube::draw();
+}
+
+void NumberCube::drawNumber() const
+{
+    number.draw();
 }
 
 void NumberCube::move(double deltaX, double deltaY, double deltaZ)

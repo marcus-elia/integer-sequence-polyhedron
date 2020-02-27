@@ -44,20 +44,36 @@ void NumberCubeRow::initializeNumberCubes()
 
 void NumberCubeRow::draw() const
 {
-    /*point p = {center.x, center.y, center.z};
-    Cube c = Cube(center, {1,1,0,1}, p, {0,0,0,1}, 10);
-    c.draw();
-
-
-    point g = {ownerCenter.x, ownerCenter.y, ownerCenter.z};
-    Cube c2 = Cube(g, {1,0,0,1}, g, {0,0,0,1}, 10);
-    c2.draw();*/
-    for(NumberCube nc : numberCubes)
+    for(const NumberCube &nc : numberCubes)
     {
         nc.draw();
     }
-
 }
+
+void NumberCubeRow::drawLines() const
+{
+    for(const NumberCube &nc : numberCubes)
+    {
+        nc.drawLines();
+    }
+}
+
+void NumberCubeRow::drawFaces() const
+{
+    for(const NumberCube &nc : numberCubes)
+    {
+        nc.drawFaces();
+    }
+}
+
+void NumberCubeRow::drawNumbers() const
+{
+    for(const NumberCube &nc : numberCubes)
+    {
+        nc.drawNumbers();
+    }
+}
+
 void NumberCubeRow::move(double deltaX, double deltaY, double deltaZ)
 {
     DrawableObject::move(deltaX, deltaY, deltaZ);
