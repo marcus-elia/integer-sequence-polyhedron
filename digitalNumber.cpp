@@ -51,20 +51,37 @@ void DigitalNumber::initializeDigits()
     {
         curCenterX = center.x + (d-1)/2*gapSize + (d-1)/2*digitWidth;
     }
+
+    // The right side of the background
+    bgCorners.push_back({curCenterX + digitWidth/2 + gapSize, digitHeight/2, center.z});
+    bgCorners.push_back({curCenterX + digitWidth/2 + gapSize, -digitHeight/2, center.z});
     for(int i : decimalDigits)
     {
         digits.push_back(Digit({curCenterX, center.y, center.z}, color, center, i, digitWidth, digitHeight, digitWidth/5));
         curCenterX -= gapSize;
         curCenterX -= digitWidth;
     }
+    bgCorners.push_back({curCenterX + digitWidth/2, -digitHeight/2, center.z});
+    bgCorners.push_back({curCenterX + digitWidth/2, digitHeight/2, center.z});
 }
 
 void DigitalNumber::draw() const
 {
+    // Draw each digit
+    glColor4f(color.r, color.g, color.b, color.a);
     for(Digit d : digits)
     {
         d.draw();
     }
+
+    // Draw the background
+    glColor4f(1,1,1,0.8);
+    glBegin(GL_QUADS);
+    for(const point &p : bgCorners)
+    {
+        glVertex3f(p.x, p.y, p.z);
+    }
+    glEnd();
 }
 
 void DigitalNumber::move(double deltaX, double deltaY, double deltaZ)

@@ -15,16 +15,22 @@ private:
     int maxWidth;
     int maxHeight;
 
+    // The digits we have
     std::vector<Digit> digits;
+
+    // The corners of the background rectangle
+    std::vector<point> bgCorners;
 public:
     DigitalNumber();
     DigitalNumber(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
             int inputNumber, int inputMaxWidth, int inputMaxHeight);
 
-    // Create the vector of Digit objects
+    // Create the vector of Digit objects.
+    // Also initialize background corners
     void initializeDigits();
 
     void draw() const;
+
     void move(double delta_x, double delta_y, double delta_z);
     void rotate(double thetaX, double thetaY, double thetaZ);
 };
