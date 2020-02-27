@@ -53,7 +53,7 @@ void NumberCubePolyhedron::draw() const
 void NumberCubePolyhedron::move(double deltaX, double deltaY, double deltaZ)
 {
     DrawableObject::move(deltaX, deltaY, deltaZ);
-    for(NumberCubeTable nct : numberCubeTables)
+    for(NumberCubeTable &nct : numberCubeTables)
     {
         nct.move(deltaX, deltaY, deltaZ);
     }
@@ -61,7 +61,7 @@ void NumberCubePolyhedron::move(double deltaX, double deltaY, double deltaZ)
 
 void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
 {
-    for(NumberCubeTable nct : numberCubeTables)
+    for(NumberCubeTable &nct : numberCubeTables)
     {
         nct.rotateAroundOwner(thetaX, thetaY, thetaZ);
     }
