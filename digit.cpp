@@ -1,5 +1,7 @@
 #include "digit.h"
 
+#include <utility>
+
 std::vector<std::vector<int>>Digit::segmentsVector{{1,2,3,4,5,6},{2,3},{1,2,7,5,4},
                                                    {1,2,7,3,4},{6,7,2,3},{1,6,7,3,4},
                                                    {1,4,3,5,6,7},{1,2,3},{1,2,3,4,5,6,7},
@@ -13,9 +15,9 @@ Digit::Digit() : DrawableComponent()
     thickness = 4;
 }
 
-Digit::Digit(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, int inputDigit,
+Digit::Digit(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, int inputDigit,
              double inputWidth, double inputHeight, double inputThickness) :
-             DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
+             DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
 {
     digit = inputDigit;
     width = inputWidth;

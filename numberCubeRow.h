@@ -15,7 +15,7 @@ private:
     RGBAcolor numberColor;
 public:
     NumberCubeRow();
-    NumberCubeRow(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
+    NumberCubeRow(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, RGBAcolor inputEdgeColor,
                   unsigned int inputEdgeLength, std::vector<int> inputNumbers, RGBAcolor inputNumberColor);
 
     void initializeNumberCubes();

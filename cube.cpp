@@ -2,6 +2,8 @@
 // in a 3D graphics tutorial.
 
 #include <math.h>
+
+#include <utility>
 #include "cube.h"
 #include "graphics.h"
 
@@ -31,9 +33,9 @@ Cube::Cube() : DrawableComponent()
     resetCorners();
 }
 
-Cube::Cube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
+Cube::Cube(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter,
         RGBAcolor inputEdgeColor, unsigned int inputEdgeLength) :
-        DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
+        DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
 {
     edgeLength = inputEdgeLength;
     edgeColor = inputEdgeColor;

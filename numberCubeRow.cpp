@@ -1,5 +1,7 @@
 #include "numberCubeRow.h"
 
+#include <utility>
+
 NumberCubeRow::NumberCubeRow() : DrawableComponent()
 {
     numbers = std::vector<int>{1,341,5};
@@ -9,9 +11,9 @@ NumberCubeRow::NumberCubeRow() : DrawableComponent()
     initializeNumberCubes();
 }
 
-NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
+NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, RGBAcolor inputEdgeColor,
                unsigned int inputEdgeLength, std::vector<int> inputNumbers, RGBAcolor inputNumberColor) :
-               DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
+               DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
 {
     numbers = inputNumbers;
     edgeLength = inputEdgeLength;
@@ -35,7 +37,7 @@ void NumberCubeRow::initializeNumberCubes()
     for(int i : numbers)
     {
         numberCubes.push_back(NumberCube({curCenter, center.y, center.z},
-                color, center, edgeColor, edgeLength, i, numberColor));
+                color, std::make_shared<point>(center), edgeColor, edgeLength, i, numberColor));
         curCenter += edgeLength;
     }
 }

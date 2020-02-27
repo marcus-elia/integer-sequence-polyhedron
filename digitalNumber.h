@@ -18,7 +18,7 @@ private:
     std::vector<Digit> digits;
 public:
     DigitalNumber();
-    DigitalNumber(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
+    DigitalNumber(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter,
             int inputNumber, int inputMaxWidth, int inputMaxHeight);
 
     // Create the vector of Digit objects

@@ -1,5 +1,7 @@
 #include "numberCubeTable.h"
 
+#include <utility>
+
 NumberCubeTable::NumberCubeTable() : DrawableComponent()
 {
     vectorsOfNumbers = std::vector<std::vector<int>>{{1,341,5},{2000,2,99},{0,40,4040}};
@@ -8,11 +10,11 @@ NumberCubeTable::NumberCubeTable() : DrawableComponent()
     numberColor = {.4, .6, 1, 1};
     initializeNumberCubeRows();
 }
-NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
+NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, RGBAcolor inputEdgeColor,
 unsigned int inputEdgeLength, std::vector<std::vector<int>> inputVectorsOfNumbers,
-RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
+RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
 {
-    vectorsOfNumbers = inputVectorsOfNumbers;
+    vectorsOfNumbers = std::move(inputVectorsOfNumbers);
     edgeColor = inputEdgeColor;
     edgeLength = inputEdgeLength;
     numberColor = inputNumberColor;
@@ -33,7 +35,7 @@ void NumberCubeTable::initializeNumberCubeRows()
     }
     for(std::vector<int> v : vectorsOfNumbers)
     {
-        numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, center,
+        numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, std::make_shared<point>(center),
                                                      edgeColor, edgeLength, v, numberColor));
         curCenterY += edgeLength;
     }
