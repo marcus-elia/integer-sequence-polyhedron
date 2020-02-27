@@ -2,15 +2,14 @@
 #define INTEGER_SEQUENCE_POLYHEDRON_DRAWABLECOMPONENT_H
 
 #include "drawableObject.h"
-#include <memory>
 
 class DrawableComponent : public DrawableObject
 {
 protected:
-    std::shared_ptr<point> ownerCenter;
+    point ownerCenter;
 public:
     DrawableComponent();
-    DrawableComponent(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter);
+    DrawableComponent(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter);
 
     virtual void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);
 };

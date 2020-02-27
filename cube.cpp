@@ -33,9 +33,9 @@ Cube::Cube() : DrawableComponent()
     resetCorners();
 }
 
-Cube::Cube(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter,
+Cube::Cube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
         RGBAcolor inputEdgeColor, unsigned int inputEdgeLength) :
-        DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
+        DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     edgeLength = inputEdgeLength;
     edgeColor = inputEdgeColor;

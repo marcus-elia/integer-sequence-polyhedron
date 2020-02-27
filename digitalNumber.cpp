@@ -7,9 +7,9 @@ DigitalNumber::DigitalNumber() : DrawableComponent()
     number = 0;
     initializeDigits();
 }
-DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter,
+DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
         int inputNumber, int inputMaxWidth, int inputMaxHeight) :
-               DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
+               DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     number = inputNumber;
     maxWidth = inputMaxWidth;

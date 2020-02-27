@@ -17,7 +17,7 @@ protected:
     void drawPoint(const point &p) const;
 public:
     Cube();
-    Cube(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter,
+    Cube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
             RGBAcolor inputEdgeColor, unsigned int inputEdgeLength);
 
     void draw() const;

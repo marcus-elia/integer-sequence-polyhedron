@@ -10,9 +10,9 @@ NumberCubeTable::NumberCubeTable() : DrawableComponent()
     numberColor = {.4, .6, 1, 1};
     initializeNumberCubeRows();
 }
-NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, RGBAcolor inputEdgeColor,
+NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
 unsigned int inputEdgeLength, std::vector<std::vector<int>> inputVectorsOfNumbers,
-RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
+RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     vectorsOfNumbers = std::move(inputVectorsOfNumbers);
     edgeColor = inputEdgeColor;

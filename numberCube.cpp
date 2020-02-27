@@ -6,9 +6,9 @@ NumberCube::NumberCube() : Cube()
 {
     isHighlighted = false;
 }
-NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, RGBAcolor inputEdgeColor,
+NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
         unsigned int inputEdgeLength, int inputNumber, RGBAcolor inputNumberColor) :
-            Cube(inputCenter, inputColor, std::move(inputOwnerCenter), inputEdgeColor, inputEdgeLength)
+            Cube(inputCenter, inputColor, inputOwnerCenter, inputEdgeColor, inputEdgeLength)
 {
     number = DigitalNumber(inputCenter, inputNumberColor, inputOwnerCenter, inputNumber, inputEdgeLength, inputEdgeLength);
 }

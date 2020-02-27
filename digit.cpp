@@ -15,9 +15,9 @@ Digit::Digit() : DrawableComponent()
     thickness = 4;
 }
 
-Digit::Digit(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, int inputDigit,
+Digit::Digit(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, int inputDigit,
              double inputWidth, double inputHeight, double inputThickness) :
-             DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
+             DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     digit = inputDigit;
     width = inputWidth;

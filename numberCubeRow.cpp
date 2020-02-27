@@ -11,9 +11,9 @@ NumberCubeRow::NumberCubeRow() : DrawableComponent()
     initializeNumberCubes();
 }
 
-NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, std::shared_ptr<point> inputOwnerCenter, RGBAcolor inputEdgeColor,
+NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
                unsigned int inputEdgeLength, std::vector<int> inputNumbers, RGBAcolor inputNumberColor) :
-               DrawableComponent(inputCenter, inputColor, std::move(inputOwnerCenter))
+               DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
     numbers = inputNumbers;
     edgeLength = inputEdgeLength;
