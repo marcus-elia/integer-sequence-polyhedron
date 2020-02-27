@@ -26,7 +26,7 @@ void NumberCubeRow::initializeNumberCubes()
     double curCenter;
     if(length % 2 == 0)
     {
-        curCenter = -edgeLength/2.0 - (length/2.0 - 1)*edgeLength;
+        curCenter = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength;
     }
     else
     {
