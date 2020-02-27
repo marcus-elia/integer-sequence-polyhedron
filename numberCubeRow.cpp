@@ -25,7 +25,7 @@ NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, point &inp
 void NumberCubeRow::initializeNumberCubes()
 {
     int length = numbers.size();
-    double gapSize = 0.4 * edgeLength;                  // How far apart they are
+    double gapSize = 0.8 * edgeLength;                  // How far apart they are
     double curCenter;
     if(length % 2 == 0)
     {

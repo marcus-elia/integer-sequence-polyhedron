@@ -24,7 +24,7 @@ RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, inputOw
 void NumberCubeTable::initializeNumberCubeRows()
 {
     int length = vectorsOfNumbers.size();
-    double gapSize = 0.4 * edgeLength;                  // How far apart they are
+    double gapSize = 0.8 * edgeLength;                  // How far apart they are
     double curCenterY;
     if(length % 2 == 0)
     {
