@@ -44,10 +44,19 @@ void NumberCubeRow::initializeNumberCubes()
 
 void NumberCubeRow::draw() const
 {
+    /*point p = {center.x, center.y, center.z};
+    Cube c = Cube(center, {1,1,0,1}, p, {0,0,0,1}, 10);
+    c.draw();
+
+
+    point g = {ownerCenter.x, ownerCenter.y, ownerCenter.z};
+    Cube c2 = Cube(g, {1,0,0,1}, g, {0,0,0,1}, 10);
+    c2.draw();*/
     for(NumberCube nc : numberCubes)
     {
         nc.draw();
     }
+
 }
 void NumberCubeRow::move(double deltaX, double deltaY, double deltaZ)
 {
@@ -73,11 +82,13 @@ void NumberCubeRow::rotateAroundOwner(double thetaX, double thetaY, double theta
     double prevZ = center.z;
 
     // Rotates and revolves around the owner
-    DrawableComponent::rotateAroundOwner(thetaX, thetaY, thetaZ);
+    //DrawableComponent::rotateAroundOwner(thetaX, thetaY, thetaZ);
+    rotatePointAroundPoint(center, ownerCenter, thetaX, thetaY, thetaZ);
 
     // Move the number cubes
     for(NumberCube &nc : numberCubes)
     {
+        nc.setOwnerCenter(center);
         nc.move(center.x - prevX, center.y - prevY, center.z - prevZ);
     }
 
@@ -85,5 +96,6 @@ void NumberCubeRow::rotateAroundOwner(double thetaX, double thetaY, double theta
     for(NumberCube &nc : numberCubes)
     {
         nc.rotateAroundOwner(thetaX, thetaY, thetaZ);
+        //nc.rotate(thetaX, thetaY, thetaZ);
     }
 }
