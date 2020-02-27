@@ -12,6 +12,14 @@ DrawableComponent::DrawableComponent(point inputCenter, RGBAcolor inputColor, po
     ownerCenter = inputOwnerCenter;
 }
 
+void DrawableComponent::setOwnerCenter(point inputOwnerCenter)
+{
+    ownerCenter = inputOwnerCenter;
+}
+
+
+
+
 void DrawableComponent::rotateAroundOwner(double thetaX, double thetaY, double thetaZ)
 {
     rotatePointAroundPoint(center, ownerCenter, thetaX, thetaY, thetaZ);

@@ -8,6 +8,9 @@ class DrawableComponent : public DrawableObject
 protected:
     point ownerCenter;
 public:
+
+    // Setters
+    void setOwnerCenter(point inputOwnerCenter);
     DrawableComponent();
     DrawableComponent(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter);
 
