@@ -1,18 +1,14 @@
 // The code in this file is based on code provided by Lisa Dion
 // in a 3D graphics tutorial.
 
-//#include <ft2build.h>
-//#include FT_FREETYPE_H
-
 #include "graphics.h"
 #include "cube.h"
 #include <cmath>
-#include "text3d.h"
-#include "digit.h"
 #include "digitalNumber.h"
 #include "numberCube.h"
 #include "numberCubeRow.h"
 #include "numberCubeTable.h"
+#include "numberCubePolyhedron.h"
 
 using namespace std;
 
@@ -22,6 +18,7 @@ NumberCube c;
 DigitalNumber testNum;
 NumberCubeRow ncr;
 NumberCubeTable nct;
+NumberCubePolyhedron ncp;
 int prevMouseX, prevMouseY;
 
 void init()
@@ -30,15 +27,19 @@ void init()
     height = 500;
     prevMouseX = 0;
     prevMouseY = 0;
-    c = NumberCube({0,0,0},{0,0,.5,.4},{0,0,0},
-            {.4,.6,1,1}, 50, 341, {0, .4, 1, 1});
-    testNum = DigitalNumber({0,0,0}, {0,.4,1,1},{0,0,0},
-            341, 50, 50);
-    ncr = NumberCubeRow({0,0,0}, {0,0,.5,.4},{0,0,0},
-            {1,1,1,1},50,{2,34,567},{.4,.6,1,1});
+    //c = NumberCube({0,0,0},{0,0,.5,.4},{0,0,0},
+    //        {.4,.6,1,1}, 50, 341, {0, .4, 1, 1});
+    //testNum = DigitalNumber({0,0,0}, {0,.4,1,1},{0,0,0},
+    //        341, 50, 50);
+    //ncr = NumberCubeRow({0,0,0}, {0,0,.5,.4},{0,0,0},
+    //        {1,1,1,1},50,{2,34,567},{.4,.6,1,1});
+    point owner{0,0,0};
     nct = NumberCubeTable({0,0,0}, {0,.2,.8,.4},
-            {0,0,0},{1,1,1,1},50,
+            owner,{1,1,1,1},50,
             {{1,2,3},{400,4,98},{1000,67,85}}, {0.4, 0.6, 1, 1});
+    ncp = NumberCubePolyhedron({0,0,0}, {0,.2,.8,.5}, {1,1,1,1}, 50, {{{1,2,3}, {4,5,6}, {7,8,9}},
+                                                                      {{99,88,77}, {66,55,44}, {33,22,11}},
+                                                                      {{1010, 2, 9898}, {1,55555,1}, {32,23,43}}}, {0.4,0.6,1,1});
 }
 
 /* Initialize OpenGL Graphics */
@@ -103,7 +104,7 @@ void display()
     glEnable(GL_CULL_FACE);
     //c.draw();
     //ncr.draw();
-    nct.draw();
+    ncp.draw();
     
     glFlush();  // Render now
 }
@@ -121,24 +122,24 @@ void kbd(unsigned char key, int x, int y)
     switch(key)
     {
         // Rotating
-        case '1': nct.rotate(PI / 100.0, 0, 0);
+        case '1': ncp.rotate(PI / 100.0, 0, 0);
             break;
-        case '2': nct.rotate(0, PI / 100.0, 0);
+        case '2': ncp.rotate(0, PI / 100.0, 0);
             break;
-        case '3': nct.rotate(0, 0, PI / 100.0);
+        case '3': ncp.rotate(0, 0, PI / 100.0);
             break;
         // Moving around
-        case 'a': nct.move(-5, 0, 0);
+        case 'a': ncp.move(-5, 0, 0);
             break;
-        case 'd': nct.move(5, 0, 0);
+        case 'd': ncp.move(5, 0, 0);
             break;
-        case 'w': nct.move(0, 0, -5);
+        case 'w': ncp.move(0, 0, -5);
             break;
-        case 's': nct.move(0, 0, 5);
+        case 's': ncp.move(0, 0, 5);
             break;
-        case 'r': nct.move(0, 5, 0);
+        case 'r': ncp.move(0, 5, 0);
             break;
-        case 'c': nct.move(0, -5, 0);
+        case 'c': ncp.move(0, -5, 0);
             break;
     }
     
@@ -183,7 +184,7 @@ void clickDrag(int x, int y)
     double theta_y = PI/100 * cos(theta);
     // Up/Down means rotate around x-axis
     double theta_x = PI/100 * sin(theta);
-    c.rotate(theta_x, -theta_y, 0);
+    ncp.rotate(theta_x, -theta_y, 0);
 
     prevMouseX = x;
     prevMouseY = y;
