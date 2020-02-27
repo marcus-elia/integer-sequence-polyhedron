@@ -53,16 +53,21 @@ void DigitalNumber::initializeDigits()
     }
 
     // The right side of the background
-    bgCorners.push_back({curCenterX + digitWidth/2 + gapSize, digitHeight/2, center.z});
-    bgCorners.push_back({curCenterX + digitWidth/2 + gapSize, -digitHeight/2, center.z});
+    bgCorners.push_back({curCenterX + digitWidth/2 + gapSize, center.y + digitHeight/2, center.z - 1});
+    bgCorners.push_back({curCenterX + digitWidth/2 + gapSize, center.y - digitHeight/2, center.z - 1});
+
+    // Create the digit objects in the correct places
     for(int i : decimalDigits)
     {
         digits.push_back(Digit({curCenterX, center.y, center.z}, color, center, i, digitWidth, digitHeight, digitWidth/5));
+
+        // Move the location to the left
         curCenterX -= gapSize;
         curCenterX -= digitWidth;
     }
-    bgCorners.push_back({curCenterX + digitWidth/2, -digitHeight/2, center.z});
-    bgCorners.push_back({curCenterX + digitWidth/2, digitHeight/2, center.z});
+    // The left side of the background
+    bgCorners.push_back({curCenterX + digitWidth/2, center.y - digitHeight/2, center.z - 1});
+    bgCorners.push_back({curCenterX + digitWidth/2, center.y + digitHeight/2, center.z - 1});
 }
 
 void DigitalNumber::draw() const
@@ -75,7 +80,7 @@ void DigitalNumber::draw() const
     }
 
     // Draw the background
-    glColor4f(1,1,1,0.8);
+    glColor4f(0,0,0,0.7);
     glBegin(GL_QUADS);
     for(const point &p : bgCorners)
     {
@@ -86,12 +91,23 @@ void DigitalNumber::draw() const
 
 void DigitalNumber::move(double deltaX, double deltaY, double deltaZ)
 {
+    // Move the center of the number
     center.x += deltaX;
     center.y += deltaY;
     center.z += deltaZ;
+
+    // Move each individual digit
     for(Digit &d : digits)
     {
         d.move(deltaX, deltaY, deltaZ);
+    }
+
+    // Move the background
+    for(point &p : bgCorners)
+    {
+        p.x += deltaX;
+        p.y += deltaY;
+        p.z += deltaZ;
     }
 }
 
