@@ -140,7 +140,7 @@ void Cube::move(double deltaX, double deltaY, double deltaZ)
 
 void Cube::rotateAroundOwner(double thetaX, double thetaY, double thetaZ)
 {
-    DrawableComponent::rotateAroundOwner(thetaX, thetaY, thetaZ);
+    rotatePointAroundPoint(center, ownerCenter, thetaX, thetaY, thetaZ);
 
     for(point &p : corners)
     {
