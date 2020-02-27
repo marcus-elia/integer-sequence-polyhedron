@@ -56,6 +56,7 @@ void NumberCubePolyhedron::move(double deltaX, double deltaY, double deltaZ)
     for(NumberCubeTable &nct : numberCubeTables)
     {
         nct.move(deltaX, deltaY, deltaZ);
+        nct.setOwnerCenter(center);
     }
 }
 
