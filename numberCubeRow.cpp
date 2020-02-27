@@ -30,7 +30,7 @@ void NumberCubeRow::initializeNumberCubes()
     }
     else
     {
-        curCenter = - (length/2.0 - 1)*edgeLength;
+        curCenter = - (length - 1)/2.0*edgeLength;
     }
     for(int i : numbers)
     {
