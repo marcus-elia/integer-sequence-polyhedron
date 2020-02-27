@@ -70,7 +70,7 @@ void NumberCubeRow::drawNumbers() const
 {
     for(const NumberCube &nc : numberCubes)
     {
-        nc.drawNumbers();
+        nc.drawNumber();
     }
 }
 
