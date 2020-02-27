@@ -13,7 +13,7 @@ private:
     RGBAcolor numberColor;
 public:
     NumberCubeTable();
-    NumberCubeTable(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter, RGBAcolor inputEdgeColor,
+    NumberCubeTable(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
                     unsigned int inputEdgeLength, std::vector<std::vector<int>> inputVectorsOfNumbers,
                     RGBAcolor inputNumberColor);
 

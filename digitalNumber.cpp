@@ -5,7 +5,7 @@ DigitalNumber::DigitalNumber() : DrawableComponent()
     number = 0;
     initializeDigits();
 }
-DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter,
+DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
         int inputNumber, int inputMaxWidth, int inputMaxHeight) :
                DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {

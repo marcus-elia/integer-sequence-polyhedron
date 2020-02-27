@@ -11,7 +11,7 @@ private:
     bool isHighlighted;
 public:
     NumberCube();
-    NumberCube(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter, RGBAcolor inputEdgeColor,
+    NumberCube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
             unsigned int inputEdgeLength, int inputNumber, RGBAcolor inputNumberColor);
 
     void draw() const;

@@ -9,7 +9,7 @@ protected:
     point ownerCenter;
 public:
     DrawableComponent();
-    DrawableComponent(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter);
+    DrawableComponent(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter);
 
     virtual void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);
 };

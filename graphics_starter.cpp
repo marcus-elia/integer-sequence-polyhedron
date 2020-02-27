@@ -11,6 +11,8 @@
 #include "digit.h"
 #include "digitalNumber.h"
 #include "numberCube.h"
+#include "numberCubeRow.h"
+#include "numberCubeTable.h"
 
 using namespace std;
 
@@ -18,6 +20,8 @@ GLdouble width, height;
 int wd;
 NumberCube c;
 DigitalNumber testNum;
+NumberCubeRow ncr;
+NumberCubeTable nct;
 int prevMouseX, prevMouseY;
 
 void init()
@@ -30,6 +34,11 @@ void init()
             {.4,.6,1,1}, 50, 341, {0, .4, 1, 1});
     testNum = DigitalNumber({0,0,0}, {0,.4,1,1},{0,0,0},
             341, 50, 50);
+    ncr = NumberCubeRow({0,0,0}, {0,0,.5,.4},{0,0,0},
+            {1,1,1,1},50,{2,34,567},{.4,.6,1,1});
+    nct = NumberCubeTable({0,0,0}, {0,.2,.8,.4},
+            {0,0,0},{1,1,1,1},50,
+            {{1,2,3},{400,4,98},{1000,67,85}}, {0.4, 0.6, 1, 1});
 }
 
 /* Initialize OpenGL Graphics */
@@ -92,7 +101,9 @@ void display()
     //testNum.draw();
 
     glEnable(GL_CULL_FACE);
-    c.draw();
+    //c.draw();
+    //ncr.draw();
+    nct.draw();
     
     glFlush();  // Render now
 }
@@ -110,24 +121,24 @@ void kbd(unsigned char key, int x, int y)
     switch(key)
     {
         // Rotating
-        case '1': c.rotate(PI / 100.0, 0, 0);
+        case '1': nct.rotate(PI / 100.0, 0, 0);
             break;
-        case '2': c.rotate(0, PI / 100.0, 0);
+        case '2': nct.rotate(0, PI / 100.0, 0);
             break;
-        case '3': c.rotate(0, 0, PI / 100.0);
+        case '3': nct.rotate(0, 0, PI / 100.0);
             break;
         // Moving around
-        case 'a': c.move(-5, 0, 0);
+        case 'a': nct.move(-5, 0, 0);
             break;
-        case 'd': c.move(5, 0, 0);
+        case 'd': nct.move(5, 0, 0);
             break;
-        case 'w': c.move(0, 0, -5);
+        case 'w': nct.move(0, 0, -5);
             break;
-        case 's': c.move(0, 0, 5);
+        case 's': nct.move(0, 0, 5);
             break;
-        case 'r': c.move(0, 5, 0);
+        case 'r': nct.move(0, 5, 0);
             break;
-        case 'c': c.move(0, -5, 0);
+        case 'c': nct.move(0, -5, 0);
             break;
     }
     

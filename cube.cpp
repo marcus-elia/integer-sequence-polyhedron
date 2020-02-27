@@ -31,7 +31,7 @@ Cube::Cube() : DrawableComponent()
     resetCorners();
 }
 
-Cube::Cube(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter,
+Cube::Cube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
         RGBAcolor inputEdgeColor, unsigned int inputEdgeLength) :
         DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {

@@ -8,7 +8,7 @@ NumberCubeTable::NumberCubeTable() : DrawableComponent()
     numberColor = {.4, .6, 1, 1};
     initializeNumberCubeRows();
 }
-NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, point inputOwnerCenter, RGBAcolor inputEdgeColor,
+NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
 unsigned int inputEdgeLength, std::vector<std::vector<int>> inputVectorsOfNumbers,
 RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
