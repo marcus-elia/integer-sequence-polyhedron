@@ -19,7 +19,14 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, i
              double inputWidth, double inputHeight, double inputThickness) :
              DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
-    digit = inputDigit;
+    if(inputDigit >= 0)
+    {
+        digit = inputDigit;
+    }
+    else
+    {
+        digit = -inputDigit;
+    }
     width = inputWidth;
     height = inputHeight;
     thickness = inputThickness;
