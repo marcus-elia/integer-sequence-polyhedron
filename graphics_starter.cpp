@@ -193,7 +193,7 @@ void clickDrag(int x, int y)
     {
         double theta_y = PI/100 * cos(theta)*0;
         double theta_z = PI/100 * sin(theta);
-        if(x < width/2)
+        if(prevMouseX < width/2)
         {
             ncp.rotate(0, -theta_y, (x/abs(x))*theta_z);
         }
