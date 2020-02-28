@@ -5,7 +5,7 @@
 #include "digitalNumber.h"
 #include "cubeContainer.h"
 
-class NumberCube : public CubeContainer, Cube
+class NumberCube : public CubeContainer, public Cube
 {
 private:
     DigitalNumber number;
