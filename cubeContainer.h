@@ -16,6 +16,7 @@ public:
             RGBAcolor inputNumberColor, RGBAcolor inputHighlightedNumberColor);
 
     virtual void highlight() = 0;
+    virtual void unHighlight() = 0;
 };
 
 #endif //INTEGER_SEQUENCE_POLYHEDRON_CUBECONTAINER_H
