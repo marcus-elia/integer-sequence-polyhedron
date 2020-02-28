@@ -2,30 +2,33 @@
 
 #include <utility>
 
-NumberCube::NumberCube() : CubeContainer()
+NumberCube::NumberCube() : CubeContainer(), Cube()
 {
-    cube = Cube();
     number = DigitalNumber();
 }
 NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
                        point &inputOwnerCenter, RGBAcolor inputEdgeColor,
                        unsigned int inputEdgeLength, RGBAcolor inputNumberColor,
                        RGBAcolor inputHighlightedNumberColor, int inputNumber) :
-            CubeContainer(inputEdgeLength,inputEdgeColor, inputNumberColor, inputHighlightedNumberColor)
+            CubeContainer(inputEdgeLength,inputEdgeColor, inputNumberColor, inputHighlightedNumberColor),
+            Cube(inputCenter, inputColor, inputHighlightedColor, inputOwnerCenter, inputEdgeColor, inputEdgeLength)
 {
-    cube = Cube(inputCenter, inputColor, inputHighlightedColor, inputOwnerCenter,
-            inputEdgeColor, inputEdgeLength);
-    number = DigitalNumber(inputCenter, inputNumberColor, inputOwnerCenter, inputNumber, inputEdgeLength, inputEdgeLength);
+    number = DigitalNumber(inputCenter, inputNumberColor, inputHighlightedNumberColor,
+            inputOwnerCenter, inputNumber, inputEdgeLength, inputEdgeLength);
 }
 
+void NumberCube::highlight()
+{
 
+
+}
 
 void NumberCube::draw() const
 {
     glDisable(GL_CULL_FACE);
     number.draw();
     glEnable(GL_CULL_FACE);
-    cube.draw();
+    Cube::draw();
 }
 
 void NumberCube::drawNumber() const
@@ -36,20 +39,20 @@ void NumberCube::drawNumber() const
 void NumberCube::move(double deltaX, double deltaY, double deltaZ)
 {
     number.move(deltaX, deltaY, deltaZ);
-    cube.move(deltaX, deltaY, deltaZ);
+    Cube::move(deltaX, deltaY, deltaZ);
 }
 
 void NumberCube::rotateAroundOwner(double thetaX, double thetaY, double thetaZ)
 {
     // Store the previous coordinates, so we know how much to move the number
-    double prevX = cube.getCenter().x;
-    double prevY = cube.getCenter().y;
-    double prevZ = cube.getCenter().z;
+    double prevX = center.x;
+    double prevY = center.y;
+    double prevZ = center.z;
 
     // Rotates and revolves around the owner
-   cube.rotateAroundOwner(thetaX, thetaY, thetaZ);
+    Cube::rotateAroundOwner(thetaX, thetaY, thetaZ);
 
     // Move the number
-    number.move(cube.getCenter().x - prevX, cube.getCenter().y - prevY, cube.getCenter().z - prevZ);
+    number.move(center.x - prevX, center.y - prevY, center.z - prevZ);
 
 }

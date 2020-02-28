@@ -5,10 +5,9 @@
 #include "digitalNumber.h"
 #include "cubeContainer.h"
 
-class NumberCube : public CubeContainer
+class NumberCube : public CubeContainer, Cube
 {
 private:
-    Cube cube;
     DigitalNumber number;
 public:
     NumberCube();
@@ -18,6 +17,8 @@ public:
 
     // Draws all components
     void draw() const;
+
+    void highlight();
 
     // Draws just the DigitalNumber
     void drawNumber() const;
