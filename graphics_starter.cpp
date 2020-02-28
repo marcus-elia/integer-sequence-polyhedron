@@ -9,6 +9,8 @@
 #include "numberCubeRow.h"
 #include "numberCubeTable.h"
 #include "numberCubePolyhedron.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -20,6 +22,8 @@ NumberCubeRow ncr;
 NumberCubeTable nct;
 NumberCubePolyhedron ncp;
 int prevMouseX, prevMouseY;
+
+std::string getFilename();
 
 void init()
 {
@@ -38,7 +42,7 @@ void init()
             owner,{1,1,1,1},50,
             {{1,2,3},{400,4,98},{1000,67,85}}, {0.4, 0.6, 1, 1});
     ncp = NumberCubePolyhedron({0,0,0}, {0,.2,.8,.5}, {1,1,1,1}, 50, {{{1,2,3}, {4,5,6}, {7,8,9}},
-                                                                      {{99,88,77}, {66,55,44}, {33,22,11}},
+                                                                      {{99}, {55,44}, {33,22,11}},
                                                                       {{1010, 2, 9898}, {1,55555,1}, {32,23,43}}}, {0.4,0.6,1,1});
 }
 
@@ -248,4 +252,22 @@ int main(int argc, char** argv)
     // Enter the event-processing loop
     glutMainLoop();
     return 0;
+}
+
+std::string getFilename()
+{
+    std::string input;
+    std::cout << "Enter the name of the text file containing the data." << std::endl;
+    std::cout << "If you do not enter a valid filename, the default will be triangles.txt." << std::endl;
+    std::cout << "See the ReadMe for details on how to format the text files." << std::endl;
+    std::cout << "Filename: ";
+    getline(std::cin, input);
+    std::ifstream fIn;
+    fIn.open(input);
+    if(!fIn || input.substr(input.size() - 4) != ".txt")
+    {
+        input = "triangles.txt";
+    }
+    fIn.close();
+    return input;
 }
