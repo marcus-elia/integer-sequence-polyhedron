@@ -31,6 +31,8 @@ public:
 
     void draw() const;
 
+    void setColor(RGBAcolor inputColor);
+
     void move(double delta_x, double delta_y, double delta_z);
     void rotate(double thetaX, double thetaY, double thetaZ);
 };

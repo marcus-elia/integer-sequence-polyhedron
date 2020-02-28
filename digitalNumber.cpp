@@ -77,10 +77,19 @@ void DigitalNumber::initializeDigits()
     bgCorners.push_back({curCenterX + digitWidth/2, center.y + digitHeight/2, center.z - 1});
 }
 
+
+void DigitalNumber::setColor(RGBAcolor inputColor)
+{
+    color = inputColor;
+    for(Digit &d : digits)
+    {
+        d.setColor(inputColor);
+    }
+}
+
 void DigitalNumber::draw() const
 {
     // Draw each digit
-    glColor4f(color.r, color.g, color.b, color.a);
     for(Digit d : digits)
     {
         d.draw();
