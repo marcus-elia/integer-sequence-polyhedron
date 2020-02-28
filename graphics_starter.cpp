@@ -4,10 +4,6 @@
 #include "graphics.h"
 #include "cube.h"
 #include <cmath>
-#include "digitalNumber.h"
-#include "numberCube.h"
-#include "numberCubeRow.h"
-#include "numberCubeTable.h"
 #include "numberCubePolyhedron.h"
 #include <iostream>
 #include <fstream>
@@ -17,7 +13,10 @@ using namespace std;
 GLdouble width, height;
 int wd;
 NumberCubePolyhedron ncp;
-int prevMouseX, prevMouseY;
+
+// Mouse variables
+int prevMouseX, prevMouseY;  // need prev locations for click/drag
+boolean leftDown, rightDown; // which button is held down
 
 // Prompts the user to enter a filename. If the filename is not
 // valid or does not end with .txt, then "triangles.txt" is returned.
@@ -32,9 +31,11 @@ std::vector<vector<vector<int>>> readFromFile(std::string filename);
 void init()
 {
     width = 1000;
-    height = 500;
+    height = 600;
     prevMouseX = 0;
     prevMouseY = 0;
+    leftDown = false;
+    rightDown = false;
     std::string filename = getFilename();
     std::vector<vector<vector<int>>> data = readFromFile(filename);
     ncp = NumberCubePolyhedron({0,0,0}, {0,.2,.8,.5}, {1,1,1,1}, 50, data, {0.4,0.6,1,1});
@@ -178,11 +179,30 @@ void clickDrag(int x, int y)
     int xDif = x - prevMouseX;
     int yDif = y - prevMouseY;
     double theta = atan2(yDif,xDif);
-    // Left/Right means rotate around y-axis
-    double theta_y = PI/100 * cos(theta);
-    // Up/Down means rotate around x-axis
-    double theta_x = PI/100 * sin(theta);
-    ncp.rotate(theta_x, -theta_y, 0);
+
+    // If it's the left mouse button
+    if(leftDown)
+    {
+        // Left/Right means rotate around y-axis
+        double theta_y = PI/100 * cos(theta);
+        // Up/Down means rotate around x-axis
+        double theta_x = PI/100 * sin(theta);
+        ncp.rotate(theta_x, -theta_y, 0);
+    }
+    if(rightDown)
+    {
+        double theta_y = PI/100 * cos(theta)*0;
+        double theta_z = PI/100 * sin(theta);
+        if(x < width/2)
+        {
+            ncp.rotate(0, -theta_y, (x/abs(x))*theta_z);
+        }
+        else
+        {
+            ncp.rotate(0, -theta_y, -(x/abs(x))*theta_z);
+        }
+    }
+
 
     prevMouseX = x;
     prevMouseY = y;
@@ -192,7 +212,28 @@ void clickDrag(int x, int y)
 // state will be GLUT_UP or GLUT_DOWN
 void mouse(int button, int state, int x, int y)
 {
-    
+    if(button == GLUT_LEFT_BUTTON)
+    {
+        if(state == GLUT_UP)
+        {
+            leftDown = false;
+        }
+        else
+        {
+            leftDown = true;
+        }
+    }
+    if(button == GLUT_RIGHT_BUTTON)
+    {
+        if(state == GLUT_UP)
+        {
+            rightDown = false;
+        }
+        else
+        {
+            rightDown = true;
+        }
+    }
     glutPostRedisplay();
 }
 
@@ -214,9 +255,9 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_RGBA);
     
     glutInitWindowSize((int)width, (int)height);
-    glutInitWindowPosition(200, 150); // Position the window's initial top-left corner
+    glutInitWindowPosition(200, 75); // Position the window's initial top-left corner
     /* create the window and store the handle to it */
-    wd = glutCreateWindow("3D Graphics!" /* title */ );
+    wd = glutCreateWindow("Integer Sequence Polyhedron" /* title */ );
     
     // Register callback handler for window re-paint event
     glutDisplayFunc(display);
