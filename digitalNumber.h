@@ -22,7 +22,7 @@ private:
     std::vector<point> bgCorners;
 public:
     DigitalNumber();
-    DigitalNumber(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter,
+    DigitalNumber(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
             int inputNumber, int inputMaxWidth, int inputMaxHeight);
 
     // Create the vector of Digit objects.
