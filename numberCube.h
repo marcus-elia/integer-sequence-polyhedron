@@ -19,6 +19,7 @@ public:
     void draw() const;
 
     void highlight();
+    void unHighlight();
 
     // Draws just the DigitalNumber
     void drawNumber() const;

@@ -19,8 +19,14 @@ NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputH
 
 void NumberCube::highlight()
 {
+    isHighlighted = true;
+    number.setIsHighlighted(true);
+}
 
-
+void NumberCube::unHighlight()
+{
+    isHighlighted = false;
+    number.setIsHighlighted(false);
 }
 
 void NumberCube::draw() const
