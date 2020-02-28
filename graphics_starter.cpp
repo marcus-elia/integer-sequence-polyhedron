@@ -16,14 +16,18 @@ using namespace std;
 
 GLdouble width, height;
 int wd;
-NumberCube c;
-DigitalNumber testNum;
-NumberCubeRow ncr;
-NumberCubeTable nct;
 NumberCubePolyhedron ncp;
 int prevMouseX, prevMouseY;
 
+// Prompts the user to enter a filename. If the filename is not
+// valid or does not end with .txt, then "triangles.txt" is returned.
 std::string getFilename();
+
+// Given a string that consists of positive integers separated by commas, this
+// parses it into a vector of ints.
+std::vector<int> stringToVector(std::string line);
+
+std::vector<vector<vector<int>>> readFromFile(std::string filename);
 
 void init()
 {
@@ -31,19 +35,9 @@ void init()
     height = 500;
     prevMouseX = 0;
     prevMouseY = 0;
-    //c = NumberCube({0,0,0},{0,0,.5,.4},{0,0,0},
-    //        {.4,.6,1,1}, 50, 341, {0, .4, 1, 1});
-    //testNum = DigitalNumber({0,0,0}, {0,.4,1,1},{0,0,0},
-    //        341, 50, 50);
-    //ncr = NumberCubeRow({0,0,0}, {0,0,.5,.4},{0,0,0},
-    //        {1,1,1,1},50,{2,34,567},{.4,.6,1,1});
-    point owner{0,0,0};
-    nct = NumberCubeTable({0,0,0}, {0,.2,.8,.4},
-            owner,{1,1,1,1},50,
-            {{1,2,3},{400,4,98},{1000,67,85}}, {0.4, 0.6, 1, 1});
-    ncp = NumberCubePolyhedron({0,0,0}, {0,.2,.8,.5}, {1,1,1,1}, 50, {{{1,2,3}, {4,5,6}, {7,8,9}},
-                                                                      {{99}, {55,44}, {33,22,11}},
-                                                                      {{1010, 2, 9898}, {1,55555,1}, {32,23,43}}}, {0.4,0.6,1,1});
+    std::string filename = getFilename();
+    std::vector<vector<vector<int>>> data = readFromFile(filename);
+    ncp = NumberCubePolyhedron({0,0,0}, {0,.2,.8,.5}, {1,1,1,1}, 50, data, {0.4,0.6,1,1});
 }
 
 /* Initialize OpenGL Graphics */
@@ -270,4 +264,62 @@ std::string getFilename()
     }
     fIn.close();
     return input;
+}
+
+std::vector<int> stringToVector(std::string line)
+{
+    std::vector<int> output;
+    std::string curInt;
+    for(char c : line)
+    {
+        if(c == ',')
+        {
+            if(!curInt.empty())
+            {
+                output.push_back(std::stoi(curInt));
+                curInt = "";
+            }
+        }
+    }
+    if(!curInt.empty())
+    {
+        output.push_back(std::stoi(curInt));
+    }
+    return output;
+}
+
+std::vector<vector<vector<int>>> readFromFile(std::string filename)
+{
+    std::vector<vector<vector<int>>> polyhedronVector;
+    std::vector<vector<int>> currentTable;
+    std::string currentLine;
+
+    std::ifstream fIn;
+    fIn.open(filename);
+    while(fIn)
+    {
+        getline(fIn, currentLine);
+
+        // If the line is blank, we have reached the end of this table
+        if(currentLine.empty())
+        {
+            if(!currentTable.empty())
+            {
+                polyhedronVector.push_back(currentTable);
+                currentTable = std::vector<vector<int>>();
+            }
+        }
+        else
+        {
+            currentTable.push_back(stringToVector(currentLine));
+        }
+    }
+
+    // The last table might not be ended with a blank line, because we
+    // reached the end of the file
+    if(!currentTable.empty())
+    {
+        polyhedronVector.push_back(currentTable);
+    }
+    return polyhedronVector;
 }
