@@ -8,11 +8,11 @@ class DrawableComponent : public DrawableObject
 protected:
     point ownerCenter;
 public:
+    DrawableComponent();
+    DrawableComponent(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter);
 
     // Setters
     void setOwnerCenter(point inputOwnerCenter);
-    DrawableComponent();
-    DrawableComponent(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter);
 
     virtual void rotateAroundOwner(double thetaX, double thetaY, double thetaZ);
 };

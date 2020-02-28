@@ -6,8 +6,9 @@ DrawableComponent::DrawableComponent() : DrawableObject()
 {
     ownerCenter = {0,0,0};
 }
-DrawableComponent::DrawableComponent(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter) :
-                   DrawableObject(inputCenter, inputColor)
+DrawableComponent::DrawableComponent(point inputCenter, RGBAcolor inputColor,
+        RGBAcolor inputHighlightedColor, point &inputOwnerCenter) :
+                   DrawableObject(inputCenter, inputColor, inputHighlightedColor)
 {
     ownerCenter = inputOwnerCenter;
 }
