@@ -3,16 +3,18 @@
 
 #include "cube.h"
 #include "digitalNumber.h"
+#include "cubeContainer.h"
 
-class NumberCube : public Cube
+class NumberCube : public CubeContainer
 {
 private:
+    Cube cube;
     DigitalNumber number;
-    bool isHighlighted;
 public:
     NumberCube();
-    NumberCube(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
-            unsigned int inputEdgeLength, int inputNumber, RGBAcolor inputNumberColor);
+    NumberCube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
+            point &inputOwnerCenter, RGBAcolor inputEdgeColor,
+            unsigned int inputEdgeLength, RGBAcolor inputNumberColor, RGBAcolor inputHighlightedNumberColor, int inputNumber);
 
     // Draws all components
     void draw() const;
