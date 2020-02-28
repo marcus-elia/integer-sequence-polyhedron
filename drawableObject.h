@@ -26,8 +26,17 @@ protected:
     RGBAcolor color;
     point center;
 public:
+    // Constructors
     DrawableObject();
     DrawableObject(point inputCenter, RGBAcolor inputColor);
+
+    // Getters
+    point getCenter();
+    RGBAcolor getColor();
+    // Setters
+    void setCenter(point inputCenter);
+    void setColor(RGBAcolor inputColor);
+
     virtual void draw() const = 0;
     virtual void move(double deltaX, double deltaY, double deltaZ);
     virtual void rotate(double thetaX, double thetaY, double thetaZ) = 0;

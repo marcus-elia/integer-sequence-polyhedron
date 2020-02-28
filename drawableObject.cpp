@@ -12,6 +12,24 @@ DrawableObject::DrawableObject(point inputCenter, RGBAcolor inputColor)
     color = inputColor;
 }
 
+point DrawableObject::getCenter()
+{
+    return center;
+}
+RGBAcolor DrawableObject::getColor()
+{
+    return color;
+}
+
+void DrawableObject::setCenter(point inputCenter)
+{
+    center = inputCenter;
+}
+void DrawableObject::setColor(RGBAcolor inputColor)
+{
+    color = inputColor;
+}
+
 void DrawableObject::move(double deltaX, double deltaY, double deltaZ)
 {
     center.x += deltaX;
