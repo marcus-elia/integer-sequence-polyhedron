@@ -11,7 +11,14 @@ DigitalNumber::DigitalNumber(point inputCenter, RGBAcolor inputColor, point &inp
         int inputNumber, int inputMaxWidth, int inputMaxHeight) :
                DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
 {
-    number = inputNumber;
+    if(number >= 0)
+    {
+        number = inputNumber;
+    }
+    else
+    {
+        number = -inputNumber;
+    }
     maxWidth = inputMaxWidth;
     maxHeight = inputMaxHeight;
     initializeDigits();
