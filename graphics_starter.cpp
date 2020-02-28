@@ -272,6 +272,7 @@ std::vector<int> stringToVector(std::string line)
     std::string curInt;
     for(char c : line)
     {
+        // If we are at the end of the current number
         if(c == ',')
         {
             if(!curInt.empty())
@@ -279,6 +280,11 @@ std::vector<int> stringToVector(std::string line)
                 output.push_back(std::stoi(curInt));
                 curInt = "";
             }
+        }
+        // Otherwise, add the digit to the number
+        else
+        {
+            curInt += c;
         }
     }
     if(!curInt.empty())
@@ -314,6 +320,7 @@ std::vector<vector<vector<int>>> readFromFile(std::string filename)
             currentTable.push_back(stringToVector(currentLine));
         }
     }
+    fIn.close();
 
     // The last table might not be ended with a blank line, because we
     // reached the end of the file
