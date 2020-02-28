@@ -1,11 +1,11 @@
 #ifndef INTEGER_SEQUENCE_POLYHEDRON_NUMBERCUBEROW_H
 #define INTEGER_SEQUENCE_POLYHEDRON_NUMBERCUBEROW_H
 
-#include "drawableComponent.h"
+#include "cubeContainer.h"
 #include <vector>
 #include "numberCube.h"
 
-class NumberCubeRow : public DrawableComponent
+class NumberCubeRow : public CubeContainer, public DrawableComponent
 {
 private:
     std::vector<int> numbers;
@@ -15,8 +15,9 @@ private:
     RGBAcolor numberColor;
 public:
     NumberCubeRow();
-    NumberCubeRow(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
-                  unsigned int inputEdgeLength, std::vector<int> inputNumbers, RGBAcolor inputNumberColor);
+    NumberCubeRow(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
+            unsigned int inputEdgeLength, RGBAcolor inputEdgeColor,  RGBAcolor inputNumberColor, RGBAcolor inputHighlightedNumberColor,
+            std::vector<int> inputNumbers);
 
     void initializeNumberCubes();
 

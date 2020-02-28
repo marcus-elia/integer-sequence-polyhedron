@@ -2,23 +2,19 @@
 
 #include <utility>
 
-NumberCubeRow::NumberCubeRow() : DrawableComponent()
+NumberCubeRow::NumberCubeRow() : DrawableComponent(), CubeContainer()
 {
     numbers = std::vector<int>{1,341,5};
-    edgeLength = 50;
-    edgeColor = {1,1,1,1};
-    numberColor = {.4, .6, 1, 1};
     initializeNumberCubes();
 }
 
-NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
-               unsigned int inputEdgeLength, std::vector<int> inputNumbers, RGBAcolor inputNumberColor) :
-               DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
+NumberCubeRow::NumberCubeRow(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
+                             unsigned int inputEdgeLength, RGBAcolor inputEdgeColor,  RGBAcolor inputNumberColor,
+                             RGBAcolor inputHighlightedNumberColor, std::vector<int> inputNumbers) :
+               DrawableComponent(inputCenter, inputColor, inputHighlightedColor, inputOwnerCenter),
+               CubeContainer(inputEdgeLength, inputEdgeColor, inputNumberColor, inputHighlightedNumberColor)
 {
     numbers = inputNumbers;
-    edgeLength = inputEdgeLength;
-    edgeColor = inputEdgeColor;
-    numberColor = inputNumberColor;
     initializeNumberCubes();
 }
 
@@ -38,7 +34,7 @@ void NumberCubeRow::initializeNumberCubes()
     for(int i : numbers)
     {
         numberCubes.push_back(NumberCube({curCenter, center.y, center.z},
-                color, center, edgeColor, edgeLength, i, numberColor));
+                color, highlightedColor, center, edgeColor, edgeLength, numberColor, highlightedNumberColor, i));
         curCenter += edgeLength;
         curCenter += gapSize;
     }
