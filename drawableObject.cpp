@@ -4,12 +4,16 @@ DrawableObject::DrawableObject()
 {
     center = {0,0,0};
     color = {1,1,1,1};
+    isHighlighted = false;
+    highlightedColor = {1,0,0,1};
 }
 
-DrawableObject::DrawableObject(point inputCenter, RGBAcolor inputColor)
+DrawableObject::DrawableObject(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor)
 {
     center = inputCenter;
     color = inputColor;
+    isHighlighted = false;
+    highlightedColor = inputHighlightedColor;
 }
 
 point DrawableObject::getCenter()
@@ -20,6 +24,14 @@ RGBAcolor DrawableObject::getColor()
 {
     return color;
 }
+bool DrawableObject::getIsHighlighted()
+{
+    return isHighlighted;
+}
+RGBAcolor DrawableObject::getHighlightedColor()
+{
+    return highlightedColor;
+}
 
 void DrawableObject::setCenter(point inputCenter)
 {
@@ -28,6 +40,14 @@ void DrawableObject::setCenter(point inputCenter)
 void DrawableObject::setColor(RGBAcolor inputColor)
 {
     color = inputColor;
+}
+void DrawableObject::setIsHighlighted(bool inputIsHighlighted)
+{
+    isHighlighted = inputIsHighlighted;
+}
+void DrawableObject::setHighlightedColor(RGBAcolor inputHighlightedColor)
+{
+    highlightedColor = inputHighlightedColor;
 }
 
 void DrawableObject::move(double deltaX, double deltaY, double deltaZ)

@@ -23,19 +23,25 @@ struct point
 class DrawableObject
 {
 protected:
-    RGBAcolor color;
     point center;
+    RGBAcolor color;
+    bool isHighlighted;
+    RGBAcolor highlightedColor;
 public:
     // Constructors
     DrawableObject();
-    DrawableObject(point inputCenter, RGBAcolor inputColor);
+    DrawableObject(point inputCenter, RGBAcolor inputColor, RGBAcolor highlightedColor);
 
     // Getters
     point getCenter();
     RGBAcolor getColor();
+    bool getIsHighlighted();
+    RGBAcolor getHighlightedColor();
     // Setters
     void setCenter(point inputCenter);
+    void setIsHighlighted(bool inputHighlighted);
     void setColor(RGBAcolor inputColor);
+    void setHighlightedColor(RGBAcolor inputHighlightedColor);
 
     virtual void draw() const = 0;
     virtual void move(double deltaX, double deltaY, double deltaZ);
