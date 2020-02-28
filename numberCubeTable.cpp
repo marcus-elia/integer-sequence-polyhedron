@@ -32,10 +32,12 @@ void NumberCubeTable::initializeNumberCubeRows()
     }
     else
     {
-        curCenterY = - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
+        curCenterY = - (length - 1)/2.0*edgeLength - (length-1)/2.0*gapSize;
     }
-    for(std::vector<int> v : vectorsOfNumbers)
+
+    for(int i = vectorsOfNumbers.size() - 1; i > -1; i--)
     {
+        std::vector<int> v = vectorsOfNumbers[i];
         numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, center,
                                                      edgeColor, edgeLength, v, numberColor));
         curCenterY += edgeLength;

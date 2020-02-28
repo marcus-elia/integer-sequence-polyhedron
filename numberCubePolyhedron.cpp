@@ -33,10 +33,12 @@ void NumberCubePolyhedron::initializeNumberCubeTables()
     }
     else
     {
-        curCenterZ = - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
+        curCenterZ = - (length - 1)/2.0*edgeLength - (length-1)/2.0*gapSize;
     }
-    for(std::vector<std::vector<int>> v : vectorOfVectorsOfNumbers)
+
+    for(int i = vectorOfVectorsOfNumbers.size() - 1; i > -1; i--)
     {
+        std::vector<std::vector<int>> v = vectorOfVectorsOfNumbers[i];
         numberCubeTables.push_back(NumberCubeTable({center.x, center.y, curCenterZ},
                 color, center, edgeColor, edgeLength, v, numberColor));
         curCenterZ += edgeLength;
