@@ -282,7 +282,7 @@ std::vector<int> stringToVector(std::string line)
             }
         }
         // Otherwise, add the digit to the number
-        else
+        else if(c != ' ')
         {
             curInt += c;
         }
@@ -315,7 +315,7 @@ std::vector<vector<vector<int>>> readFromFile(std::string filename)
                 currentTable = std::vector<vector<int>>();
             }
         }
-        else
+        else if(fIn)
         {
             currentTable.push_back(stringToVector(currentLine));
         }
