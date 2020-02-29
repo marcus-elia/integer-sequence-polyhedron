@@ -6,8 +6,8 @@ Text3D::Text3D() : DrawableObject()
     text = "???";
     fontSize = 12;
 }
-Text3D::Text3D(point inputCenter, RGBAcolor inputColor, std::string inputText,int inputFontSize) :
-               DrawableObject(inputCenter, inputColor)
+Text3D::Text3D(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, std::string inputText,int inputFontSize) :
+               DrawableObject(inputCenter, inputColor, inputHighlightedColor)
 {
     text = inputText;
     fontSize = inputFontSize;

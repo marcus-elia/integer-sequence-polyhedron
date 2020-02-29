@@ -11,7 +11,7 @@ private:
     int fontSize;
 public:
     Text3D();
-    Text3D(point inputCenter, RGBAcolor inputColor, std::string inputText,int inputFontSize);
+    Text3D(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, std::string inputText,int inputFontSize);
 
     void draw() const;
 
