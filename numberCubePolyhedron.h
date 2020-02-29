@@ -3,22 +3,23 @@
 
 #include "numberCubeTable.h"
 
-class NumberCubePolyhedron : public DrawableObject
+class NumberCubePolyhedron : public DrawableObject, public CubeContainer
 {
 private:
     std::vector<std::vector<std::vector<int>>> vectorOfVectorsOfNumbers;
     std::vector<NumberCubeTable> numberCubeTables;
-    unsigned int edgeLength;
-    RGBAcolor edgeColor;
-    RGBAcolor numberColor;
 public:
     NumberCubePolyhedron();
-    NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputEdgeColor,
-                         unsigned int inputEdgeLength, std::vector<std::vector<std::vector<int>>>  inputVectorOfVectorsOfNumbers,
-                         RGBAcolor inputNumberColor);
+    NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
+                         unsigned int inputEdgeLength, RGBAcolor inputEdgeColor, RGBAcolor inputNumberColor,
+                         RGBAcolor inputHighlightedNumberColor,
+                         std::vector<std::vector<std::vector<int>>>  inputVectorOfVectorsOfNumbers);
 
 
     void initializeNumberCubeTables();
+
+    void highlight();
+    void unHighlight();
 
     void draw() const;
     void drawLines() const;

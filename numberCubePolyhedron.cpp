@@ -2,22 +2,20 @@
 
 #include <utility>
 
-NumberCubePolyhedron::NumberCubePolyhedron() : DrawableObject()
+NumberCubePolyhedron::NumberCubePolyhedron() : DrawableObject(), CubeContainer()
 {
     vectorOfVectorsOfNumbers = {{{1,2},{3,4}},{{5,6},{7,8}}};
-    edgeLength = 50;
-    edgeColor = {1,1,1,1};
-    numberColor = {0.4, 0.6, 1, 1};
     initializeNumberCubeTables();
 }
-NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputEdgeColor,
-unsigned int inputEdgeLength, std::vector<std::vector<std::vector<int>>>  inputVectorOfVectorsOfNumbers,
-RGBAcolor inputNumberColor) : DrawableObject(inputCenter, inputColor)
+NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
+                                           unsigned int inputEdgeLength, RGBAcolor inputEdgeColor, RGBAcolor inputNumberColor,
+                                           RGBAcolor inputHighlightedNumberColor,
+                                           std::vector<std::vector<std::vector<int>>>  inputVectorOfVectorsOfNumbers) :
+                                           DrawableObject(inputCenter, inputColor, inputHighlightedColor),
+                                           CubeContainer(inputEdgeLength, inputEdgeColor, inputNumberColor,
+                                                   inputHighlightedNumberColor)
 {
     vectorOfVectorsOfNumbers = std::move(inputVectorOfVectorsOfNumbers);
-    edgeLength = inputEdgeLength;
-    edgeColor = inputEdgeColor;
-    numberColor = inputNumberColor;
     initializeNumberCubeTables();
 }
 
@@ -40,11 +38,30 @@ void NumberCubePolyhedron::initializeNumberCubeTables()
     {
         std::vector<std::vector<int>> v = vectorOfVectorsOfNumbers[i];
         numberCubeTables.push_back(NumberCubeTable({center.x, center.y, curCenterZ},
-                color, center, edgeColor, edgeLength, v, numberColor));
+                color, highlightedColor, center, edgeLength, edgeColor, numberColor, highlightedNumberColor, v));
         curCenterZ += edgeLength;
         curCenterZ += gapSize;
     }
 }
+
+
+void NumberCubePolyhedron::highlight()
+{
+    isHighlighted = true;
+    for(NumberCubeTable &nct : numberCubeTables)
+    {
+        nct.highlight();
+    }
+}
+void NumberCubePolyhedron::unHighlight()
+{
+    isHighlighted = false;
+    for(NumberCubeTable &nct : numberCubeTables)
+    {
+        nct.unHighlight();
+    }
+}
+
 
 void NumberCubePolyhedron::draw() const
 {
