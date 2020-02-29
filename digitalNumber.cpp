@@ -66,7 +66,7 @@ void DigitalNumber::initializeDigits()
     // Create the digit objects in the correct places
     for(int i : decimalDigits)
     {
-        digits.push_back(Digit({curCenterX, center.y, center.z}, color, center, i, digitWidth, digitHeight, digitWidth/5));
+        digits.push_back(Digit({curCenterX, center.y, center.z}, color, highlightedColor, center, i, digitWidth, digitHeight, digitWidth/5));
 
         // Move the location to the left
         curCenterX -= gapSize;
