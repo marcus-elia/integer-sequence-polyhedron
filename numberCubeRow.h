@@ -10,9 +10,6 @@ class NumberCubeRow : public CubeContainer, public DrawableComponent
 private:
     std::vector<int> numbers;
     std::vector<NumberCube> numberCubes;
-    unsigned int edgeLength;
-    RGBAcolor edgeColor;
-    RGBAcolor numberColor;
 public:
     NumberCubeRow();
     NumberCubeRow(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
