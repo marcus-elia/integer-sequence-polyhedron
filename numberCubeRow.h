@@ -21,6 +21,9 @@ public:
 
     void initializeNumberCubes();
 
+    void highlight();
+    void unHighlight();
+
     void draw() const;
     void drawLines() const;
     void drawNumbers() const;

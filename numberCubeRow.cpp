@@ -40,6 +40,24 @@ void NumberCubeRow::initializeNumberCubes()
     }
 }
 
+
+void NumberCubeRow::highlight()
+{
+    isHighlighted = true;
+    for(NumberCube &nc : numberCubes)
+    {
+        nc.highlight();
+    }
+}
+void NumberCubeRow::unHighlight()
+{
+    isHighlighted = false;
+    for(NumberCube &nc : numberCubes)
+    {
+        nc.unHighlight();
+    }
+}
+
 void NumberCubeRow::draw() const
 {
     for(const NumberCube &nc : numberCubes)
