@@ -3,7 +3,7 @@
 
 #include "numberCubeRow.h"
 
-class NumberCubeTable : public DrawableComponent
+class NumberCubeTable : public DrawableComponent, public CubeContainer
 {
 private:
     std::vector<std::vector<int>> vectorsOfNumbers;
@@ -13,11 +13,15 @@ private:
     RGBAcolor numberColor;
 public:
     NumberCubeTable();
-    NumberCubeTable(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
-                    unsigned int inputEdgeLength, std::vector<std::vector<int>> inputVectorsOfNumbers,
-                    RGBAcolor inputNumberColor);
+    NumberCubeTable(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
+                    unsigned int inputEdgeLength, RGBAcolor inputEdgeColor,
+                    RGBAcolor inputNumberColor, RGBAcolor inputHighlightedNumberColor,
+                    std::vector<std::vector<int>> inputVectorsOfNumbers);
 
     void initializeNumberCubeRows();
+
+    void highlight();
+    void unHighlight();
 
     void draw() const;
     void drawLines() const;

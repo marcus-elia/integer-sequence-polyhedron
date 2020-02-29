@@ -2,17 +2,19 @@
 
 #include <utility>
 
-NumberCubeTable::NumberCubeTable() : DrawableComponent()
+NumberCubeTable::NumberCubeTable() : DrawableComponent(), CubeContainer()
 {
     vectorsOfNumbers = std::vector<std::vector<int>>{{1,341,5},{2000,2,99},{0,40,4040}};
-    edgeLength = 50;
-    edgeColor = {1,1,1,1};
-    numberColor = {.4, .6, 1, 1};
     initializeNumberCubeRows();
 }
-NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, RGBAcolor inputEdgeColor,
-unsigned int inputEdgeLength, std::vector<std::vector<int>> inputVectorsOfNumbers,
-RGBAcolor inputNumberColor) : DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
+NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
+                                 point &inputOwnerCenter,
+                                 unsigned int inputEdgeLength, RGBAcolor inputEdgeColor,
+                                 RGBAcolor inputNumberColor, RGBAcolor inputHighlightedNumberColor,
+                                 std::vector<std::vector<int>> inputVectorsOfNumbers) :
+                                 DrawableComponent(inputCenter, inputColor, inputHighlightedColor, inputOwnerCenter),
+                                 CubeContainer(inputEdgeLength, inputEdgeColor, inputNumberColor,
+                                         inputHighlightedNumberColor)
 {
     vectorsOfNumbers = std::move(inputVectorsOfNumbers);
     edgeColor = inputEdgeColor;
@@ -38,12 +40,31 @@ void NumberCubeTable::initializeNumberCubeRows()
     for(int i = vectorsOfNumbers.size() - 1; i > -1; i--)
     {
         std::vector<int> v = vectorsOfNumbers[i];
-        numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, center,
-                                                     edgeColor, edgeLength, v, numberColor));
+        numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, highlightedColor, center,
+                                                     edgeLength, edgeColor, numberColor, highlightedNumberColor, v));
         curCenterY += edgeLength;
         curCenterY += gapSize;
     }
 }
+
+
+void NumberCubeTable::highlight()
+{
+    isHighlighted = true;
+    for(NumberCubeRow &ncr : numberCubeRows)
+    {
+        ncr.highlight();
+    }
+}
+void NumberCubeTable::unHighlight()
+{
+    isHighlighted = false;
+    for(NumberCubeRow &ncr : numberCubeRows)
+    {
+        ncr.unHighlight();
+    }
+}
+
 
 void NumberCubeTable::draw() const
 {
