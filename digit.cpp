@@ -34,7 +34,14 @@ Digit::Digit(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlighted
 
 void Digit::draw() const
 {
-    glColor4f(color.r, color.g, color.b, color.a);
+    if(!isHighlighted)
+    {
+        glColor4f(color.r, color.g, color.b, color.a);
+    }
+    else
+    {
+        glColor4f(highlightedColor.r, highlightedColor.g, highlightedColor.b, highlightedColor.a);
+    }
     for(int i : segmentsVector[digit])
     {
         glBegin(GL_TRIANGLE_STRIP);

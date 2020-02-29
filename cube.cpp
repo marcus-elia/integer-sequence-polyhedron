@@ -1,9 +1,6 @@
 // The code in this file is based on code provided by Lisa Dion
 // in a 3D graphics tutorial.
 
-#include <math.h>
-
-#include <utility>
 #include "cube.h"
 #include "graphics.h"
 
@@ -94,7 +91,14 @@ void Cube::drawLines() const
 void Cube::drawFaces() const
 {
     glBegin(GL_QUADS);
-    glColor4f(color.r, color.g, color.b, color.a);
+    if(!isHighlighted)
+    {
+        glColor4f(color.r, color.g, color.b, color.a);
+    }
+    else
+    {
+        glColor4f(highlightedColor.r, highlightedColor.g, highlightedColor.b, highlightedColor.a);
+    }
 
     drawPoint(corners[0]);
     drawPoint(corners[1]);
