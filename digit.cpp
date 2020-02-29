@@ -15,9 +15,9 @@ Digit::Digit() : DrawableComponent()
     thickness = 4;
 }
 
-Digit::Digit(point inputCenter, RGBAcolor inputColor, point &inputOwnerCenter, int inputDigit,
+Digit::Digit(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter, int inputDigit,
              double inputWidth, double inputHeight, double inputThickness) :
-             DrawableComponent(inputCenter, inputColor, inputOwnerCenter)
+             DrawableComponent(inputCenter, inputColor, inputHighlightedColor, inputOwnerCenter)
 {
     if(inputDigit >= 0)
     {
