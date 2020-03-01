@@ -5,6 +5,7 @@
 NumberCubePolyhedron::NumberCubePolyhedron() : DrawableObject(), CubeContainer()
 {
     vectorOfVectorsOfNumbers = {{{1,2},{3,4}},{{5,6},{7,8}}};
+    highlightStatus = noneHighlighted;
     initializeNumberCubeTables();
 }
 NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -16,6 +17,7 @@ NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputCol
                                                    inputHighlightedNumberColor)
 {
     vectorOfVectorsOfNumbers = std::move(inputVectorOfVectorsOfNumbers);
+    highlightStatus = noneHighlighted;
     initializeNumberCubeTables();
 }
 
