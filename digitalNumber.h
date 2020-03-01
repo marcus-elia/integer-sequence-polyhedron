@@ -19,6 +19,7 @@ private:
     std::vector<Digit> digits;
 
     // The corners of the background rectangle
+    // {rightTop, rightBottom, leftBottom, leftTop}
     std::vector<point> bgCorners;
 public:
     DigitalNumber();
@@ -31,7 +32,12 @@ public:
 
     void draw() const;
 
+    // Setters
     void setColor(RGBAcolor inputColor);
+
+    // Getters
+    // Returns true if the point is within the background box of the number
+    bool containsPoint(int x, int y) const;
 
     void move(double delta_x, double delta_y, double delta_z);
     void rotate(double thetaX, double thetaY, double thetaZ);

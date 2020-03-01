@@ -87,6 +87,11 @@ void DigitalNumber::setColor(RGBAcolor inputColor)
     }
 }
 
+bool DigitalNumber::containsPoint(int x, int y) const
+{
+    return x < bgCorners[0].x && x > bgCorners[2].x && y < bgCorners[0].y && y > bgCorners[1].y;
+}
+
 void DigitalNumber::draw() const
 {
     // Draw each digit
