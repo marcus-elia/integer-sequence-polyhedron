@@ -18,6 +18,9 @@ public:
     // Draws all components
     void draw() const;
 
+    // Getters
+    DigitalNumber getDigitalNumber();
+
     void highlight();
     void unHighlight();
 

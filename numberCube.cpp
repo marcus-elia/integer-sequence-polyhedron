@@ -17,6 +17,11 @@ NumberCube::NumberCube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputH
             inputOwnerCenter, inputNumber, inputEdgeLength, inputEdgeLength);
 }
 
+DigitalNumber NumberCube::getDigitalNumber()
+{
+    return number;
+}
+
 void NumberCube::highlight()
 {
     isHighlighted = true;
