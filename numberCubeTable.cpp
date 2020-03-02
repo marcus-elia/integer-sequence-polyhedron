@@ -48,6 +48,12 @@ void NumberCubeTable::initializeNumberCubeRows()
 }
 
 
+std::vector<NumberCubeRow> NumberCubeTable::getNumberCubeRows()
+{
+    return numberCubeRows;
+}
+
+
 void NumberCubeTable::highlight()
 {
     isHighlighted = true;

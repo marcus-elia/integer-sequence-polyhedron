@@ -20,6 +20,9 @@ public:
 
     void initializeNumberCubeRows();
 
+    // Getters
+    std::vector<NumberCubeRow> getNumberCubeRows();
+
     void highlight();
     void unHighlight();
 
