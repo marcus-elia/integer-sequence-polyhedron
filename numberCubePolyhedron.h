@@ -2,6 +2,8 @@
 #define INTEGER_SEQUENCE_POLYHEDRON_NUMBERCUBEPOLYHEDRON_H
 
 #include "numberCubeTable.h"
+#include <glm/gtc/matrix_transform.hpp>
+#include <memory>
 
 enum statusOfHighlights {noneHighlighted, oneHighlighted, lineHighlighted};
 
@@ -33,8 +35,8 @@ public:
     void rotate(double thetaX, double thetaY, double thetaZ);
 
     // Highlighting in response to clicks
-    void reactToClick(int x, int y);
-    NumberCube getNumberCubeFromClick(int x, int y);
+    void reactToClick(glm::vec3 ray, glm::vec3 cameraLoc);
+    std::shared_ptr<NumberCube> getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc);
 };
 
 #endif //INTEGER_SEQUENCE_POLYHEDRON_NUMBERCUBEPOLYHEDRON_H
