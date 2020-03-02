@@ -1,6 +1,7 @@
 #ifndef INTEGER_SEQUENCE_POLYHEDRON_DIGITALNUMBER_H
 #define INTEGER_SEQUENCE_POLYHEDRON_DIGITALNUMBER_H
 
+#include <glm/vec3.hpp>
 #include "drawableComponent.h"
 #include "graphics.h"
 #include "digit.h"
@@ -37,7 +38,7 @@ public:
 
     // Getters
     // Returns true if the point is within the background box of the number
-    bool containsPoint(int x, int y) const;
+    bool containsPoint(glm::vec3 point) const;
 
     void move(double delta_x, double delta_y, double delta_z);
     void rotate(double thetaX, double thetaY, double thetaZ);
