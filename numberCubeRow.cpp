@@ -40,6 +40,11 @@ void NumberCubeRow::initializeNumberCubes()
     }
 }
 
+std::vector<NumberCube> NumberCubeRow::getNumberCubes()
+{
+    return numberCubes;
+}
+
 
 void NumberCubeRow::highlight()
 {
