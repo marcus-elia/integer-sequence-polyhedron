@@ -48,9 +48,9 @@ void NumberCubeTable::initializeNumberCubeRows()
 }
 
 
-std::vector<NumberCubeRow> NumberCubeTable::getNumberCubeRows()
+std::vector<NumberCubeRow>* NumberCubeTable::getNumberCubeRows()
 {
-    return numberCubeRows;
+    return &numberCubeRows;
 }
 
 

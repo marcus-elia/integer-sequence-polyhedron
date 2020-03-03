@@ -40,9 +40,9 @@ void NumberCubeRow::initializeNumberCubes()
     }
 }
 
-std::vector<NumberCube> NumberCubeRow::getNumberCubes()
+std::vector<NumberCube>* NumberCubeRow::getNumberCubes()
 {
-    return numberCubes;
+    return &numberCubes;
 }
 
 

@@ -21,7 +21,7 @@ public:
     void initializeNumberCubeRows();
 
     // Getters
-    std::vector<NumberCubeRow> getNumberCubeRows();
+    std::vector<NumberCubeRow>* getNumberCubeRows();
 
     void highlight();
     void unHighlight();

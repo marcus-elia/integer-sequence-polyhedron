@@ -19,7 +19,7 @@ public:
     void initializeNumberCubes();
 
     // Getters
-    std::vector<NumberCube> getNumberCubes();
+    std::vector<NumberCube>* getNumberCubes();
 
     void highlight();
     void unHighlight();
