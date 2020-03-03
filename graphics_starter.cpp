@@ -14,9 +14,11 @@ using namespace std;
 
 GLdouble width, height;
 int wd;
-glm::vec3 cameraLocation = {2,3,6};
-glm::vec3 up = {0,1,0};
-glm::vec3 target = {0,0,0};
+glm::vec3 cameraLocation;
+glm::vec3 cameraPosition;
+glm::vec3 up;
+glm::vec3 target;
+glm::vec3 mostRecentClick; // debug
 NumberCubePolyhedron ncp;
 NumberCubeRow c;
 
@@ -40,6 +42,21 @@ void init()
 {
     width = 1000;
     height = 600;
+    cameraLocation = {400,300,600};
+    up = {0,1,0};
+    target = {0,0,0};
+    mostRecentClick = {0,0,0};
+    /*glm::mat4 View = glm::lookAt(
+            glm::vec3(2,3,6), // Camera is at (4,3,3), in World Space
+            glm::vec3(0,0,0), // and looks at the origin
+            glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+    );*/
+    glm::mat4 ViewMatrix = glm::translate( glm::vec3(-cameraLocation.x, -cameraLocation.y ,-cameraLocation.z));
+    cameraPosition = glm::inverse(ViewMatrix) * glm::vec4{0, 0, 0, 1};
+    //cameraPosition = {200, 300, 600};
+    cout << cameraPosition.x << endl;
+    cout << cameraPosition.y << endl;
+    cout << cameraPosition.z << endl;
     prevMouseX = 0;
     prevMouseY = 0;
     leftDown = false;
@@ -65,16 +82,13 @@ void initGL()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black and opaque
     glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_MODELVIEW);
+    //glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluLookAt(cameraLocation.x, cameraLocation.y, cameraLocation.z,  // eye position
               target.x, target.y, target.z,  // center position (not gaze direction)
               up.x, up.y, up.z); // up vector
 
-   /* glm::mat4 View = glm::lookAt(
-            glm::vec3(2,3,6), // Camera is at (4,3,3), in World Space
-            glm::vec3(0,0,0), // and looks at the origin
-            glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-    );*/
+
 }
 
 void draw_axes()
@@ -103,12 +117,37 @@ void display()
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-width/2, width/2, -height/2, height/2, -width, width);
-    
+    //glOrtho(-width/2, width/2, -height/2, height/2, -width, width);
+    //glFrustum(	 -200,200,-200,200,100,500);
+    gluPerspective(45, width/height, 100, 1000);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);   // Clear the color buffer with current clearing color
     
     glEnable(GL_DEPTH);
     glPolygonMode(GL_FRONT, GL_FILL);
+
+    glDisable(GL_CULL_FACE);
+    glBegin(GL_QUADS);
+    glColor4f(.5,.2,.7,1);
+    glVertex3f(cameraPosition.x + 5, cameraPosition.y + 5, cameraPosition.z);
+    glVertex3f(cameraPosition.x + 5, cameraPosition.y - 5, cameraPosition.z);
+    glVertex3f(cameraPosition.x - 5, cameraPosition.y - 5, cameraPosition.z);
+    glVertex3f(cameraPosition.x - 5, cameraPosition.y + 5, cameraPosition.z);
+    glEnd();
+    glColor4f(0,1,0,.4);
+    glBegin(GL_TRIANGLE_STRIP);
+    glVertex3f(cameraPosition.x + 5, cameraPosition.y + 5, cameraPosition.z);
+    glVertex3f(cameraPosition.x + mostRecentClick.x*1000, cameraPosition.y + mostRecentClick.y*1000,
+            cameraPosition.z + mostRecentClick.z*1000);
+    glVertex3f(cameraPosition.x + 5, cameraPosition.y - 5, cameraPosition.z);
+    glVertex3f(cameraPosition.x + mostRecentClick.x*1000, cameraPosition.y + mostRecentClick.y*1000,
+               cameraPosition.z + mostRecentClick.z*1000);
+    glVertex3f(cameraPosition.x - 5, cameraPosition.y - 5, cameraPosition.z);
+    glVertex3f(cameraPosition.x + mostRecentClick.x*1000, cameraPosition.y + mostRecentClick.y*1000,
+               cameraPosition.z + mostRecentClick.z*1000);
+    glVertex3f(cameraPosition.x - 5, cameraPosition.y + 5, cameraPosition.z);
+    glVertex3f(cameraPosition.x + mostRecentClick.x*1000, cameraPosition.y + mostRecentClick.y*1000,
+               cameraPosition.z + mostRecentClick.z*1000);
+    glEnd();
     
     /*
      * Draw here
@@ -236,12 +275,19 @@ void mouse(int button, int state, int x, int y)
         {
             leftDown = false;
             glm::vec3 ray = convertPointToRay(x,y);
+            mostRecentClick = ray;
             std::cout << "x: " << x << std::endl;
             std::cout << "y: " << y << std::endl;
             std::cout << ray.x << std::endl;
             std::cout << ray.y << std::endl;
             std::cout << ray.z << std::endl;
-            ncp.getNumberCubeFromClick(ray, cameraLocation);
+            /*cout << mostRecentClick.x*10000 << endl;
+            cout << mostRecentClick.y*10000 << endl;
+            cout << mostRecentClick.z*10000 << endl;
+            cout << cameraPosition.x << endl;
+            cout << cameraPosition.y << endl;
+            cout << cameraPosition.z << endl;*/
+            ncp.getNumberCubeFromClick(ray, cameraPosition);
         }
         else
         {
@@ -399,14 +445,29 @@ std::vector<vector<vector<int>>> readFromFile(std::string filename)
 
 glm::vec3 convertPointToRay(int x, int y)
 {
-    glm::vec3 normalizedDeviceCoordinates = glm::vec3(2.0*x / width - 1, 1 - 2.0*y/height, 1);
+    /*glm::vec3 normalizedDeviceCoordinates = glm::vec3(2.0*x / width - 1, 1 - 2.0*y/height, 1);
     glm::vec4 homogeneousClipCoordinates = {normalizedDeviceCoordinates.x, normalizedDeviceCoordinates.y, -1, 1};
     glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(45.0f),
-                                                  (float) width / (float)height, 0.1f, 100.0f);
+                                                  (float) width / (float)height, 100.0f, 1000.0f);
+    //glm::mat4 ProjectionMatrix = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f);
     glm::vec4 eyeCoordinates = glm::inverse(ProjectionMatrix) * homogeneousClipCoordinates;
     eyeCoordinates = glm::vec4(eyeCoordinates.x, eyeCoordinates.y, -1.0, 0.0);
     glm::mat4 ViewMatrix = glm::translate( glm::vec3(-cameraLocation.x, -cameraLocation.y ,-cameraLocation.z));
     glm::vec3 worldCoordinates = glm::inverse(ViewMatrix) * eyeCoordinates;
     worldCoordinates = glm::normalize(worldCoordinates);
-    return worldCoordinates;
+    return worldCoordinates;*/
+    GLdouble m_start[3];
+    GLdouble m_end[3];
+    double matModelView[16], matProjection[16];
+    int viewport[4];
+    glGetDoublev( GL_MODELVIEW_MATRIX, matModelView );
+    glGetDoublev( GL_PROJECTION_MATRIX, matProjection );
+    glGetIntegerv( GL_VIEWPORT, viewport );
+    double winX = (double)x;
+    double winY = viewport[3] - (double)y;
+    gluUnProject(winX, winY, 0.0, matModelView, matProjection,
+                 viewport, &m_start[0], &m_start[1], &m_start[2]);
+    gluUnProject(winX, winY, 1.0, matModelView, matProjection,
+                 viewport, &m_end[0], &m_end[1], &m_end[2]);
+    return glm::normalize(glm::vec3{m_end[0] - m_start[0], m_end[1] - m_start[1], m_end[2] - m_start[2]});
 }
