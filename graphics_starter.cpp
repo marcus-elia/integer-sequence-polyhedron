@@ -119,13 +119,13 @@ void display()
     glLoadIdentity();
     //glOrtho(-width/2, width/2, -height/2, height/2, -width, width);
     //glFrustum(	 -200,200,-200,200,100,500);
-    gluPerspective(45, width/height, 100, 1000);
+    gluPerspective(45, width/height, 50, 2000);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);   // Clear the color buffer with current clearing color
     
     glEnable(GL_DEPTH);
     glPolygonMode(GL_FRONT, GL_FILL);
 
-    glDisable(GL_CULL_FACE);
+    /*glDisable(GL_CULL_FACE);
     glBegin(GL_QUADS);
     glColor4f(.5,.2,.7,1);
     glVertex3f(cameraPosition.x + 5, cameraPosition.y + 5, cameraPosition.z);
@@ -147,7 +147,7 @@ void display()
     glVertex3f(cameraPosition.x - 5, cameraPosition.y + 5, cameraPosition.z);
     glVertex3f(cameraPosition.x + mostRecentClick.x*1000, cameraPosition.y + mostRecentClick.y*1000,
                cameraPosition.z + mostRecentClick.z*1000);
-    glEnd();
+    glEnd();*/
     
     /*
      * Draw here
@@ -276,11 +276,11 @@ void mouse(int button, int state, int x, int y)
             leftDown = false;
             glm::vec3 ray = convertPointToRay(x,y);
             mostRecentClick = ray;
-            std::cout << "x: " << x << std::endl;
+            /*std::cout << "x: " << x << std::endl;
             std::cout << "y: " << y << std::endl;
             std::cout << ray.x << std::endl;
             std::cout << ray.y << std::endl;
-            std::cout << ray.z << std::endl;
+            std::cout << ray.z << std::endl;*/
             /*cout << mostRecentClick.x*10000 << endl;
             cout << mostRecentClick.y*10000 << endl;
             cout << mostRecentClick.z*10000 << endl;
@@ -456,6 +456,8 @@ glm::vec3 convertPointToRay(int x, int y)
     glm::vec3 worldCoordinates = glm::inverse(ViewMatrix) * eyeCoordinates;
     worldCoordinates = glm::normalize(worldCoordinates);
     return worldCoordinates;*/
+
+    // Code from https://www.bfilipek.com/2012/06/select-mouse-opengl.html
     GLdouble m_start[3];
     GLdouble m_end[3];
     double matModelView[16], matProjection[16];
