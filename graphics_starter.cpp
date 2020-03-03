@@ -7,12 +7,18 @@
 #include "numberCubePolyhedron.h"
 #include <iostream>
 #include <fstream>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 using namespace std;
 
 GLdouble width, height;
 int wd;
+glm::vec3 cameraLocation = {2,3,6};
+glm::vec3 up = {0,1,0};
+glm::vec3 target = {0,0,0};
 NumberCubePolyhedron ncp;
+NumberCubeRow c;
 
 // Mouse variables
 int prevMouseX, prevMouseY;  // need prev locations for click/drag
@@ -28,6 +34,8 @@ std::vector<int> stringToVector(std::string line);
 
 std::vector<vector<vector<int>>> readFromFile(std::string filename);
 
+glm::vec3 convertPointToRay(int x, int y);
+
 void init()
 {
     width = 1000;
@@ -38,7 +46,11 @@ void init()
     rightDown = false;
     std::string filename = getFilename();
     std::vector<vector<vector<int>>> data = readFromFile(filename);
-    ncp = NumberCubePolyhedron({0,0,0}, {0,.2,.8,.5}, {1,1,1,1}, 50, data, {0.4,0.6,1,1});
+    point p = {0,0,0};
+    c = NumberCubeRow({0,0,0},{1,0,1,.5},{1,0,0,.5},p, 50, {1,1,1,1},{.4,.6,1,1},{1,.4,.6,1},{10,11});
+    ncp = NumberCubePolyhedron({0,0,0}, {0,.2,.8,.5},
+            {1, 0, 0, .5}, 50, {1,1,1,1},
+            {0.4,0.6,1,1}, {1, 0.4, 0.6, 1}, data);
 }
 
 /* Initialize OpenGL Graphics */
@@ -54,9 +66,15 @@ void initGL()
     glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(2.0, 3.0, 6.0,  // eye position
-              0.0, 0.0, 0.0,  // center position (not gaze direction)
-              0.0, 1.0, 0.0); // up vector
+    gluLookAt(cameraLocation.x, cameraLocation.y, cameraLocation.z,  // eye position
+              target.x, target.y, target.z,  // center position (not gaze direction)
+              up.x, up.y, up.z); // up vector
+
+   /* glm::mat4 View = glm::lookAt(
+            glm::vec3(2,3,6), // Camera is at (4,3,3), in World Space
+            glm::vec3(0,0,0), // and looks at the origin
+            glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+    );*/
 }
 
 void draw_axes()
@@ -217,6 +235,13 @@ void mouse(int button, int state, int x, int y)
         if(state == GLUT_UP)
         {
             leftDown = false;
+            glm::vec3 ray = convertPointToRay(x,y);
+            std::cout << "x: " << x << std::endl;
+            std::cout << "y: " << y << std::endl;
+            std::cout << ray.x << std::endl;
+            std::cout << ray.y << std::endl;
+            std::cout << ray.z << std::endl;
+            ncp.getNumberCubeFromClick(ray, cameraLocation);
         }
         else
         {
@@ -370,4 +395,18 @@ std::vector<vector<vector<int>>> readFromFile(std::string filename)
         polyhedronVector.push_back(currentTable);
     }
     return polyhedronVector;
+}
+
+glm::vec3 convertPointToRay(int x, int y)
+{
+    glm::vec3 normalizedDeviceCoordinates = glm::vec3(2.0*x / width - 1, 1 - 2.0*y/height, 1);
+    glm::vec4 homogeneousClipCoordinates = {normalizedDeviceCoordinates.x, normalizedDeviceCoordinates.y, -1, 1};
+    glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(45.0f),
+                                                  (float) width / (float)height, 0.1f, 100.0f);
+    glm::vec4 eyeCoordinates = glm::inverse(ProjectionMatrix) * homogeneousClipCoordinates;
+    eyeCoordinates = glm::vec4(eyeCoordinates.x, eyeCoordinates.y, -1.0, 0.0);
+    glm::mat4 ViewMatrix = glm::translate( glm::vec3(-cameraLocation.x, -cameraLocation.y ,-cameraLocation.z));
+    glm::vec3 worldCoordinates = glm::inverse(ViewMatrix) * eyeCoordinates;
+    worldCoordinates = glm::normalize(worldCoordinates);
+    return worldCoordinates;
 }
