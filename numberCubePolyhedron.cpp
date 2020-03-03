@@ -115,3 +115,30 @@ void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
         nct.rotateAroundOwner(thetaX, thetaY, thetaZ);
     }
 }
+
+void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
+{
+
+}
+std::shared_ptr<NumberCube> NumberCubePolyhedron::getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc)
+{
+    double deltaT = 1;
+    for(int t = 0; t < 1000; t += deltaT)
+    {
+        cameraLoc = {cameraLoc.x + deltaT*ray.x, cameraLoc.y + deltaT*ray.y, cameraLoc.z + deltaT*ray.z};
+        for(NumberCubeTable &nct : numberCubeTables)
+        {
+            for(NumberCubeRow &ncr : nct.getNumberCubeRows())
+            {
+                for(NumberCube &nc : ncr.getNumberCubes())
+                {
+                    if(nc.getDigitalNumber().containsPoint(cameraLoc))
+                    {
+                        nc.highlight();
+                    }
+                }
+            }
+        }
+    }
+    return std::shared_ptr<NumberCube>();
+}
