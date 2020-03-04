@@ -3,7 +3,7 @@
 
 #include "drawableObject.h"
 
-enum TableAlignment {Center, TopLeft, TopRight, BottomLeft, BottomRight};
+enum TableAlignment {Center, TopLeft, TopRight, BottomLeft, BottomRight, NullAlignment};
 
 class CubeContainer
 {
