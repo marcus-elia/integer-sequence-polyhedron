@@ -24,7 +24,8 @@ NumberCubeRow c;
 
 // Mouse variables
 int prevMouseX, prevMouseY;  // need prev locations for click/drag
-boolean leftDown, rightDown; // which button is held down
+bool leftDown, rightDown; // which button is held down
+bool isClickDragging;
 
 // Prompts the user to enter a filename. If the filename is not
 // valid or does not end with .txt, then "triangles.txt" is returned.
@@ -61,6 +62,7 @@ void init()
     prevMouseY = 0;
     leftDown = false;
     rightDown = false;
+    isClickDragging = false;
     std::string filename = getFilename();
     std::vector<vector<vector<int>>> data = readFromFile(filename);
     point p = {0,0,0};
@@ -245,6 +247,8 @@ void clickDrag(int x, int y)
         // Up/Down means rotate around x-axis
         double theta_x = PI/100 * sin(theta);
         ncp.rotate(theta_x, -theta_y, 0);
+
+        isClickDragging = true;
     }
     if(rightDown)
     {
@@ -258,6 +262,8 @@ void clickDrag(int x, int y)
         {
             ncp.rotate(0, -theta_y, -(x/abs(x))*theta_z);
         }
+
+        isClickDragging = true;
     }
 
 
@@ -273,9 +279,13 @@ void mouse(int button, int state, int x, int y)
     {
         if(state == GLUT_UP)
         {
-            leftDown = false;
-            glm::vec3 ray = convertPointToRay(x,y);
-            mostRecentClick = ray;
+            // if it's not the end of a click/drag, then check for the click on a cube
+            if(!isClickDragging)
+            {
+                glm::vec3 ray = convertPointToRay(x,y);
+                mostRecentClick = ray;
+                ncp.getNumberCubeFromClick(ray, cameraPosition);
+            }
             /*std::cout << "x: " << x << std::endl;
             std::cout << "y: " << y << std::endl;
             std::cout << ray.x << std::endl;
@@ -287,7 +297,8 @@ void mouse(int button, int state, int x, int y)
             cout << cameraPosition.x << endl;
             cout << cameraPosition.y << endl;
             cout << cameraPosition.z << endl;*/
-            ncp.getNumberCubeFromClick(ray, cameraPosition);
+            leftDown = false;
+            isClickDragging = false;
         }
         else
         {
@@ -299,6 +310,7 @@ void mouse(int button, int state, int x, int y)
         if(state == GLUT_UP)
         {
             rightDown = false;
+            isClickDragging = false;
         }
         else
         {
