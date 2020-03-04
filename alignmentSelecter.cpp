@@ -32,19 +32,19 @@ std::experimental::optional<TableAlignment> AlignmentSelecter::getAlignmentFromP
         double theta = angleToPoint(x, y, mx, my);
         if(theta < -PI/2)
         {
-            return TopLeft;
+            return BottomLeft;
         }
         else if(theta < 0)
         {
-            return BottomLeft;
+            return BottomRight;
         }
         else if(theta < PI/2)
         {
-            return BottomRight;
+            return TopRight;
         }
         else
         {
-            return TopRight;
+            return TopLeft;
         }
     }
     return std::experimental::nullopt;
