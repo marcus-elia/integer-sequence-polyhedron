@@ -13,13 +13,51 @@ AlignmentSelecter::AlignmentSelecter()
     numPoints = 32;
 }
 
+std::experimental::optional<TableAlignment> AlignmentSelecter::getAlignmentFromPosition(int mx, int my)
+{
+    // If the position is completely outside the square of the selecter
+    if(mx > x + width/2 || mx < x - width/2 || my > y + width/2 || my < y - width/2)
+    {
+        return std::experimental::nullopt;
+    }
+    // If it's in the center circle
+    else if(distance(x, y, mx, my) <= width/4)
+    {
+        return Center;
+    }
+
+    // If it's in a corner
+    else if(distance(x, y, mx, my) >= width/3)
+    {
+        double theta = angleToPoint(x, y, mx, my);
+        if(theta < -PI/2)
+        {
+            return TopLeft;
+        }
+        else if(theta < 0)
+        {
+            return BottomLeft;
+        }
+        else if(theta < PI/2)
+        {
+            return BottomRight;
+        }
+        else
+        {
+            return TopRight;
+        }
+    }
+    return std::experimental::nullopt;
+}
 
 std::experimental::optional<TableAlignment> AlignmentSelecter::reactToMouseMovement(int mx, int my)
 {
     if(mx > x + width/2 || mx < x - width/2 || my > y + width/2 || my < y - width/2)
     {
+        hovered = std::experimental::nullopt;
         return std::experimental::nullopt;
     }
+
 }
 
 
@@ -36,7 +74,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered == Center)
+    else if(hovered.value() == Center)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -61,7 +99,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered == BottomLeft)
+    else if(hovered.value() == BottomLeft)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -88,7 +126,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered == BottomRight)
+    else if(hovered.value() == BottomRight)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -115,7 +153,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered == TopRight)
+    else if(hovered.value() == TopRight)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -164,4 +202,15 @@ void AlignmentSelecter::draw() const
     glVertex3f(x - width/2, y, 0.0f);
     glEnd();
 
+}
+
+// Euclidean distance
+double distance(double x1, double y1, double x2, double y2)
+{
+    return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+}
+
+double angleToPoint(double x1, double y1, double x2, double y2)
+{
+    return atan2(y2 - y1, x2 - x1);
 }
