@@ -250,10 +250,10 @@ void kbdS(int key, int x, int y)
 
 void cursor(int x, int y)
 {
-    
     glutPostRedisplay();
     prevMouseX = x;
     prevMouseY = y;
+    selecter.reactToMouseMovement(x,height-y);
 }
 
 void clickDrag(int x, int y)
@@ -322,6 +322,8 @@ void mouse(int button, int state, int x, int y)
             cout << cameraPosition.z << endl;*/
             leftDown = false;
             isClickDragging = false;
+
+            selecter.reactToClick(x, height-y);
         }
         else
         {
