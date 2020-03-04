@@ -5,6 +5,7 @@
 #include "cube.h"
 #include <cmath>
 #include "numberCubePolyhedron.h"
+#include "alignmentSelecter.h"
 #include <iostream>
 #include <fstream>
 #include <glm/gtc/matrix_transform.hpp>
@@ -21,6 +22,7 @@ glm::vec3 target;
 glm::vec3 mostRecentClick; // debug
 NumberCubePolyhedron ncp;
 NumberCubeRow c;
+AlignmentSelecter selecter;
 
 // Mouse variables
 int prevMouseX, prevMouseY;  // need prev locations for click/drag
@@ -117,6 +119,9 @@ void display()
     // tell OpenGL to use the whole window for drawing
     glViewport(0, 0, width, height);
 
+
+
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     //glOrtho(-width/2, width/2, -height/2, height/2, -width, width);
@@ -156,6 +161,7 @@ void display()
      */
     draw_axes();
 
+
     glDisable(GL_CULL_FACE);
     //testNum.draw();
 
@@ -163,6 +169,23 @@ void display()
     //c.draw();
     //ncr.draw();
     ncp.draw();
+
+    // Switch to 2d mode
+    // Code from https://www.youtube.com/watch?v=i1mp4zflkYo
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    gluOrtho2D(0.0,width,0.0,height);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    selecter.draw();
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
     
     glFlush();  // Render now
 }
