@@ -91,7 +91,7 @@ bool DigitalNumber::containsPoint(glm::vec3 point) const
 {
     return point.x < bgCorners[0].x && point.x > bgCorners[2].x &&
            point.y < bgCorners[0].y && point.y > bgCorners[1].y &&
-           point.z < center.z + 1 && point.z > center.z - 1;
+           point.z < center.z + 20 && point.z > center.z - 20;
 }
 
 void DigitalNumber::draw() const
