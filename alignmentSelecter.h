@@ -19,10 +19,14 @@ private:
     int width;
     RGBAcolor color;
     RGBAcolor selectedColor;
+    RGBAcolor hoverColor;
     TableAlignment selected;
+    std::experimental::optional<TableAlignment> hovered;
     int numPoints;   // how fine/coarse the circle is
 public:
     AlignmentSelecter();
+
+    std::experimental::optional<TableAlignment> reactToMouseMovement(int mx, int my);
 
     std::experimental::optional<TableAlignment> reactToClick(int mx, int my);
 

@@ -7,9 +7,22 @@ AlignmentSelecter::AlignmentSelecter()
     width = 96;
     color = {0,0,.8,.8};
     selectedColor = {0,1,0.3,.7};
+    hoverColor = {0,0,.8,.4};
     selected = Center;
+    hovered = std::experimental::nullopt;
     numPoints = 32;
 }
+
+
+std::experimental::optional<TableAlignment> AlignmentSelecter::reactToMouseMovement(int mx, int my)
+{
+    if(mx > x + width/2 || mx < x - width/2 || my > y + width/2 || my < y - width/2)
+    {
+        return std::experimental::nullopt;
+    }
+}
+
+
 
 
 void AlignmentSelecter::draw() const
@@ -22,6 +35,10 @@ void AlignmentSelecter::draw() const
     if(selected == Center)
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
+    }
+    else if(hovered == Center)
+    {
+        glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
     else
     {
@@ -43,6 +60,10 @@ void AlignmentSelecter::draw() const
     if(selected == BottomLeft)
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
+    }
+    else if(hovered == BottomLeft)
+    {
+        glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
     else
     {
@@ -67,6 +88,10 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
+    else if(hovered == BottomRight)
+    {
+        glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
+    }
     else
     {
         glColor4f(color.r, color.g, color.b, color.a);
@@ -90,6 +115,10 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
+    else if(hovered == TopRight)
+    {
+        glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
+    }
     else
     {
         glColor4f(color.r, color.g, color.b, color.a);
@@ -112,6 +141,10 @@ void AlignmentSelecter::draw() const
     if(selected == TopLeft)
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
+    }
+    else if(hovered == TopLeft)
+    {
+        glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
     else
     {
