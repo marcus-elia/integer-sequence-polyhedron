@@ -52,14 +52,15 @@ std::experimental::optional<TableAlignment> AlignmentSelecter::getAlignmentFromP
 
 std::experimental::optional<TableAlignment> AlignmentSelecter::reactToMouseMovement(int mx, int my)
 {
-    if(mx > x + width/2 || mx < x - width/2 || my > y + width/2 || my < y - width/2)
-    {
-        hovered = std::experimental::nullopt;
-        return std::experimental::nullopt;
-    }
-
+    hovered = getAlignmentFromPosition(mx, my);
+    return hovered;
 }
 
+std::experimental::optional<TableAlignment> AlignmentSelecter::reactToClick(int mx, int my)
+{
+    selected = getAlignmentFromPosition(mx, my);
+    return selected;
+}
 
 
 
