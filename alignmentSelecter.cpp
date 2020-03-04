@@ -79,7 +79,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered.value() == Center)
+    else if(hovered.value_or(NullAlignment) == Center)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -104,7 +104,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered.value() == BottomLeft)
+    else if(hovered.value_or(NullAlignment) == BottomLeft)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -131,7 +131,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered.value() == BottomRight)
+    else if(hovered.value_or(NullAlignment) == BottomRight)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -158,7 +158,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered.value() == TopRight)
+    else if(hovered.value_or(NullAlignment) == TopRight)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
@@ -185,7 +185,7 @@ void AlignmentSelecter::draw() const
     {
         glColor4f(selectedColor.r, selectedColor.g, selectedColor.b, selectedColor.a);
     }
-    else if(hovered == TopLeft)
+    else if(hovered.value_or(NullAlignment) == TopLeft)
     {
         glColor4f(hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a);
     }
