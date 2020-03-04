@@ -13,6 +13,7 @@ private:
     std::vector<std::vector<std::vector<int>>> vectorOfVectorsOfNumbers;
     std::vector<NumberCubeTable> numberCubeTables;
     statusOfHighlights highlightStatus;
+    TableAlignment alignment;
 public:
     NumberCubePolyhedron();
     NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -22,6 +23,12 @@ public:
 
 
     void initializeNumberCubeTables();
+
+    // Getters
+    TableAlignment getAlignment() const;
+
+    // Setters
+    void setAlignment(TableAlignment input);
 
     void highlight();
     void unHighlight();

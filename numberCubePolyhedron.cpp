@@ -6,6 +6,7 @@ NumberCubePolyhedron::NumberCubePolyhedron() : DrawableObject(), CubeContainer()
 {
     vectorOfVectorsOfNumbers = {{{1,2},{3,4}},{{5,6},{7,8}}};
     highlightStatus = noneHighlighted;
+    alignment = Center;
     initializeNumberCubeTables();
 }
 NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -18,6 +19,7 @@ NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputCol
 {
     vectorOfVectorsOfNumbers = std::move(inputVectorOfVectorsOfNumbers);
     highlightStatus = noneHighlighted;
+    alignment = Center;
     initializeNumberCubeTables();
 }
 
@@ -44,6 +46,18 @@ void NumberCubePolyhedron::initializeNumberCubeTables()
         curCenterZ += edgeLength;
         curCenterZ += gapSize;
     }
+}
+
+// Getters
+TableAlignment NumberCubePolyhedron::getAlignment() const
+{
+    return alignment;
+}
+
+// Setters
+void NumberCubePolyhedron::setAlignment(TableAlignment input)
+{
+    alignment = input;
 }
 
 
