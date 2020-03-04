@@ -5,6 +5,7 @@
 NumberCubeTable::NumberCubeTable() : DrawableComponent(), CubeContainer()
 {
     vectorsOfNumbers = std::vector<std::vector<int>>{{1,341,5},{2000,2,99},{0,40,4040}};
+    alignment = Center;
     initializeNumberCubeRows();
 }
 NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -20,6 +21,7 @@ NumberCubeTable::NumberCubeTable(point inputCenter, RGBAcolor inputColor, RGBAco
     edgeColor = inputEdgeColor;
     edgeLength = inputEdgeLength;
     numberColor = inputNumberColor;
+    alignment = Center;
     initializeNumberCubeRows();
 }
 
@@ -47,10 +49,26 @@ void NumberCubeTable::initializeNumberCubeRows()
     }
 }
 
+// Update the positions of the tables when a new alignment is set
+void NumberCubeTable::updateNumberCubeRows()
+{
+
+}
+
 
 std::vector<NumberCubeRow>* NumberCubeTable::getNumberCubeRows()
 {
     return &numberCubeRows;
+}
+TableAlignment NumberCubeTable::getAlignment() const
+{
+    return alignment;
+}
+
+// Setters
+void NumberCubeTable::setAlignment(TableAlignment input)
+{
+    alignment = input;
 }
 
 

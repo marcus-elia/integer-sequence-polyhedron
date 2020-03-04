@@ -11,6 +11,7 @@ private:
     unsigned int edgeLength;
     RGBAcolor edgeColor;
     RGBAcolor numberColor;
+    TableAlignment alignment;
 public:
     NumberCubeTable();
     NumberCubeTable(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
@@ -19,9 +20,14 @@ public:
                     std::vector<std::vector<int>> inputVectorsOfNumbers);
 
     void initializeNumberCubeRows();
+    void updateNumberCubeRows();
 
     // Getters
     std::vector<NumberCubeRow>* getNumberCubeRows();
+    TableAlignment getAlignment() const;
+
+    // Setters
+    void setAlignment(TableAlignment input);
 
     void highlight();
     void unHighlight();
