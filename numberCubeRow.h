@@ -10,6 +10,7 @@ class NumberCubeRow : public CubeContainer, public DrawableComponent
 private:
     std::vector<int> numbers;
     std::vector<NumberCube> numberCubes;
+    TableAlignment alignment;
 public:
     NumberCubeRow();
     NumberCubeRow(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
@@ -17,9 +18,14 @@ public:
             std::vector<int> inputNumbers);
 
     void initializeNumberCubes();
+    void updateNumberCubes();
 
     // Getters
     std::vector<NumberCube>* getNumberCubes();
+    TableAlignment getAlignment() const;
+
+    // Setters
+    void setAlignment(TableAlignment input);
 
     void highlight();
     void unHighlight();

@@ -40,10 +40,33 @@ void NumberCubeRow::initializeNumberCubes()
     }
 }
 
+// Move the Cubes to conform with the TableAlignment
+void NumberCubeRow::updateNumberCubes()
+{
+
+}
+
+
+
+
+
 std::vector<NumberCube>* NumberCubeRow::getNumberCubes()
 {
     return &numberCubes;
 }
+
+TableAlignment NumberCubeRow::getAlignment() const
+{
+    return alignment;
+}
+
+// Setters
+void NumberCubeRow::setAlignment(TableAlignment input)
+{
+    alignment = input;
+}
+
+
 
 
 void NumberCubeRow::highlight()
