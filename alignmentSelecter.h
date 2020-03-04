@@ -20,6 +20,7 @@ private:
     RGBAcolor color;
     RGBAcolor selectedColor;
     TableAlignment selected;
+    int numPoints;   // how fine/coarse the circle is
 public:
     AlignmentSelecter();
 

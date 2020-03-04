@@ -8,6 +8,7 @@ AlignmentSelecter::AlignmentSelecter()
     color = {0,0,1,1};
     selectedColor = {1,0,0,1};
     selected = Center;
+    numPoints = 32;
 }
 
 
@@ -26,12 +27,12 @@ void AlignmentSelecter::draw() const
     }
     glBegin(GL_TRIANGLE_FAN);
     curTheta = 0;
-    for(int i = 0; i < 30 + 2; i++)
+    for(int i = 0; i < numPoints + 2; i++)
     {
         curX = x + width/2*std::cos(curTheta);
         curY = y + width/2*std::sin(curTheta);
-        curTheta += 2*3.14159/30;
-        glVertex2f(curX, curY);
+        curTheta += 2*3.14159/numPoints;
+        glVertex3f(curX, curY, 0.0f);
     }
     glEnd();
 }
