@@ -2,12 +2,12 @@
 
 AlignmentSelecter::AlignmentSelecter()
 {
-    x = 108;
-    y = 108;
+    x = 96;
+    y = 96;
     width = 96;
-    color = {0,0,.8,.8};
-    selectedColor = {0,1,0.3,.7};
-    hoverColor = {0,0,.8,.4};
+    color = {.6,0,.1,.9};
+    selectedColor = {.8,.8,0.1,1};
+    hoverColor = {.8,0,0,.4};
     selected = Center;
     hovered = std::experimental::nullopt;
     numPoints = 32;
