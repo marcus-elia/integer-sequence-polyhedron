@@ -30,9 +30,14 @@ public:
     // TableAlignment whose button is at that position, or nullopt if none
     std::experimental::optional<TableAlignment> getAlignmentFromPosition(int mx, int my);
 
+    // Sets the highlighted alignment based on where the mouse has moved to. If the mouse is
+    // not hovering over a button, then this sets it to nullopt. The new hovered
+    // alignment is returned as an optional.
     std::experimental::optional<TableAlignment> reactToMouseMovement(int mx, int my);
 
-    std::experimental::optional<TableAlignment> reactToClick(int mx, int my);
+    // This updates the selected alignment and returns the currently selected alignment. It
+    // does not return an optional, since one button is always selected.
+    TableAlignment reactToClick(int mx, int my);
 
     void draw() const;
 };

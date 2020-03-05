@@ -56,14 +56,14 @@ std::experimental::optional<TableAlignment> AlignmentSelecter::reactToMouseMovem
     return hovered;
 }
 
-std::experimental::optional<TableAlignment> AlignmentSelecter::reactToClick(int mx, int my)
+TableAlignment AlignmentSelecter::reactToClick(int mx, int my)
 {
     std::experimental::optional<TableAlignment> clicked = getAlignmentFromPosition(mx, my);
     if(clicked)
     {
         selected = clicked.value();
     }
-    return clicked;
+    return selected;
 }
 
 
