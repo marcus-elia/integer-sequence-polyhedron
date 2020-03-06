@@ -14,6 +14,7 @@ private:
     std::vector<NumberCubeTable> numberCubeTables;
     statusOfHighlights highlightStatus;
     TableAlignment alignment;
+    point angle; // Keep track of how it has rotated
 public:
     NumberCubePolyhedron();
     NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -29,6 +30,9 @@ public:
 
     // Setters
     void setAlignment(TableAlignment input);
+
+    // Make it so that this is facing the camera again
+    void resetRotation();
 
     void highlight();
     void unHighlight();

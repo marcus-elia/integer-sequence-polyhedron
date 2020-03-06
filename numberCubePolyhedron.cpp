@@ -7,6 +7,7 @@ NumberCubePolyhedron::NumberCubePolyhedron() : DrawableObject(), CubeContainer()
     vectorOfVectorsOfNumbers = {{{1,2},{3,4}},{{5,6},{7,8}}};
     highlightStatus = noneHighlighted;
     alignment = Center;
+    angle = {0,0,0};
     initializeNumberCubeTables();
 }
 NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -20,6 +21,7 @@ NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputCol
     vectorOfVectorsOfNumbers = std::move(inputVectorOfVectorsOfNumbers);
     highlightStatus = noneHighlighted;
     alignment = Center;
+    angle = {0,0,0};
     initializeNumberCubeTables();
 }
 
@@ -58,6 +60,10 @@ TableAlignment NumberCubePolyhedron::getAlignment() const
 void NumberCubePolyhedron::setAlignment(TableAlignment input)
 {
     alignment = input;
+}
+void NumberCubePolyhedron::resetRotation()
+{
+    rotate(-angle.x, -angle.y, -angle.z);
 }
 
 
@@ -128,6 +134,7 @@ void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
     {
         nct.rotateAroundOwner(thetaX, thetaY, thetaZ);
     }
+    angle = {angle.x + thetaX, angle.y + thetaY, angle.z + thetaZ};
 }
 
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
