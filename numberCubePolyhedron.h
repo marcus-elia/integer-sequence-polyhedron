@@ -15,7 +15,6 @@ private:
     statusOfHighlights highlightStatus;
     TableAlignment alignment;
     point angle;
-    std::vector<point> rotationHistory; // Keep track of how it has rotated
 
     // The forward vector and right vector. These will tell us how to undo a rotation
     point forwardCartesian, forwardSpherical;

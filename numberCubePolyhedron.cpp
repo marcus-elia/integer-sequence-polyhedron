@@ -69,16 +69,8 @@ void NumberCubePolyhedron::setAlignment(TableAlignment input)
 {
     alignment = input;
 }
-void NumberCubePolyhedron::resetRotation(bool forget)
+void NumberCubePolyhedron::resetRotation()
 {
-    /*for(int i = rotationHistory.size()-1; i > -1; i--)
-    {
-        rotate(-rotationHistory[i].x, -rotationHistory[i].y, -rotationHistory[i].z);
-    }
-    if(forget) // delete the history if we are not undoing this
-    {
-        rotationHistory = std::vector<point>();
-    }*/
     // Rotate around z-axis, which puts the forward vector into the xz-plane
     if(forwardSpherical.y != 0)
     {
@@ -87,7 +79,7 @@ void NumberCubePolyhedron::resetRotation(bool forget)
     // Next, rotate around the y-axis to put forward facing the correct direction
     if(forwardSpherical.z != 0)
     {
-        rotate(0, -forwardSpherical.z, 0);
+        rotate(0, forwardSpherical.z, 0);
     }
     if(rightSpherical.y != PI)
     {
@@ -121,6 +113,17 @@ void NumberCubePolyhedron::draw() const
     drawNumbers();
     glEnable(GL_CULL_FACE);
     drawFaces();
+
+    /*glColor4f(1,0,1,1);
+    glBegin(GL_LINES);
+    glVertex3f(center.x, center.y, center.z);
+    glVertex3f(center.x + 300*forwardCartesian.x, center.y + 300*forwardCartesian.y, center.z + 300*forwardCartesian.z);
+    glEnd();
+    glColor4f(0,.8,.4,1);
+    glBegin(GL_LINES);
+    glVertex3f(center.x, center.y, center.z);
+    glVertex3f(center.x + 300*rightCartesian.x, center.y + 300*rightCartesian.y, center.z + 300*rightCartesian.z);
+    glEnd();*/
 }
 
 void NumberCubePolyhedron::drawLines() const
@@ -165,9 +168,6 @@ void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
     }
     angle = {angle.x + thetaX, angle.y + thetaY, angle.z + thetaZ};
 
-    // Add the rotation to the stack.
-    rotationHistory.push_back({thetaX, thetaY, thetaZ});
-
     rotatePointAroundPoint(forwardCartesian, point{0,0,0}, thetaX, thetaY, thetaZ);
     rotatePointAroundPoint(rightCartesian, point{0,0,0}, thetaX, thetaY, thetaZ);
     forwardSpherical = cartesianToSpherical(forwardCartesian);
@@ -211,5 +211,14 @@ std::shared_ptr<NumberCube> NumberCubePolyhedron::getNumberCubeFromClick(glm::ve
 
 point cartesianToSpherical(point &p)
 {
+    // handle floating precision error
+    if(p.z > 1)
+    {
+        return {1, atan2(p.y, p.x), 0};
+    }
+    else if(p.z < -1)
+    {
+        return {1, atan2(p.y, p.x), PI};
+    }
     return {1, atan2(p.y, p.x), acos(p.z)};
 }
