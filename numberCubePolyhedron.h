@@ -36,7 +36,7 @@ public:
     void setAlignment(TableAlignment input);
 
     // Make it so that this is facing the camera again
-    void resetRotation(bool forget);
+    void resetRotation();
 
     void highlight();
     void unHighlight();
