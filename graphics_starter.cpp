@@ -209,6 +209,8 @@ void kbd(unsigned char key, int x, int y)
             break;
         case '3': ncp.rotate(0, 0, PI / 100.0);
             break;
+        case 'q': ncp.resetRotation();
+            break;
         // Moving around
         case 'a': ncp.move(-5, 0, 0);
             break;
