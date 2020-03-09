@@ -8,6 +8,10 @@ NumberCubePolyhedron::NumberCubePolyhedron() : DrawableObject(), CubeContainer()
     highlightStatus = noneHighlighted;
     alignment = Center;
     angle = {0,0,0};
+    forwardCartesian = {0,0,1};
+    forwardSpherical = {1, 0, 0};
+    rightCartesian = {-1, 0, 0};
+    rightSpherical = {1, PI, 0};
     initializeNumberCubeTables();
 }
 NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -22,6 +26,10 @@ NumberCubePolyhedron::NumberCubePolyhedron(point inputCenter, RGBAcolor inputCol
     highlightStatus = noneHighlighted;
     alignment = Center;
     angle = {0,0,0};
+    forwardCartesian = {0,0,1};
+    forwardSpherical = {1, 0, 0};
+    rightCartesian = {-1, 0, 0};
+    rightSpherical = {1, PI, 0};
     initializeNumberCubeTables();
 }
 
@@ -61,9 +69,30 @@ void NumberCubePolyhedron::setAlignment(TableAlignment input)
 {
     alignment = input;
 }
-void NumberCubePolyhedron::resetRotation()
+void NumberCubePolyhedron::resetRotation(bool forget)
 {
-    rotate(-angle.x, -angle.y, -angle.z);
+    /*for(int i = rotationHistory.size()-1; i > -1; i--)
+    {
+        rotate(-rotationHistory[i].x, -rotationHistory[i].y, -rotationHistory[i].z);
+    }
+    if(forget) // delete the history if we are not undoing this
+    {
+        rotationHistory = std::vector<point>();
+    }*/
+    // Rotate around z-axis, which puts the forward vector into the xz-plane
+    if(forwardSpherical.y != 0)
+    {
+        rotate(0, 0, -forwardSpherical.y);
+    }
+    // Next, rotate around the y-axis to put forward facing the correct direction
+    if(forwardSpherical.z != 0)
+    {
+        rotate(0, -forwardSpherical.z, 0);
+    }
+    if(rightSpherical.y != PI)
+    {
+        rotate(0, 0, PI - rightSpherical.y);
+    }
 }
 
 
@@ -135,6 +164,14 @@ void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
         nct.rotateAroundOwner(thetaX, thetaY, thetaZ);
     }
     angle = {angle.x + thetaX, angle.y + thetaY, angle.z + thetaZ};
+
+    // Add the rotation to the stack.
+    rotationHistory.push_back({thetaX, thetaY, thetaZ});
+
+    rotatePointAroundPoint(forwardCartesian, point{0,0,0}, thetaX, thetaY, thetaZ);
+    rotatePointAroundPoint(rightCartesian, point{0,0,0}, thetaX, thetaY, thetaZ);
+    forwardSpherical = cartesianToSpherical(forwardCartesian);
+    rightSpherical = cartesianToSpherical(rightCartesian);
 }
 
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
@@ -170,4 +207,9 @@ std::shared_ptr<NumberCube> NumberCubePolyhedron::getNumberCubeFromClick(glm::ve
         }
     }
     return std::shared_ptr<NumberCube>();
+}
+
+point cartesianToSpherical(point &p)
+{
+    return {1, atan2(p.y, p.x), acos(p.z)};
 }

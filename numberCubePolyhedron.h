@@ -14,7 +14,12 @@ private:
     std::vector<NumberCubeTable> numberCubeTables;
     statusOfHighlights highlightStatus;
     TableAlignment alignment;
-    point angle; // Keep track of how it has rotated
+    point angle;
+    std::vector<point> rotationHistory; // Keep track of how it has rotated
+
+    // The forward vector and right vector. These will tell us how to undo a rotation
+    point forwardCartesian, forwardSpherical;
+    point rightCartesian, rightSpherical;
 public:
     NumberCubePolyhedron();
     NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -32,7 +37,7 @@ public:
     void setAlignment(TableAlignment input);
 
     // Make it so that this is facing the camera again
-    void resetRotation();
+    void resetRotation(bool forget);
 
     void highlight();
     void unHighlight();
@@ -49,5 +54,8 @@ public:
     void reactToClick(glm::vec3 ray, glm::vec3 cameraLoc);
     std::shared_ptr<NumberCube> getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc);
 };
+
+// This assumes r = 1
+point cartesianToSpherical(point &p);
 
 #endif //INTEGER_SEQUENCE_POLYHEDRON_NUMBERCUBEPOLYHEDRON_H
