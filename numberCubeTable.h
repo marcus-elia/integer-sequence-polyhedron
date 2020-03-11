@@ -12,6 +12,7 @@ private:
     RGBAcolor edgeColor;
     RGBAcolor numberColor;
     TableAlignment alignment;
+    int maxRowSize;   // the longest row
 public:
     NumberCubeTable();
     NumberCubeTable(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
@@ -19,12 +20,15 @@ public:
                     RGBAcolor inputNumberColor, RGBAcolor inputHighlightedNumberColor,
                     std::vector<std::vector<int>> inputVectorsOfNumbers);
 
+    // Initializes the NumberCubeRow objects
+    // Also finds the max row size
     void initializeNumberCubeRows();
     void updateNumberCubeRows();
 
     // Getters
     std::vector<NumberCubeRow>* getNumberCubeRows();
     TableAlignment getAlignment() const;
+    int getMaxRowSize() const;
 
     // Setters
     void setAlignment(TableAlignment input);

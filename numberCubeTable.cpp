@@ -30,6 +30,8 @@ void NumberCubeTable::initializeNumberCubeRows()
     int length = vectorsOfNumbers.size();
     double gapSize = 0.8 * edgeLength;                  // How far apart they are
     double curCenterY;
+
+    // Choose the y-coordinate for where we put the first NumberCubeRow, so that the row are vertically centered
     if(length % 2 == 0)
     {
         curCenterY = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
@@ -39,9 +41,18 @@ void NumberCubeTable::initializeNumberCubeRows()
         curCenterY = - (length - 1)/2.0*edgeLength - (length-1)/2.0*gapSize;
     }
 
+    maxRowSize = 0;
     for(int i = vectorsOfNumbers.size() - 1; i > -1; i--)
     {
         std::vector<int> v = vectorsOfNumbers[i];
+
+        // Check for the max row size
+        if(v.size() > maxRowSize)
+        {
+            maxRowSize = v.size();
+        }
+
+        // initialize the numbercuberow
         numberCubeRows.push_back(NumberCubeRow({center.x, curCenterY, center.z}, color, highlightedColor, center,
                                                      edgeLength, edgeColor, numberColor, highlightedNumberColor, v));
         curCenterY += edgeLength;
@@ -63,6 +74,10 @@ std::vector<NumberCubeRow>* NumberCubeTable::getNumberCubeRows()
 TableAlignment NumberCubeTable::getAlignment() const
 {
     return alignment;
+}
+int NumberCubeTable::getMaxRowSize()
+{
+    return maxRowSize;
 }
 
 // Setters
