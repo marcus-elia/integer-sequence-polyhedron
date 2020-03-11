@@ -41,9 +41,68 @@ void NumberCubeRow::initializeNumberCubes()
 }
 
 // Move the Cubes to conform with the TableAlignment
-void NumberCubeRow::updateNumberCubes()
+void NumberCubeRow::updateNumberCubes(int rowSize)
 {
+    int length = numbers.size();
+    double gapSize = 0.8 * edgeLength;
+    double curCenterX;
 
+    // For center or left, we start left and move right
+    if(alignment == Center)
+    {
+        if(length % 2 == 0)
+        {
+            curCenterX = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
+        }
+        else
+        {
+            curCenterX = - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
+        }
+    }
+    else if(alignment == TopLeft || alignment == BottomLeft)
+    {
+        if(rowSize % 2 == 0)
+        {
+            curCenterX = -(edgeLength/2.0) - (rowSize/2.0 - 1)*edgeLength - gapSize/2 - (rowSize/2.0-1)*gapSize;
+        }
+        else
+        {
+            curCenterX = - (rowSize - 1)/2.0*edgeLength - (rowSize-1)/2*gapSize;
+        }
+    }
+
+    // For right, we start right and move left
+    else
+    {
+        if(rowSize % 2 == 0)
+        {
+            curCenterX = (edgeLength/2.0) + (rowSize/2.0 - 1)*edgeLength + gapSize/2 + (rowSize/2.0-1)*gapSize;
+        }
+        else
+        {
+            curCenterX = (rowSize - 1)/2.0*edgeLength + (rowSize-1)/2*gapSize;
+        }
+    }
+
+    // Iterate through the number cubes and move them
+    for(int i = 0; i < numberCubes.size(); i++)
+    {
+        NumberCube nc = numberCubes[i];
+        nc.move(curCenterX - nc.getCenter().x, 0, 0);
+
+        // Move to the left for the next cube
+        if(alignment == TopRight || alignment == BottomRight)
+        {
+            curCenterX -= edgeLength;
+            curCenterX -= gapSize;
+        }
+        // Move to the right for the next cube
+        else
+        {
+            curCenterX += edgeLength;
+            curCenterX += gapSize;
+        }
+    }
 }
 
 

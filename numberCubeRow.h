@@ -18,7 +18,7 @@ public:
             std::vector<int> inputNumbers);
 
     void initializeNumberCubes();
-    void updateNumberCubes();
+    void updateNumberCubes(int rowSize);
 
     // Getters
     std::vector<NumberCube>* getNumberCubes();
