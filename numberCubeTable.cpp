@@ -75,7 +75,7 @@ TableAlignment NumberCubeTable::getAlignment() const
 {
     return alignment;
 }
-int NumberCubeTable::getMaxRowSize()
+int NumberCubeTable::getMaxRowSize() const
 {
     return maxRowSize;
 }
