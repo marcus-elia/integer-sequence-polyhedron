@@ -19,6 +19,9 @@ private:
     // The forward vector and right vector. These will tell us how to undo a rotation
     point forwardCartesian, forwardSpherical;
     point rightCartesian, rightSpherical;
+
+    // Keep track of the biggest dimensions
+    int maxRowSize, maxTableSize;
 public:
     NumberCubePolyhedron();
     NumberCubePolyhedron(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor,
@@ -27,10 +30,14 @@ public:
                          std::vector<std::vector<std::vector<int>>>  inputVectorOfVectorsOfNumbers);
 
 
+    // Create the NumberCubeTable objects, based on the vector of vectors of numbers
+    // Also initializes maxRowSize and maxTableSize
     void initializeNumberCubeTables();
 
     // Getters
     TableAlignment getAlignment() const;
+    int getMaxRowSize() const;
+    int getMaxTableSize() const;
 
     // Setters
     void setAlignment(TableAlignment input);

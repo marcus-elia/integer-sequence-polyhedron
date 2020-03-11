@@ -39,6 +39,8 @@ void NumberCubePolyhedron::initializeNumberCubeTables()
     int length = vectorOfVectorsOfNumbers.size();
     double gapSize = 0.8 * edgeLength;                  // How far apart they are
     double curCenterZ;
+
+    // Determine the z-position where we will put the first NumberCubeTable
     if(length % 2 == 0)
     {
         curCenterZ = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
@@ -48,13 +50,28 @@ void NumberCubePolyhedron::initializeNumberCubeTables()
         curCenterZ = - (length - 1)/2.0*edgeLength - (length-1)/2.0*gapSize;
     }
 
+    maxTableSize = 0;
+    maxRowSize = 0;
     for(int i = vectorOfVectorsOfNumbers.size() - 1; i > -1; i--)
     {
         std::vector<std::vector<int>> v = vectorOfVectorsOfNumbers[i];
-        numberCubeTables.push_back(NumberCubeTable({center.x, center.y, curCenterZ},
-                color, highlightedColor, center, edgeLength, edgeColor, numberColor, highlightedNumberColor, v));
+
+        NumberCubeTable nct = NumberCubeTable({center.x, center.y, curCenterZ},
+                                              color, highlightedColor, center, edgeLength, edgeColor, numberColor,
+                                              highlightedNumberColor, v);
+        numberCubeTables.push_back(nct);
         curCenterZ += edgeLength;
         curCenterZ += gapSize;
+
+        // Check for new longest table and row
+        if(v.size() > maxTableSize)
+        {
+            maxTableSize = v.size();
+        }
+        if(nct.getMaxRowSize() > maxRowSize)
+        {
+            maxRowSize = nct.getMaxRowSize();
+        }
     }
 }
 
@@ -62,6 +79,14 @@ void NumberCubePolyhedron::initializeNumberCubeTables()
 TableAlignment NumberCubePolyhedron::getAlignment() const
 {
     return alignment;
+}
+int NumberCubePolyhedron::getMaxRowSize() const
+{
+    return maxRowSize;
+}
+int NumberCubePolyhedron::getMaxTableSize() const
+{
+    return maxTableSize;
 }
 
 // Setters
