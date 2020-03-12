@@ -18,7 +18,7 @@ private:
     point angle;
 
     // If one cube is highlighted
-    std::shared_ptr<NumberCube> highlightedCube;
+    NumberCube* highlightedCube;
 
     // The forward vector and right vector. These will tell us how to undo a rotation
     point forwardCartesian, forwardSpherical;
@@ -68,15 +68,15 @@ public:
 
     // Uses the ray increment method to find the first cube intersected by the ray starting at cameraloc
     // Can't use the line method because the cubes are rotated
-    std::experimental::optional<std::shared_ptr<NumberCube>> getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc);
+    std::experimental::optional<NumberCube*> getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc);
 
     // Returns a vector of numbercubes on the specified line
-    std::vector<std::shared_ptr<NumberCube>> getCubesOnLine(point start, point end);
+    std::vector<NumberCube*> getCubesOnLine(point start, point end);
 
     // Returns the cube on the line closest to the start point
-    std::experimental::optional<std::shared_ptr<NumberCube>> getClosestCube(point start, point end);
+    std::experimental::optional<NumberCube*> getClosestCube(point start, point end);
 
-    void highlightLineBetween(std::shared_ptr<NumberCube> nc1, std::shared_ptr<NumberCube> nc2);
+    void highlightLineBetween(NumberCube* nc1, NumberCube* nc2);
 
     // The overall control for what happens when there is a click
     void reactToClick(glm::vec3 ray, glm::vec3 cameraLoc);

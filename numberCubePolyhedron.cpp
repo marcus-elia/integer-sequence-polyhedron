@@ -240,9 +240,9 @@ void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
 }
 
 
-std::vector<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getCubesOnLine(point start, point end)
+std::vector<NumberCube*> NumberCubePolyhedron::getCubesOnLine(point start, point end)
 {
-    std::vector<std::shared_ptr<NumberCube>> cubesOnLine;
+    std::vector<NumberCube*> cubesOnLine;
 
     // Iterate through all number cubes
     for(NumberCubeTable &nct : numberCubeTables)
@@ -255,7 +255,7 @@ std::vector<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getCubesOnLine(po
                 // If the segment intersects this cube
                 if(param > -0.5)
                 {
-                    cubesOnLine.push_back(std::make_shared<NumberCube>(nc));
+                    cubesOnLine.push_back(&nc);
                 }
             }
         }
@@ -263,9 +263,9 @@ std::vector<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getCubesOnLine(po
     return cubesOnLine;
 }
 
-std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getClosestCube(point start, point end)
+std::experimental::optional<NumberCube*> NumberCubePolyhedron::getClosestCube(point start, point end)
 {
-    std::vector<std::shared_ptr<NumberCube>> cubes = getCubesOnLine(start, end);
+    std::vector<NumberCube*> cubes = getCubesOnLine(start, end);
     if(cubes.empty())
     {
         return std::experimental::nullopt;
@@ -273,8 +273,8 @@ std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::g
     // Find the min distance
     double min = distance(start, cubes[0]->getCenter());
     double curDistance;
-    std::shared_ptr<NumberCube> closestCube = cubes[0];
-    for(std::shared_ptr<NumberCube> nc : cubes)
+    NumberCube* closestCube = cubes[0];
+    for(NumberCube* nc : cubes)
     {
         curDistance = distance(start, nc->getCenter());
         if(curDistance < min)
@@ -287,7 +287,7 @@ std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::g
 }
 
 
-std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc)
+std::experimental::optional<NumberCube*> NumberCubePolyhedron::getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
     double deltaT = 10;
     for(int t = 0; t < 1000; t += deltaT)
@@ -309,7 +309,7 @@ std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::g
                         {
                             nc.highlight();
                         }*/
-                        return std::shared_ptr<NumberCube>(&nc);
+                        return std::experimental::optional<NumberCube*>(&nc);
                     }
                 }
             }
@@ -318,7 +318,7 @@ std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::g
     return std::experimental::nullopt;
 }
 
-void NumberCubePolyhedron::highlightLineBetween(std::shared_ptr<NumberCube> nc1, std::shared_ptr<NumberCube> nc2)
+void NumberCubePolyhedron::highlightLineBetween(NumberCube* nc1, NumberCube* nc2)
 {
     // Store the direction the polyhedron is facing
     point targetForward = forwardSpherical;
@@ -333,8 +333,8 @@ void NumberCubePolyhedron::highlightLineBetween(std::shared_ptr<NumberCube> nc1,
     start = {start.x - 10000*direction.x, start.y - 10000*direction.y, start.z - 10000*direction.z};
     end = {end.x + 10000*direction.x, end.y + 10000*direction.y, end.z + 10000*direction.z};
 
-    std::vector<std::shared_ptr<NumberCube>> onLine = getCubesOnLine(start, end);
-    for(std::shared_ptr<NumberCube> nc : onLine)
+    std::vector<NumberCube*> onLine = getCubesOnLine(start, end);
+    for(NumberCube* nc : onLine)
     {
         nc->highlight();
     }
@@ -346,28 +346,33 @@ void NumberCubePolyhedron::highlightLineBetween(std::shared_ptr<NumberCube> nc1,
 
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
-    std::experimental::optional<std::shared_ptr<NumberCube>> newCube = getNumberCubeFromClick(ray, cameraLoc);
-    if(highlightStatus == lineHighlighted || !newCube)
+    std::experimental::optional<NumberCube*> newCubeOpt = getNumberCubeFromClick(ray, cameraLoc);
+    if(highlightStatus == lineHighlighted || !newCubeOpt)
     {
         unHighlight();
     }
-    else if(highlightStatus == noneHighlighted)
-    {
-        highlightedCube = newCube.value();
-        highlightedCube->highlight();
-        highlightStatus = oneHighlighted;
-    }
     else
     {
-        if(newCube.value() == highlightedCube)
+        NumberCube* newCube = *newCubeOpt;
+        if(highlightStatus == noneHighlighted)
         {
-            unHighlight();
+            highlightedCube = newCube;
+            highlightedCube->highlight();
+            highlightStatus = oneHighlighted;
         }
-        else  // A second cube was clicked on
+        else
         {
-            highlightLineBetween(highlightedCube, newCube.value());
+            if(newCube == highlightedCube)
+            {
+                unHighlight();
+            }
+            else  // A second cube was clicked on
+            {
+                highlightLineBetween(highlightedCube, newCube);
+            }
         }
     }
+
 }
 
 point cartesianToSpherical(point &p)
