@@ -92,11 +92,14 @@ int NumberCubePolyhedron::getMaxTableSize() const
 // Setters
 void NumberCubePolyhedron::setAlignment(TableAlignment input)
 {
-    alignment = input;
-    for(NumberCubeTable &nct : numberCubeTables)
+    if(alignment != input)
     {
-        nct.setAlignment(alignment);
-        nct.updateNumberCubeRows(maxTableSize, maxRowSize);
+        alignment = input;
+        for(NumberCubeTable &nct : numberCubeTables)
+        {
+            nct.setAlignment(alignment);
+            nct.updateNumberCubeRows(maxTableSize, maxRowSize);
+        }
     }
 }
 
