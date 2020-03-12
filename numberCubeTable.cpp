@@ -61,9 +61,68 @@ void NumberCubeTable::initializeNumberCubeRows()
 }
 
 // Update the positions of the tables when a new alignment is set
-void NumberCubeTable::updateNumberCubeRows()
+void NumberCubeTable::updateNumberCubeRows(int tableSize, int rowSize)
 {
+    int length = vectorsOfNumbers.size();
+    double gapSize = 0.8 * edgeLength;
+    double curCenterY;
 
+    if(alignment == Center)
+    {
+        if(length % 2 == 0)
+        {
+            curCenterY = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
+        }
+        else
+        {
+            curCenterY = - (length - 1)/2.0*edgeLength - (length-1)/2.0*gapSize;
+        }
+    }
+    else if(alignment == BottomLeft || alignment == BottomRight)
+    {
+        if(length % 2 == 0)
+        {
+            curCenterY = -(edgeLength/2.0) - (tableSize/2.0 - 1)*edgeLength - gapSize/2 - (tableSize/2.0-1)*gapSize;
+        }
+        else
+        {
+            curCenterY = - (tableSize - 1)/2.0*edgeLength - (tableSize-1)/2.0*gapSize;
+        }
+    }
+    else
+    {
+        if(length % 2 == 0)
+        {
+            curCenterY = (edgeLength/2.0) + (tableSize/2.0 - 1)*edgeLength + gapSize/2 + (tableSize/2.0-1)*gapSize;
+        }
+        else
+        {
+            curCenterY = (tableSize - 1)/2.0*edgeLength + (tableSize-1)/2.0*gapSize;
+        }
+    }
+
+    // Iterate through the number cube rows and move them
+    for(int i = 0; i < numberCubeRows.size(); i++)
+    {
+        NumberCubeRow ncr = numberCubeRows[i];
+        ncr.move(0, curCenterY - ncr.getCenter().y, 0);
+
+        // Move to the down for the next row
+        if(alignment == TopRight || alignment == TopLeft)
+        {
+            curCenterY -= edgeLength;
+            curCenterY -= gapSize;
+        }
+        // Move up for the next cube
+        else
+        {
+            curCenterY += edgeLength;
+            curCenterY += gapSize;
+        }
+
+        // Now update the cubes' positions for the row
+        ncr.updateNumberCubes(rowSize);
+    }
 }
 
 

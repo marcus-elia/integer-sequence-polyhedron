@@ -23,7 +23,7 @@ public:
     // Initializes the NumberCubeRow objects
     // Also finds the max row size
     void initializeNumberCubeRows();
-    void updateNumberCubeRows();
+    void updateNumberCubeRows(int tableSize, int rowSize);
 
     // Getters
     std::vector<NumberCubeRow>* getNumberCubeRows();
