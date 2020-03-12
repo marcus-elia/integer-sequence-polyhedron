@@ -168,6 +168,7 @@ void NumberCubePolyhedron::unHighlight()
     {
         nct.unHighlight();
     }
+    highlightStatus = noneHighlighted;
 }
 
 
