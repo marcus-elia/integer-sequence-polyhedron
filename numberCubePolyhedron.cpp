@@ -263,6 +263,29 @@ std::vector<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getCubesOnLine(po
     return cubesOnLine;
 }
 
+std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getClosestCube(point start, point end)
+{
+    std::vector<std::shared_ptr<NumberCube>> cubes = getCubesOnLine(start, end);
+    if(cubes.empty())
+    {
+        return std::experimental::nullopt;
+    }
+    // Find the min distance
+    double min = distance(start, cubes[0]->getCenter());
+    double curDistance;
+    std::shared_ptr<NumberCube> closestCube = cubes[0];
+    for(std::shared_ptr<NumberCube> nc : cubes)
+    {
+        curDistance = distance(start, nc->getCenter());
+        if(curDistance < min)
+        {
+            curDistance = min;
+            closestCube = nc;
+        }
+    }
+    return closestCube;
+}
+
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
 
@@ -310,6 +333,11 @@ point cartesianToSpherical(point &p)
         return {1, atan2(p.y, p.x), PI};
     }
     return {1, atan2(p.y, p.x), acos(p.z)};
+}
+
+double distance(point p1, point p2)
+{
+    return sqrt((p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y) + (p1.z-p2.z)*(p1.z-p2.z));
 }
 
 // This code is from Dan Hathaway

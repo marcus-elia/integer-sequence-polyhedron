@@ -4,6 +4,7 @@
 #include "numberCubeTable.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
+#include <experimental/optional>
 
 enum statusOfHighlights {noneHighlighted, oneHighlighted, lineHighlighted};
 
@@ -64,12 +65,18 @@ public:
 
     // Returns a vector of numbercubes on the specified line
     std::vector<std::shared_ptr<NumberCube>> getCubesOnLine(point start, point end);
+
+    // Returns the cube on the line closest to the start point
+    std::experimental::optional<std::shared_ptr<NumberCube>> getClosestCube(point start, point end);
     void reactToClick(glm::vec3 ray, glm::vec3 cameraLoc);
     std::shared_ptr<NumberCube> getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc);
 };
 
 // This assumes r = 1
 point cartesianToSpherical(point &p);
+
+// 3d euclidean distance
+double distance(point p1, point p2);
 
 // If the segment intersects the box, returns a double between 0 and 1 that parametrizes the segment
 // Otherwise, returns -1
