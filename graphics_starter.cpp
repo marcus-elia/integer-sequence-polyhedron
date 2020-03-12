@@ -309,7 +309,8 @@ void mouse(int button, int state, int x, int y)
             {
                 glm::vec3 ray = convertPointToRay(x,y);
                 mostRecentClick = ray;
-                ncp.getNumberCubeFromClick(ray, cameraPosition);
+                //ncp.getNumberCubeFromClick(ray, cameraPosition);
+                ncp.reactToClick(ray, cameraPosition);
             }
             /*std::cout << "x: " << x << std::endl;
             std::cout << "y: " << y << std::endl;
