@@ -286,11 +286,8 @@ std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::g
     return closestCube;
 }
 
-void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
-{
 
-}
-std::shared_ptr<NumberCube> NumberCubePolyhedron::getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc)
+std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
     double deltaT = 10;
     for(int t = 0; t < 1000; t += deltaT)
@@ -304,21 +301,70 @@ std::shared_ptr<NumberCube> NumberCubePolyhedron::getNumberCubeFromClick(glm::ve
                 {
                     if(nc.getDigitalNumber().containsPoint(cameraLoc))
                     {
-                        if(nc.getIsHighlighted())
+                        /*if(nc.getIsHighlighted())
                         {
                             nc.unHighlight();
                         }
                         else
                         {
                             nc.highlight();
-                        }
+                        }*/
                         return std::shared_ptr<NumberCube>();
                     }
                 }
             }
         }
     }
-    return std::shared_ptr<NumberCube>();
+    return std::experimental::nullopt;
+}
+
+void NumberCubePolyhedron::highlightLineBetween(std::shared_ptr<NumberCube> nc1, std::shared_ptr<NumberCube> nc2)
+{
+    // Store the direction the polyhedron is facing
+    point targetForward = forwardSpherical;
+    point targetRight = rightSpherical;
+
+    // Reset the rotation, so we can test intersections more easily
+    resetRotation();
+
+    point start = nc1->getCenter();
+    point end = nc2->getCenter();
+    point direction = {end.x - start.x, end.y - start.y, end.z - start.z};
+    start = {start.x - 10000*direction.x, start.y - 10000*direction.y, start.z - 10000*direction.z};
+    end = {end.x + 10000*direction.x, end.y + 10000*direction.y, end.z + 10000*direction.z};
+
+    std::vector<std::shared_ptr<NumberCube>> onLine = getCubesOnLine(start, end);
+    for(std::shared_ptr<NumberCube> nc : onLine)
+    {
+        nc->highlight();
+    }
+    highlightStatus = lineHighlighted;
+}
+
+void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
+{
+    if(highlightStatus == lineHighlighted)
+    {
+        unHighlight();
+    }
+    else if(highlightStatus == noneHighlighted)
+    {
+        highlightedCube = getNumberCubeFromClick(ray, cameraLoc).value();
+        highlightedCube->highlight();
+        highlightStatus = oneHighlighted;
+    }
+    else
+    {
+        std::experimental::optional<std::shared_ptr<NumberCube>> newCube = getNumberCubeFromClick(ray, cameraLoc);
+        if(newCube.value() == highlightedCube || newCube == std::experimental::nullopt)
+        {
+            unHighlight();
+        }
+        else  // A second cube was clicked on
+        {
+            highlightLineBetween(highlightedCube, newCube.value());
+        }
+    }
 }
 
 point cartesianToSpherical(point &p)
