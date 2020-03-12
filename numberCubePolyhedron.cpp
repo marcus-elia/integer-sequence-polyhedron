@@ -93,7 +93,13 @@ int NumberCubePolyhedron::getMaxTableSize() const
 void NumberCubePolyhedron::setAlignment(TableAlignment input)
 {
     alignment = input;
+    for(NumberCubeTable &nct : numberCubeTables)
+    {
+        nct.setAlignment(alignment);
+        nct.updateNumberCubeRows(maxTableSize, maxRowSize);
+    }
 }
+
 void NumberCubePolyhedron::resetRotation()
 {
     // Rotate around z-axis, which puts the forward vector into the xz-plane

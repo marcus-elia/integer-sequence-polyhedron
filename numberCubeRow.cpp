@@ -85,9 +85,8 @@ void NumberCubeRow::updateNumberCubes(int rowSize)
     }
 
     // Iterate through the number cubes and move them
-    for(int i = 0; i < numberCubes.size(); i++)
+    for(NumberCube &nc : numberCubes)
     {
-        NumberCube nc = numberCubes[i];
         nc.move(curCenterX - nc.getCenter().x, 0, 0);
 
         // Move to the left for the next cube

@@ -102,9 +102,8 @@ void NumberCubeTable::updateNumberCubeRows(int tableSize, int rowSize)
     }
 
     // Iterate through the number cube rows and move them
-    for(int i = 0; i < numberCubeRows.size(); i++)
+    for(NumberCubeRow &ncr : numberCubeRows)
     {
-        NumberCubeRow ncr = numberCubeRows[i];
         ncr.move(0, curCenterY - ncr.getCenter().y, 0);
 
         // Move to the down for the next row
@@ -143,6 +142,10 @@ int NumberCubeTable::getMaxRowSize() const
 void NumberCubeTable::setAlignment(TableAlignment input)
 {
     alignment = input;
+    for(NumberCubeRow &ncr : numberCubeRows)
+    {
+        ncr.setAlignment(alignment);
+    }
 }
 
 
