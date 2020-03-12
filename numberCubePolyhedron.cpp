@@ -339,6 +339,9 @@ void NumberCubePolyhedron::highlightLineBetween(std::shared_ptr<NumberCube> nc1,
         nc->highlight();
     }
     highlightStatus = lineHighlighted;
+
+    // Unrotate
+    rotateToGivenDirection(targetForward, targetRight);
 }
 
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
