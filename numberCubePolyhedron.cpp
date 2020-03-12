@@ -309,7 +309,7 @@ std::experimental::optional<std::shared_ptr<NumberCube>> NumberCubePolyhedron::g
                         {
                             nc.highlight();
                         }*/
-                        return std::shared_ptr<NumberCube>();
+                        return std::shared_ptr<NumberCube>(&nc);
                     }
                 }
             }
@@ -346,20 +346,20 @@ void NumberCubePolyhedron::highlightLineBetween(std::shared_ptr<NumberCube> nc1,
 
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
-    if(highlightStatus == lineHighlighted)
+    std::experimental::optional<std::shared_ptr<NumberCube>> newCube = getNumberCubeFromClick(ray, cameraLoc);
+    if(highlightStatus == lineHighlighted || !newCube)
     {
         unHighlight();
     }
     else if(highlightStatus == noneHighlighted)
     {
-        highlightedCube = getNumberCubeFromClick(ray, cameraLoc).value();
+        highlightedCube = newCube.value();
         highlightedCube->highlight();
         highlightStatus = oneHighlighted;
     }
     else
     {
-        std::experimental::optional<std::shared_ptr<NumberCube>> newCube = getNumberCubeFromClick(ray, cameraLoc);
-        if(newCube.value() == highlightedCube || newCube == std::experimental::nullopt)
+        if(newCube.value() == highlightedCube)
         {
             unHighlight();
         }
