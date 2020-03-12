@@ -20,6 +20,12 @@ public:
     Cube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedColor, point &inputOwnerCenter,
             RGBAcolor inputEdgeColor, unsigned int inputEdgeLength);
 
+    // Getters
+
+    // Return the corners with the min/max coords, assuming this is not currently rotated
+    point getMin() const;
+    point getMax() const;
+
     virtual void draw() const;
     void drawLines() const;
     void drawFaces() const;

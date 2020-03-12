@@ -39,6 +39,15 @@ Cube::Cube(point inputCenter, RGBAcolor inputColor, RGBAcolor inputHighlightedCo
     resetCorners();
 }
 
+point Cube::getMin() const
+{
+    return {center.x - edgeLength, center.y - edgeLength, center.z - edgeLength};
+}
+point Cube::getMax() const
+{
+    return {center.x + edgeLength, center.y + edgeLength, center.z + edgeLength};
+}
+
 void Cube::draw() const
 {
     drawLines();
