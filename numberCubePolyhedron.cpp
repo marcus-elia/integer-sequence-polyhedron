@@ -239,6 +239,30 @@ void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
     rightSpherical = cartesianToSpherical(rightCartesian);
 }
 
+
+std::vector<std::shared_ptr<NumberCube>> NumberCubePolyhedron::getCubesOnLine(point start, point end)
+{
+    std::vector<std::shared_ptr<NumberCube>> cubesOnLine;
+
+    // Iterate through all number cubes
+    for(NumberCubeTable &nct : numberCubeTables)
+    {
+        for(NumberCubeRow &ncr : *nct.getNumberCubeRows())
+        {
+            for(NumberCube &nc : *ncr.getNumberCubes())
+            {
+                double param = segmentIntersectsBox(start, end, nc.getMin(), nc.getMax());
+                // If the segment intersects this cube
+                if(param > -0.5)
+                {
+                    cubesOnLine.push_back(std::make_shared<NumberCube>(nc));
+                }
+            }
+        }
+    }
+    return cubesOnLine;
+}
+
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
 

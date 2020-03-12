@@ -61,6 +61,9 @@ public:
     void rotate(double thetaX, double thetaY, double thetaZ);
 
     // Highlighting in response to clicks
+
+    // Returns a vector of numbercubes on the specified line
+    std::vector<std::shared_ptr<NumberCube>> getCubesOnLine(point start, point end);
     void reactToClick(glm::vec3 ray, glm::vec3 cameraLoc);
     std::shared_ptr<NumberCube> getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc);
 };
