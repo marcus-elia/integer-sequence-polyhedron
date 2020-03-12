@@ -92,19 +92,48 @@ int NumberCubePolyhedron::getMaxTableSize() const
 // Setters
 void NumberCubePolyhedron::setAlignment(TableAlignment input)
 {
+    // If a new alignment has been chosen, move every cube
     if(alignment != input)
     {
+        // Store the direction the polyhedron is facing
+        point targetForward = forwardSpherical;
+        point targetRight = rightSpherical;
+
+        // Reset the rotation, so we can translate more easily
+        resetRotation();
+
+        // Now move everything
         alignment = input;
         for(NumberCubeTable &nct : numberCubeTables)
         {
             nct.setAlignment(alignment);
             nct.updateNumberCubeRows(maxTableSize, maxRowSize);
         }
+
+        // Undo the rotation
+        rotateToGivenDirection(targetForward, targetRight);
+    }
+}
+
+void NumberCubePolyhedron::rotateToGivenDirection(point targetForward, point targetRight)
+{
+    if(forwardSpherical.y != targetForward.y)
+    {
+        rotate(0, 0, targetForward.y - forwardSpherical.y);
+    }
+    if(forwardSpherical.z != targetForward.z)
+    {
+        rotate(0, forwardSpherical.z - targetForward.z, 0);
+    }
+    if(rightSpherical.y != targetRight.y)
+    {
+        rotate(0, 0, targetRight.y - rightSpherical.y);
     }
 }
 
 void NumberCubePolyhedron::resetRotation()
 {
+    /*
     // Rotate around z-axis, which puts the forward vector into the xz-plane
     if(forwardSpherical.y != 0)
     {
@@ -119,6 +148,8 @@ void NumberCubePolyhedron::resetRotation()
     {
         rotate(0, 0, PI - rightSpherical.y);
     }
+     */
+    rotateToGivenDirection({1, 0, 0}, {1, PI, PI/2});
 }
 
 

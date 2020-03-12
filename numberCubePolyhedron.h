@@ -42,6 +42,10 @@ public:
     // Setters
     void setAlignment(TableAlignment input);
 
+    // Rotate so that forward and right are pointing in the given directions
+    // targetForward and targetRight are the spherical coordinates
+    void rotateToGivenDirection(point targetForward, point targetRight);
+
     // Make it so that this is facing the camera again
     void resetRotation();
 
