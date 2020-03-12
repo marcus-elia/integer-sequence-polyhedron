@@ -68,4 +68,8 @@ public:
 // This assumes r = 1
 point cartesianToSpherical(point &p);
 
+// If the segment intersects the box, returns a double between 0 and 1 that parametrizes the segment
+// Otherwise, returns -1
+double segmentIntersectsBox(point segStart, point segEnd, point boxMin, point boxMax);
+
 #endif //INTEGER_SEQUENCE_POLYHEDRON_NUMBERCUBEPOLYHEDRON_H

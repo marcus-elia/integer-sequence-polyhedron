@@ -287,3 +287,127 @@ point cartesianToSpherical(point &p)
     }
     return {1, atan2(p.y, p.x), acos(p.z)};
 }
+
+// This code is from Dan Hathaway
+double segmentIntersectsBox(point segStart, point segEnd, point boxMin, point boxMax)
+{
+    double param;  // what will be returned
+
+    // If the segment is oriented backwards in the x-direction
+    if( segStart.x > boxMax.x &&
+        segEnd.x   < boxMax.x )
+    {
+        param =
+                (segStart.x - boxMax.x) /
+                (segStart.x - segEnd.x);
+        double p_y = segStart.y * (1.0f - param) + segEnd.y * param;
+        double p_z = segStart.z * (1.0f - param) + segEnd.z * param;
+        if( p_y >= boxMin.y &&
+            p_z >= boxMin.z &&
+            p_y <= boxMax.y &&
+            p_z <= boxMax.z )
+        {
+            return param;
+        }
+    }
+    // If the segment is oriented backwards in the y-direction
+    if( segStart.y > boxMax.y &&
+        segEnd.y   < boxMax.y )
+    {
+        param =
+                (segStart.y - boxMax.y) /
+                (segStart.y - segEnd.y);
+        double p_x = segStart.x * (1.0f - param) + segEnd.x * param;
+        double p_z = segStart.z * (1.0f - param) + segEnd.z * param;
+        if( p_x >= boxMin.x &&
+            p_z >= boxMin.z &&
+            p_x <= boxMax.x &&
+            p_z <= boxMax.z )
+        {
+            return param;
+        }
+    }
+    // If the segment is oriented backwards in the z-direction
+    if( segStart.z > boxMax.z &&
+        segEnd.z   < boxMax.z )
+    {
+        param =
+                (segStart.z - boxMax.z) /
+                (segStart.z - segEnd.z);
+        double p_x = segStart.x * (1.0f - param) + segEnd.x * param;
+        double p_y = segStart.y * (1.0f - param) + segEnd.y * param;
+        if( p_x >= boxMin.x &&
+            p_y >= boxMin.y &&
+            p_x <= boxMax.x &&
+            p_y <= boxMax.y )
+        {
+            return param;
+        }
+    }
+
+    // If the segment is oriented forwards in the x-direction
+    if( segStart.x < boxMin.x &&
+        segEnd.x   > boxMin.x )
+    {
+        param =
+                (boxMin.x - segStart.x) /
+                (segEnd.x - segStart.x);
+        double p_y = segStart.y * (1.0f - param) + segEnd.y * param;
+        double p_z = segStart.z * (1.0f - param) + segEnd.z * param;
+        if( p_y >= boxMin.y &&
+            p_z >= boxMin.z &&
+            p_y <= boxMax.y &&
+            p_z <= boxMax.z )
+        {
+            return param;
+        }
+    }
+    // If the segment is oriented forwards in the y-direction
+    if( segStart.y < boxMin.y &&
+        segEnd.y   > boxMin.y )
+    {
+        param =
+                (boxMin.y - segStart.y) /
+                (segEnd.y - segStart.y);
+        double p_x = segStart.x * (1.0f - param) + segEnd.x * param;
+        double p_z = segStart.z * (1.0f - param) + segEnd.z * param;
+        if( p_x >= boxMin.x &&
+            p_z >= boxMin.z &&
+            p_x <= boxMax.x &&
+            p_z <= boxMax.z )
+        {
+            return param;
+        }
+    }
+    // If the segment is oriented forwards in the z-direction
+    if( segStart.z < boxMin.z &&
+        segEnd.z   > boxMin.z )
+    {
+        param =
+                (boxMin.z - segStart.z) /
+                (segEnd.z - segStart.z);
+        double p_x = segStart.x * (1.0f - param) + segEnd.x * param;
+        double p_y = segStart.y * (1.0f - param) + segEnd.y * param;
+        if( p_x >= boxMin.x &&
+            p_y >= boxMin.y &&
+            p_x <= boxMax.x &&
+            p_y <= boxMax.y )
+        {
+            return param;
+        }
+    }
+
+    // If the starting point is in the box already
+    if( segStart.x >= boxMin.x &&
+        segStart.y >= boxMin.y &&
+        segStart.z >= boxMin.z &&
+        segStart.x <= boxMax.x &&
+        segStart.y <= boxMax.y &&
+        segStart.z <= boxMax.z )
+    {
+        param = 0.0f;
+        return param;
+    }
+    // Otherwise, no intersection
+    return -1;
+}
