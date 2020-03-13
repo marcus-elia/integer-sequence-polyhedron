@@ -47,7 +47,8 @@ public:
     int getMaxTableSize() const;
 
     // Setters
-    void setAlignment(TableAlignment input);
+    // Returns true if it changes the alignment, false otherwise
+    bool setAlignment(TableAlignment input);
 
     // DOES NOT WORK
     // Rotate so that forward and right are pointing in the given directions

@@ -90,7 +90,7 @@ int NumberCubePolyhedron::getMaxTableSize() const
 }
 
 // Setters
-void NumberCubePolyhedron::setAlignment(TableAlignment input)
+bool NumberCubePolyhedron::setAlignment(TableAlignment input)
 {
     // If a new alignment has been chosen, move every cube
     if(alignment != input)
@@ -113,7 +113,9 @@ void NumberCubePolyhedron::setAlignment(TableAlignment input)
         // Undo the rotation
         returnRotation();
         //rotateToGivenDirection(targetForward, targetRight);
+        return true;
     }
+    return false;
 }
 
 void NumberCubePolyhedron::rotateToGivenDirection(point targetForward, point targetRight)
