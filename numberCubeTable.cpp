@@ -71,33 +71,33 @@ void NumberCubeTable::updateNumberCubeRows(int tableSize, int rowSize)
     {
         if(length % 2 == 0)
         {
-            curCenterY = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
+            curCenterY = center.y - (edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
         }
         else
         {
-            curCenterY = - (length - 1)/2.0*edgeLength - (length-1)/2.0*gapSize;
+            curCenterY = center.y - (length - 1)/2.0*edgeLength - (length-1)/2.0*gapSize;
         }
     }
     else if(alignment == BottomLeft || alignment == BottomRight)
     {
         if(tableSize % 2 == 0)
         {
-            curCenterY = -(edgeLength/2.0) - (tableSize/2.0 - 1)*edgeLength - gapSize/2 - (tableSize/2.0-1)*gapSize;
+            curCenterY = center.y - (edgeLength/2.0) - (tableSize/2.0 - 1)*edgeLength - gapSize/2 - (tableSize/2.0-1)*gapSize;
         }
         else
         {
-            curCenterY = - (tableSize - 1)/2.0*edgeLength - (tableSize-1)/2.0*gapSize;
+            curCenterY = center.y - (tableSize - 1)/2.0*edgeLength - (tableSize-1)/2.0*gapSize;
         }
     }
     else
     {
         if(tableSize % 2 == 0)
         {
-            curCenterY = (edgeLength/2.0) + (tableSize/2.0 - length)*edgeLength + gapSize/2 + (tableSize/2.0 - length)*gapSize;
+            curCenterY = center.y + (edgeLength/2.0) + (tableSize/2.0 - length)*edgeLength + gapSize/2 + (tableSize/2.0 - length)*gapSize;
         }
         else
         {
-            curCenterY = ((tableSize + 1)/2.0 - length)*edgeLength + ((tableSize + 1)/2.0 - length)*gapSize;
+            curCenterY = center.y + ((tableSize + 1)/2.0 - length)*edgeLength + ((tableSize + 1)/2.0 - length)*gapSize;
         }
     }
 

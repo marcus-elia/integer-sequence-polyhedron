@@ -52,33 +52,33 @@ void NumberCubeRow::updateNumberCubes(int rowSize)
     {
         if(length % 2 == 0)
         {
-            curCenterX = -(edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
+            curCenterX = center.x - (edgeLength/2.0) - (length/2.0 - 1)*edgeLength - gapSize/2 - (length/2.0-1)*gapSize;
         }
         else
         {
-            curCenterX = - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
+            curCenterX = center.x - (length - 1)/2.0*edgeLength - (length-1)/2*gapSize;
         }
     }
     else if(alignment == TopLeft || alignment == BottomLeft)
     {
         if(rowSize % 2 == 0)
         {
-            curCenterX = -(edgeLength/2.0) - (rowSize/2.0 - 1)*edgeLength - gapSize/2 - (rowSize/2.0-1)*gapSize;
+            curCenterX = center.x - (edgeLength/2.0) - (rowSize/2.0 - 1)*edgeLength - gapSize/2 - (rowSize/2.0-1)*gapSize;
         }
         else
         {
-            curCenterX = - (rowSize - 1)/2.0*edgeLength - (rowSize-1)/2*gapSize;
+            curCenterX = center.x - (rowSize - 1)/2.0*edgeLength - (rowSize-1)/2*gapSize;
         }
     }
     else
     {
         if(rowSize % 2 == 0)
         {
-            curCenterX =  (edgeLength/2.0) + (rowSize/2.0 - length - 1)*edgeLength + gapSize/2 + (rowSize/2.0 - length - 1)*gapSize;
+            curCenterX =  center.x + (edgeLength/2.0) + (rowSize/2.0 - length - 1)*edgeLength + gapSize/2 + (rowSize/2.0 - length - 1)*gapSize;
         }
         else
         {
-            curCenterX =  ((rowSize - 1)/2.0 - length)*edgeLength + ((rowSize - 1)/2 - length)*gapSize;
+            curCenterX =  center.x + ((rowSize - 1)/2.0 - length)*edgeLength + ((rowSize - 1)/2 - length)*gapSize;
         }
     }
 
