@@ -307,26 +307,20 @@ void mouse(int button, int state, int x, int y)
             // if it's not the end of a click/drag, then check for the click on a cube
             if(!isClickDragging)
             {
-                glm::vec3 ray = convertPointToRay(x,y);
-                mostRecentClick = ray;
-                //ncp.getNumberCubeFromClick(ray, cameraPosition);
-                ncp.reactToClick(ray, cameraPosition);
+                if(!ncp.setAlignment(selecter.reactToClick(x, height-y)))
+                {
+                    glm::vec3 ray = convertPointToRay(x,y);
+                    mostRecentClick = ray;
+                    //ncp.getNumberCubeFromClick(ray, cameraPosition);
+                    ncp.reactToClick(ray, cameraPosition);
+                }
+
             }
-            /*std::cout << "x: " << x << std::endl;
-            std::cout << "y: " << y << std::endl;
-            std::cout << ray.x << std::endl;
-            std::cout << ray.y << std::endl;
-            std::cout << ray.z << std::endl;*/
-            /*cout << mostRecentClick.x*10000 << endl;
-            cout << mostRecentClick.y*10000 << endl;
-            cout << mostRecentClick.z*10000 << endl;
-            cout << cameraPosition.x << endl;
-            cout << cameraPosition.y << endl;
-            cout << cameraPosition.z << endl;*/
+
             leftDown = false;
             isClickDragging = false;
 
-            ncp.setAlignment(selecter.reactToClick(x, height-y));
+
         }
         else
         {
