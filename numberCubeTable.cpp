@@ -80,7 +80,7 @@ void NumberCubeTable::updateNumberCubeRows(int tableSize, int rowSize)
     }
     else if(alignment == BottomLeft || alignment == BottomRight)
     {
-        if(length % 2 == 0)
+        if(tableSize % 2 == 0)
         {
             curCenterY = -(edgeLength/2.0) - (tableSize/2.0 - 1)*edgeLength - gapSize/2 - (tableSize/2.0-1)*gapSize;
         }
@@ -91,33 +91,26 @@ void NumberCubeTable::updateNumberCubeRows(int tableSize, int rowSize)
     }
     else
     {
-        if(length % 2 == 0)
+        if(tableSize % 2 == 0)
         {
-            curCenterY = (edgeLength/2.0) + (tableSize/2.0 - 1)*edgeLength + gapSize/2 + (tableSize/2.0-1)*gapSize;
+            curCenterY = (edgeLength/2.0) + (tableSize/2.0 - length)*edgeLength + gapSize/2 + (tableSize/2.0 - length)*gapSize;
         }
         else
         {
-            curCenterY = (tableSize - 1)/2.0*edgeLength + (tableSize-1)/2.0*gapSize;
+            curCenterY = ((tableSize + 1)/2.0 - length)*edgeLength + ((tableSize + 1)/2.0 - length)*gapSize;
         }
     }
 
     // Iterate through the number cube rows and move them
     for(NumberCubeRow &ncr : numberCubeRows)
+    //for(int i = numberCubeRows.size() - 1; i > -1; i--)
     {
+        //NumberCubeRow &ncr = numberCubeRows[i];
         ncr.move(0, curCenterY - ncr.getCenter().y, 0);
 
-        // Move to the down for the next row
-        if(alignment == TopRight || alignment == TopLeft)
-        {
-            curCenterY -= edgeLength;
-            curCenterY -= gapSize;
-        }
         // Move up for the next cube
-        else
-        {
-            curCenterY += edgeLength;
-            curCenterY += gapSize;
-        }
+        curCenterY += edgeLength;
+        curCenterY += gapSize;
 
         // Now update the cubes' positions for the row
         ncr.updateNumberCubes(rowSize);
