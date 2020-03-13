@@ -306,8 +306,8 @@ std::experimental::optional<NumberCube*> NumberCubePolyhedron::getClosestCube(po
 
 std::experimental::optional<NumberCube*> NumberCubePolyhedron::getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
-    double deltaT = 10;
-    for(int t = 0; t < 1000; t += deltaT)
+    double deltaT = 30;
+    for(int t = 0; t < 3000; t += deltaT)
     {
         cameraLoc = {cameraLoc.x + deltaT*ray.x, cameraLoc.y + deltaT*ray.y, cameraLoc.z + deltaT*ray.z};
         for(NumberCubeTable &nct : numberCubeTables)
