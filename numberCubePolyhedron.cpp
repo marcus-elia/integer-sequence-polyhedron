@@ -111,7 +111,8 @@ void NumberCubePolyhedron::setAlignment(TableAlignment input)
         }
 
         // Undo the rotation
-        rotateToGivenDirection(targetForward, targetRight);
+        returnRotation();
+        //rotateToGivenDirection(targetForward, targetRight);
     }
 }
 
@@ -133,25 +134,38 @@ void NumberCubePolyhedron::rotateToGivenDirection(point targetForward, point tar
 
 void NumberCubePolyhedron::resetRotation()
 {
-    /*
+    // Empty the vector
+    temporaryRotationStack = std::vector<point>();
+
     // Rotate around z-axis, which puts the forward vector into the xz-plane
     if(forwardSpherical.y != 0)
     {
+        temporaryRotationStack.push_back({0, 0, -forwardSpherical.y});
         rotate(0, 0, -forwardSpherical.y);
     }
     // Next, rotate around the y-axis to put forward facing the correct direction
     if(forwardSpherical.z != 0)
     {
+        temporaryRotationStack.push_back({0, forwardSpherical.z, 0});
         rotate(0, forwardSpherical.z, 0);
     }
     if(rightSpherical.y != PI)
     {
+        temporaryRotationStack.push_back({0, 0, PI - rightSpherical.y});
         rotate(0, 0, PI - rightSpherical.y);
     }
-     */
-    rotateToGivenDirection({1, 0, 0}, {1, PI, PI/2});
+
+    //rotateToGivenDirection({1, 0, 0}, {1, PI, PI/2});
 }
 
+void NumberCubePolyhedron::returnRotation()
+{
+    for(int i = temporaryRotationStack.size() - 1; i > -1; i--)
+    {
+        point p = temporaryRotationStack[i];
+        rotate(-p.x, -p.y, -p.z);
+    }
+}
 
 void NumberCubePolyhedron::highlight()
 {
@@ -342,7 +356,8 @@ void NumberCubePolyhedron::highlightLineBetween(NumberCube* nc1, NumberCube* nc2
     highlightStatus = lineHighlighted;
 
     // Unrotate
-    rotateToGivenDirection(targetForward, targetRight);
+    returnRotation();
+    //rotateToGivenDirection(targetForward, targetRight);
 }
 
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)

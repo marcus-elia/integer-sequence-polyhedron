@@ -24,6 +24,9 @@ private:
     point forwardCartesian, forwardSpherical;
     point rightCartesian, rightSpherical;
 
+    // Keep track of the rotations we did to get back to facing forwards, so we can undo them
+    std::vector<point> temporaryRotationStack;
+
     // Keep track of the biggest dimensions
     int maxRowSize, maxTableSize;
 public:
@@ -46,12 +49,16 @@ public:
     // Setters
     void setAlignment(TableAlignment input);
 
+    // DOES NOT WORK
     // Rotate so that forward and right are pointing in the given directions
     // targetForward and targetRight are the spherical coordinates
     void rotateToGivenDirection(point targetForward, point targetRight);
 
     // Make it so that this is facing the camera again
     void resetRotation();
+
+    // Undo the rotations in the last call to reset rotation
+    void returnRotation();
 
     void highlight();
     void unHighlight();
