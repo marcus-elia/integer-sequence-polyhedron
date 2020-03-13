@@ -47,7 +47,7 @@ void NumberCubeRow::updateNumberCubes(int rowSize)
     double gapSize = 0.8 * edgeLength;
     double curCenterX;
 
-    // For center or left, we start left and move right
+    // We start left and move right
     if(alignment == Center)
     {
         if(length % 2 == 0)
@@ -70,17 +70,15 @@ void NumberCubeRow::updateNumberCubes(int rowSize)
             curCenterX = - (rowSize - 1)/2.0*edgeLength - (rowSize-1)/2*gapSize;
         }
     }
-
-    // For right, we start right and move left
     else
     {
         if(rowSize % 2 == 0)
         {
-            curCenterX = (edgeLength/2.0) + (rowSize/2.0 - 1)*edgeLength + gapSize/2 + (rowSize/2.0-1)*gapSize;
+            curCenterX =  (edgeLength/2.0) + (rowSize/2.0 - length - 1)*edgeLength + gapSize/2 + (rowSize/2.0 - length - 1)*gapSize;
         }
         else
         {
-            curCenterX = (rowSize - 1)/2.0*edgeLength + (rowSize-1)/2*gapSize;
+            curCenterX =  ((rowSize - 1)/2.0 - length)*edgeLength + ((rowSize - 1)/2 - length)*gapSize;
         }
     }
 
@@ -89,18 +87,9 @@ void NumberCubeRow::updateNumberCubes(int rowSize)
     {
         nc.move(curCenterX - nc.getCenter().x, 0, 0);
 
-        // Move to the left for the next cube
-        if(alignment == TopRight || alignment == BottomRight)
-        {
-            curCenterX -= edgeLength;
-            curCenterX -= gapSize;
-        }
         // Move to the right for the next cube
-        else
-        {
-            curCenterX += edgeLength;
-            curCenterX += gapSize;
-        }
+        curCenterX += edgeLength;
+        curCenterX += gapSize;
     }
 }
 
