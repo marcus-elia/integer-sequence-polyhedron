@@ -86,6 +86,8 @@ public:
     // Can't use the line method because the cubes are rotated
     std::experimental::optional<NumberCube*> getNumberCubeFromClick(glm::vec3 ray, glm::vec3 cameraLoc);
 
+    intPoint getCoordinates(NumberCube* nc);
+
     // Returns a vector of numbercubes on the specified line
     std::vector<NumberCube*> getCubesOnLine(point start, point end);
 

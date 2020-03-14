@@ -256,6 +256,28 @@ void NumberCubePolyhedron::rotate(double thetaX, double thetaY, double thetaZ)
     rightSpherical = cartesianToSpherical(rightCartesian);
 }
 
+intPoint NumberCubePolyhedron::getCoordinates(NumberCube* nc)
+{
+    for(int i = 0; i < numberCubeTables.size(); i++)
+    {
+        NumberCubeTable &nct = numberCubeTables[i];
+        int tableLength = nct.getNumberCubeRows()->size();
+        for(int j = 0; j < tableLength; j++)
+        {
+            NumberCubeRow &ncr = (nct.getNumberCubeRows()->at(j));
+            int rowLength = ncr.getNumberCubes()->size();
+            for(int k = 0; k < rowLength; k++)
+            {
+                if(nc == &ncr.getNumberCubes()->at(k))
+                {
+                    return {i, j, k};
+                }
+            }
+        }
+    }
+    return {-1, -1, -1};
+}
+
 
 std::vector<NumberCube*> NumberCubePolyhedron::getCubesOnLine(point start, point end)
 {
