@@ -8,6 +8,14 @@
 
 enum statusOfHighlights {noneHighlighted, oneHighlighted, lineHighlighted};
 
+// A point with integer coordinates
+struct intPoint
+{
+    int x;
+    int y;
+    int z;
+};
+
 class NumberCubePolyhedron : public DrawableObject, public CubeContainer
 {
 private:
