@@ -45,7 +45,7 @@ void init()
 {
     width = 1000;
     height = 600;
-    cameraLocation = {400,300,600};
+    cameraLocation = {0,0,600};
     up = {0,1,0};
     target = {0,0,0};
     mostRecentClick = {0,0,0};
@@ -159,7 +159,7 @@ void display()
     /*
      * Draw here
      */
-    draw_axes();
+    //draw_axes();
 
 
     glDisable(GL_CULL_FACE);
