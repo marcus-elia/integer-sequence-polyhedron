@@ -270,7 +270,7 @@ intPoint NumberCubePolyhedron::getCoordinates(NumberCube* nc)
             {
                 if(nc == &ncr.getNumberCubes()->at(k))
                 {
-                    return {i, j, k};
+                    return {k, j, i}; // reverse them to match up with x, y, z axes
                 }
             }
         }
@@ -359,6 +359,70 @@ std::experimental::optional<NumberCube*> NumberCubePolyhedron::getNumberCubeFrom
 
 void NumberCubePolyhedron::highlightLineBetween(NumberCube* nc1, NumberCube* nc2)
 {
+    // Start by getting the coordinates
+    intPoint p1 = getCoordinates(nc1);
+    intPoint p2 = getCoordinates(nc2);
+
+    // Same table, so the line is y = mx + b
+    if(p1.z == p2.z)
+    {
+        NumberCubeTable &nct = numberCubeTables[p1.z];
+        // Vertical line
+        if(p1.x == p2.x)
+        {
+            for(int j = 0; j < nct.getNumberCubeRows()->size(); j++)
+            {
+                NumberCubeRow &ncr = nct.getNumberCubeRows()->at(j);
+                if(ncr.getNumberCubes()->size() > p1.x)
+                {
+                    ncr.getNumberCubes()->at(p1.x).highlight();
+                }
+            }
+        }
+        // Non-vertical line
+        else
+        {
+            double slope = (p2.y - p1.y) / (double)(p2.x - p1.x);
+            double yInt = p1.y - slope * p1.x;
+            for(int j = 0; j < nct.getNumberCubeRows()->size(); j++)
+            {
+                NumberCubeRow &ncr = nct.getNumberCubeRows()->at(j);
+                for(int i = 0; i < ncr.getNumberCubes()->size(); i++)
+                {
+                    // Check if the coordinates lie on the line
+                    if(abs(slope*i + yInt - j) < 0.01)
+                    {
+                        ncr.getNumberCubes()->at(i).highlight();
+                    }
+                }
+            }
+        }
+    }
+    else  // The line goes across tables
+    {
+        // We will view both x and y as linear functions of z
+        double xSlope = (p2.x - p1.x) / (double)(p2.z - p1.z);
+        double xInt = p1.x - xSlope*p1.z;
+        double ySlope = (p2.y - p1.y) / (double)(p2.z - p1.z);
+        double yInt = p1.y - ySlope*p1.z;
+        for(int k = 0; k < numberCubeTables.size(); k++)
+        {
+            NumberCubeTable &nct = numberCubeTables[k];
+            for(int j = 0; j < nct.getNumberCubeRows()->size(); j++)
+            {
+                NumberCubeRow &ncr = nct.getNumberCubeRows()->at(j);
+                for(int i = 0; i < ncr.getNumberCubes()->size(); i++)
+                {
+                    if(abs(xSlope*k + xInt - i) < 0.01 && abs(ySlope*k + yInt - j) < 0.01)
+                    {
+                        ncr.getNumberCubes()->at(i).highlight();
+                    }
+                }
+            }
+        }
+    }
+}
+/*{
     // Store the direction the polyhedron is facing
     point targetForward = forwardSpherical;
     point targetRight = rightSpherical;
@@ -382,7 +446,7 @@ void NumberCubePolyhedron::highlightLineBetween(NumberCube* nc1, NumberCube* nc2
     // Unrotate
     returnRotation();
     //rotateToGivenDirection(targetForward, targetRight);
-}
+}*/
 
 void NumberCubePolyhedron::reactToClick(glm::vec3 ray, glm::vec3 cameraLoc)
 {
