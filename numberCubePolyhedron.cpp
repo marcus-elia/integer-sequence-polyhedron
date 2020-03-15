@@ -421,6 +421,7 @@ void NumberCubePolyhedron::highlightLineBetween(NumberCube* nc1, NumberCube* nc2
             }
         }
     }
+    highlightStatus = lineHighlighted;
 }
 /*{
     // Store the direction the polyhedron is facing
