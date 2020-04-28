@@ -44,3 +44,12 @@ just moves the cubes around. Finally, you can click on the cubes.
 Click on a cube to highlight it, and click on a second cube to
 highlight the line containing both cubes. Click anywhere to
 unhighlight the line.
+
+![](/screenshots/polyhedron1.png)
+![](/screenshots/polyhedron2.png)
+![](/screenshots/polyhedron3.png)
+![](/screenshots/polyhedron4.png)
+![](/screenshots/polyhedron5.png)
+![](/screenshots/polyhedron6.png)
+![](/screenshots/polyhedron7.png)
+![](/screenshots/polyhedron8.png)
